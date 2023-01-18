@@ -767,7 +767,7 @@
       <link href="/post/40b4a6a3.html"/>
       <url>/post/40b4a6a3.html</url>
       
-        <content type="html"><![CDATA[<p>rsync（remote synchronize ）是一个远程文件同步工具，支持多个操作系统，用于在多台服务器之间同步目录和文件。rsync采用增量传输文件的方法，只传输新文件和修改过的文件，而不是每次都全部传输，效率比较高。</p><p>rsync有以下特点：</p><p>1）支持目录和文件的上传和下载功能；</p><p>2）可以镜像保存整个目录树和文件系统；</p><p>3）传输效率高，只传输新增和修改过的文件。</p><h1 id="一、安装软件包"><a href="#一、安装软件包" class="headerlink" title="一、安装软件包"></a>一、安装软件包</h1><p>rsync的客户端和服务器软件的安装包都是rsync。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install rsync</span><br></pre></td></tr></table></figure><h1 id="二、修改系统配置"><a href="#二、修改系统配置" class="headerlink" title="二、修改系统配置"></a>二、修改系统配置</h1><h2 id="1、关闭SELINUX"><a href="#1、关闭SELINUX" class="headerlink" title="1、关闭SELINUX"></a>1、关闭SELINUX</h2><p>修改&#x2F;etc&#x2F;selinux&#x2F;config文件，把SELINUX参数的值改为disabled。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELINUX =disabled</span><br></pre></td></tr></table></figure><p>重启linux系统或执行 setenforce 0 使修改马上生效。</p><h2 id="2、开通防火墙端口"><a href="#2、开通防火墙端口" class="headerlink" title="2、开通防火墙端口"></a>2、开通防火墙端口</h2><p>rsync缺省的端口是873，您可以修改配置文件中的端口。</p><p>1）防火墙开通873端口。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=<span class="keyword">public</span> --add-port=<span class="number">873</span>/tcp --permanent</span><br></pre></td></tr></table></figure><p>2）重启防火墙。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart firewalld</span><br></pre></td></tr></table></figure><h2 id="3、启用rsyncd服务"><a href="#3、启用rsyncd服务" class="headerlink" title="3、启用rsyncd服务"></a>3、启用rsyncd服务</h2><p>rsync的服务名是rsyncd。</p><p>1）启动rsyncd服务。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start rsyncd</span><br></pre></td></tr></table></figure><p>2）把rsyncd服务设置为开机自启动。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable rsyncd</span><br></pre></td></tr></table></figure><h1 id="三、配置rsync"><a href="#三、配置rsync" class="headerlink" title="三、配置rsync"></a>三、配置rsync</h1><p>接下来我用示例来显示文件同步的配置和使用，需求如下：</p><p>1）我只用一台服务器来测试，IP地址是192.168.1.129，既是服务器，也是客户端；</p><p>2）服务端的目录是&#x2F;tmp&#x2F;docs；</p><p>3）我将创建两个客户端用户：client1和client2；</p><p>4）客户端client1的目录是&#x2F;tmp&#x2F;docs1；</p><p>5）客户端client2的目录是&#x2F;tmp&#x2F;docs2；</p><p>6）客户端client1把&#x2F;tmp&#x2F;docs1目录中的文件发送给服务端；</p><p>7）客户端client2从服务端下载文件，存放在&#x2F;tmp&#x2F;docs2目录中。</p><p>rsync的服务器和客户端，这是一个逻辑的概念，并不是物理的，如果您有三个服务器，就可以用三台服务器来测试，原理是一样的。</p><h2 id="1、创建操作系统用户"><a href="#1、创建操作系统用户" class="headerlink" title="1、创建操作系统用户"></a>1、创建操作系统用户</h2><p>操作系统用户可以是普通的用户，也可以是简单的、无需登录的、没有HOME目录的用户，如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -M -s /sbin/nologin rsync -g bin  # 创建rsync用户，指定组为bin（其它组也行）。</span><br></pre></td></tr></table></figure><p>注意，这个用户是在服务器上创建的，不是客户端。</p><h2 id="2、创建测试目录和文件"><a href="#2、创建测试目录和文件" class="headerlink" title="2、创建测试目录和文件"></a>2、创建测试目录和文件</h2><p>执行以下脚本，创建&#x2F;tmp&#x2F;docs目录，生成测试和文件，并指定用户和组。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /tmp/docs /tmp/docs1 /tmp/docs2  # 删除测试目录。</span><br><span class="line">mkdir /tmp/docs /tmp/docs1 /tmp/docs2  # 创建三个测试目录。</span><br><span class="line">ls /usr &gt; /tmp/docs1/usr.txt  # 把ls /usr的结果输出到/tmp/docs1/usr.txt文件。</span><br><span class="line">ls /etc &gt; /tmp/docs1/etc.txt  # 把ls /etc的结果输出到/tmp/docs1/etc.txt文件。</span><br><span class="line">chown -R rsync:rsync /tmp/docs # 修改/tmp/docs目录及文件用户和组。</span><br></pre></td></tr></table></figure><h2 id="3、创建rsnyc登录用户密码文件"><a href="#3、创建rsnyc登录用户密码文件" class="headerlink" title="3、创建rsnyc登录用户密码文件"></a>3、创建rsnyc登录用户密码文件</h2><p>在rsync服务器上创建登录用户&#x2F;密码文件&#x2F;etc&#x2F;rsyncd.passwd，用于客户端的身份认证，内容如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">client1:pwd1</span><br><span class="line">client2:pwd2</span><br></pre></td></tr></table></figure><p>以上文件包括了两个用户（用户名&#x2F;密码分别是client&#x2F;pwd1和client2&#x2F;pwd2）。</p><p><strong>把&#x2F;etc&#x2F;rsyncd.passwd文件的权限设置为600，如果不这么做，客户端登录会失败。</strong></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">600</span> /etc/rsync.passwd</span><br></pre></td></tr></table></figure><h2 id="4、配置rsync服务器参数"><a href="#4、配置rsync服务器参数" class="headerlink" title="4、配置rsync服务器参数"></a>4、配置rsync服务器参数</h2><p>rsync服务器的配置文件是&#x2F;etc&#x2F;rsyncd.conf，内容如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># /etc/rsyncd: configuration file <span class="keyword">for</span> rsync daemon mode</span><br><span class="line"># See rsyncd.conf man page <span class="keyword">for</span> more options.</span><br><span class="line"></span><br><span class="line"><span class="meta"># rsyncd全局参数。</span></span><br><span class="line">uid = rsync</span><br><span class="line">gid = rsync</span><br><span class="line">port = <span class="number">873</span></span><br><span class="line">fake super = yes</span><br><span class="line">use chroot = no</span><br><span class="line">max connections = <span class="number">200</span></span><br><span class="line">timeout = <span class="number">600</span></span><br><span class="line">ignore errors</span><br><span class="line">read only = <span class="literal">false</span></span><br><span class="line">list = <span class="literal">false</span></span><br><span class="line">auth users = client1,client2</span><br><span class="line">secrets file = /etc/rsync.passwd</span><br><span class="line">log file = /var/log/rsyncd.log</span><br><span class="line"></span><br><span class="line"># 同步模块配置。</span><br><span class="line">[docs]</span><br><span class="line">comment = welcome to docs!</span><br><span class="line">path = /tmp/docs</span><br></pre></td></tr></table></figure><p><strong>注意，不要在参数后面加#和说明文字，是非法的。</strong></p><p>全局参数说明：</p><p>1）uid &#x3D; rsync，rsync服务端操作系统的用户，即上面第1点中创建的操作系统用户，您可以创建新的操作系统用户，也可以用现有的用户。</p><p>2）gid &#x3D; rsync，rsync服务端操作系统的用户的组，即uid用户的组。</p><p>3）port &#x3D; 873，用于通信的TCP端口，缺省是873。</p><p>4）fake super &#x3D; yes，rsync服务端操作系统的用户可以不用root。</p><p>5）use chroot &#x3D; no，关闭假根功能。</p><p>6）max connections &#x3D; 200，客户端最大连接数。</p><p>7）timeout &#x3D; 600，超时时间。</p><p>8）ignore errors，忽略错误信息。</p><p>9）read only &#x3D; false，是否为只读方式。</p><p>10）list &#x3D; false，不允许查看模块信息。</p><p>11）auth users &#x3D; client1,client2，指定允许登录的客户端认证用户清单，用逗号分隔，必须是&#x2F;etc&#x2F;rsync.passwd文件中配置的用户。</p><p>12）secrets file &#x3D; &#x2F;etc&#x2F;rsync.passwd，定义rsync客户端用户认证的密码文件。</p><p>13）log file &#x3D; &#x2F;var&#x2F;log&#x2F;rsyncd.log，rsync服务运行日志文件，注意，日志文件日积月累，必须保证有足够的磁盘空间。</p><p>同步参数说明：</p><p>1）[docs]，模块名称，自定义的名称，不一定要与同步目录相同。</p><p>2）comment &#x3D; welcome to docs!，模块说明文字。</p><p>3）path &#x3D; &#x2F;tmp&#x2F;docs，同步的目录名，必须是uid参数指定的用户和gid参数指定的组。</p><h2 id="5、把客户端的文件同步上传到服务器"><a href="#5、把客户端的文件同步上传到服务器" class="headerlink" title="5、把客户端的文件同步上传到服务器"></a>5、把客户端的文件同步上传到服务器</h2><p>1）采用client1用户，把客户端&#x2F;tmp&#x2F;docs1目录下的文件同步到服务器，命令如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz /tmp/docs1<span class="comment">/* client1@192.168.1.129::docs</span></span><br></pre></td></tr></table></figure><p><img src="https://img-blog.csdnimg.cn/20200401195721644.png" alt="在这里插入图片描述"></p><p>2）检查服务端的&#x2F;tmp&#x2F;docs目录和客户端的&#x2F;tmp&#x2F;docs目录下的文件是否相同。</p><p>3）再生成一些测试文件：创建&#x2F;tmp&#x2F;docs1&#x2F;aaa&#x2F;tmp.txt文件。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /tmp/docs1/aaa</span><br><span class="line">ls /tmp &gt; /tmp/docs1/aaa/tmp.txt</span><br></pre></td></tr></table></figure><p>4）再执行一次同步。<br><img src="https://img-blog.csdnimg.cn/20200401195805550.png" alt="在这里插入图片描述"></p><h2 id="6、从服务器同步下载文件到客户端"><a href="#6、从服务器同步下载文件到客户端" class="headerlink" title="6、从服务器同步下载文件到客户端"></a>6、从服务器同步下载文件到客户端</h2><p>1）采用client2用户，把服务器的文件下载到客户端&#x2F;tmp&#x2F;docs2目录命令如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz client2@<span class="number">192.168</span><span class="number">.1</span><span class="number">.129</span>::docs /tmp/docs2</span><br></pre></td></tr></table></figure><p><img src="https://img-blog.csdnimg.cn/20200401195835906.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d1Y3oxMjIxNDA3Mjk=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><p>注意，我用client1用户上传文件，用client2下载文件，其目的是为了演示多个客户端帐号的配置和使用方法，您也可以只用一个帐号上传和下载文件。</p><h2 id="7、客户端的密码配置"><a href="#7、客户端的密码配置" class="headerlink" title="7、客户端的密码配置"></a>7、客户端的密码配置</h2><p>以上演示客户端同步文件的时候，需要手工的输入密码，但是在实际应用中，命令可能在后台运行，不希望手工输入密码，这个需求有两种解决方法：</p><p>1）设置客户端的密码文件。</p><p>例如client1用户，密码文件是&#x2F;etc&#x2F;client1.passwd，内容如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo pwd1 &gt; /etc/client1.passwd</span><br><span class="line">chmod <span class="number">600</span> /etc/client1.passwd</span><br></pre></td></tr></table></figure><p><strong>注意，客户端的密码文件权限一定要是600，否则认证会失败。</strong></p><p>同步上传的命令如下：<br>rsync -avz &#x2F;tmp&#x2F;docs1&#x2F;* <a href="mailto:&#99;&#x6c;&#105;&#x65;&#x6e;&#116;&#x31;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#56;&#46;&#x31;&#x2e;&#49;&#50;&#57;">&#99;&#x6c;&#105;&#x65;&#x6e;&#116;&#x31;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#56;&#46;&#x31;&#x2e;&#49;&#50;&#57;</a>::docs –password-file&#x3D;&#x2F;etc&#x2F;client1.passwd</p><p>2）设置客户端的密码环境变量。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> RSYNC_PASSWORD=pwd1</span><br></pre></td></tr></table></figure><p>同步上传的命令如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz /tmp/docs1<span class="comment">/* client1@192.168.1.129::docs</span></span><br></pre></td></tr></table></figure><h1 id="四、应用经验"><a href="#四、应用经验" class="headerlink" title="四、应用经验"></a>四、应用经验</h1><h2 id="1、小心有坑"><a href="#1、小心有坑" class="headerlink" title="1、小心有坑"></a>1、小心有坑</h2><p>rsrync的配置有两个坑：1）配置文件&#x2F;etc&#x2F;rsyncd.conf中，参数后面不要用#注释；2）服务端和客户端密码文件的权限一定要是600，否则认证失败。</p><h2 id="2、客户端权限问题"><a href="#2、客户端权限问题" class="headerlink" title="2、客户端权限问题"></a>2、客户端权限问题</h2><p>客户端可以用任何用户来执行，只要该用户对本地目录有足够的权限就可以了。</p><h2 id="3、日志文件的问题"><a href="#3、日志文件的问题" class="headerlink" title="3、日志文件的问题"></a>3、日志文件的问题</h2><p>小心服务端的日志文件（log file）越积越大。</p><h2 id="4、效率问题"><a href="#4、效率问题" class="headerlink" title="4、效率问题"></a>4、效率问题</h2><p>rsync同步文件采用的是增量同步的方法，本质上就是在传输文件之前，先判断客户端与服务器目录的文件变量情况，如果待同步目录下的文件太多，这个判断很费时间。</p><h2 id="5、rsync-sersync架构"><a href="#5、rsync-sersync架构" class="headerlink" title="5、rsync+sersync架构"></a>5、rsync+sersync架构</h2><p>上面提到的rsync存在效率问题，最终的解决方法是采用rsync+sersync架构。</p><p>1）sersync可以记录被监听目录中发生变化的（增，删，改）具体某个文件或目录的名字；</p><p>2）rsync在同步时，只同步发生变化的文件或目录（每次发生变化的数据相对整个同步目录数据来说很小，rsync在遍历查找对比文件时，速度很快），因此效率很高。</p><p>rsync+sersync架构在本文就不介绍了，各位真的有需求时再研究它。</p><h1 id="五、版权声明"><a href="#五、版权声明" class="headerlink" title="五、版权声明"></a>五、版权声明</h1><p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。</p><p>来源：C语言技术网（<a href="http://www.freecplus.net/">www.freecplus.net</a>）</p><p>作者：码农有道</p>]]></content>
+        <content type="html"><![CDATA[<p>rsync（remote synchronize ）是一个远程文件同步工具，支持多个操作系统，用于在多台服务器之间同步目录和文件。rsync采用增量传输文件的方法，只传输新文件和修改过的文件，而不是每次都全部传输，效率比较高。</p><p>rsync有以下特点：</p><p>1）支持目录和文件的上传和下载功能；</p><p>2）可以镜像保存整个目录树和文件系统；</p><p>3）传输效率高，只传输新增和修改过的文件。</p><h1 id="一、安装软件包"><a href="#一、安装软件包" class="headerlink" title="一、安装软件包"></a>一、安装软件包</h1><p>rsync的客户端和服务器软件的安装包都是rsync。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install rsync</span><br></pre></td></tr></table></figure><h1 id="二、修改系统配置"><a href="#二、修改系统配置" class="headerlink" title="二、修改系统配置"></a>二、修改系统配置</h1><h2 id="1、关闭SELINUX"><a href="#1、关闭SELINUX" class="headerlink" title="1、关闭SELINUX"></a>1、关闭SELINUX</h2><p>修改&#x2F;etc&#x2F;selinux&#x2F;config文件，把SELINUX参数的值改为disabled。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELINUX =disabled</span><br></pre></td></tr></table></figure><p>重启linux系统或执行 setenforce 0 使修改马上生效。</p><h2 id="2、开通防火墙端口"><a href="#2、开通防火墙端口" class="headerlink" title="2、开通防火墙端口"></a>2、开通防火墙端口</h2><p>rsync缺省的端口是873，您可以修改配置文件中的端口。</p><p>1）防火墙开通873端口。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=<span class="keyword">public</span> --add-port=<span class="number">873</span>/tcp --permanent</span><br></pre></td></tr></table></figure><p>2）重启防火墙。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart firewalld</span><br></pre></td></tr></table></figure><h2 id="3、启用rsyncd服务"><a href="#3、启用rsyncd服务" class="headerlink" title="3、启用rsyncd服务"></a>3、启用rsyncd服务</h2><p>rsync的服务名是rsyncd。</p><p>1）启动rsyncd服务。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start rsyncd</span><br></pre></td></tr></table></figure><p>2）把rsyncd服务设置为开机自启动。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable rsyncd</span><br></pre></td></tr></table></figure><h1 id="三、配置rsync"><a href="#三、配置rsync" class="headerlink" title="三、配置rsync"></a>三、配置rsync</h1><p>接下来我用示例来显示文件同步的配置和使用，需求如下：</p><p>1）我只用一台服务器来测试，IP地址是192.168.1.129，既是服务器，也是客户端；</p><p>2）服务端的目录是&#x2F;tmp&#x2F;docs；</p><p>3）我将创建两个客户端用户：client1和client2；</p><p>4）客户端client1的目录是&#x2F;tmp&#x2F;docs1；</p><p>5）客户端client2的目录是&#x2F;tmp&#x2F;docs2；</p><p>6）客户端client1把&#x2F;tmp&#x2F;docs1目录中的文件发送给服务端；</p><p>7）客户端client2从服务端下载文件，存放在&#x2F;tmp&#x2F;docs2目录中。</p><p>rsync的服务器和客户端，这是一个逻辑的概念，并不是物理的，如果您有三个服务器，就可以用三台服务器来测试，原理是一样的。</p><h2 id="1、创建操作系统用户"><a href="#1、创建操作系统用户" class="headerlink" title="1、创建操作系统用户"></a>1、创建操作系统用户</h2><p>操作系统用户可以是普通的用户，也可以是简单的、无需登录的、没有HOME目录的用户，如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -M -s /sbin/nologin rsync -g bin  # 创建rsync用户，指定组为bin（其它组也行）。</span><br></pre></td></tr></table></figure><p>注意，这个用户是在服务器上创建的，不是客户端。</p><h2 id="2、创建测试目录和文件"><a href="#2、创建测试目录和文件" class="headerlink" title="2、创建测试目录和文件"></a>2、创建测试目录和文件</h2><p>执行以下脚本，创建&#x2F;tmp&#x2F;docs目录，生成测试和文件，并指定用户和组。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /tmp/docs /tmp/docs1 /tmp/docs2  # 删除测试目录。</span><br><span class="line">mkdir /tmp/docs /tmp/docs1 /tmp/docs2  # 创建三个测试目录。</span><br><span class="line">ls /usr &gt; /tmp/docs1/usr.txt  # 把ls /usr的结果输出到/tmp/docs1/usr.txt文件。</span><br><span class="line">ls /etc &gt; /tmp/docs1/etc.txt  # 把ls /etc的结果输出到/tmp/docs1/etc.txt文件。</span><br><span class="line">chown -R rsync:rsync /tmp/docs # 修改/tmp/docs目录及文件用户和组。</span><br></pre></td></tr></table></figure><h2 id="3、创建rsnyc登录用户密码文件"><a href="#3、创建rsnyc登录用户密码文件" class="headerlink" title="3、创建rsnyc登录用户密码文件"></a>3、创建rsnyc登录用户密码文件</h2><p>在rsync服务器上创建登录用户&#x2F;密码文件&#x2F;etc&#x2F;rsyncd.passwd，用于客户端的身份认证，内容如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">client1:pwd1</span><br><span class="line">client2:pwd2</span><br></pre></td></tr></table></figure><p>以上文件包括了两个用户（用户名&#x2F;密码分别是client&#x2F;pwd1和client2&#x2F;pwd2）。</p><p><strong>把&#x2F;etc&#x2F;rsyncd.passwd文件的权限设置为600，如果不这么做，客户端登录会失败。</strong></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">600</span> /etc/rsync.passwd</span><br></pre></td></tr></table></figure><h2 id="4、配置rsync服务器参数"><a href="#4、配置rsync服务器参数" class="headerlink" title="4、配置rsync服务器参数"></a>4、配置rsync服务器参数</h2><p>rsync服务器的配置文件是&#x2F;etc&#x2F;rsyncd.conf，内容如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># /etc/rsyncd: configuration file <span class="keyword">for</span> rsync daemon mode</span><br><span class="line"># See rsyncd.conf man page <span class="keyword">for</span> more options.</span><br><span class="line"></span><br><span class="line"><span class="meta"># rsyncd全局参数。</span></span><br><span class="line">uid = rsync</span><br><span class="line">gid = rsync</span><br><span class="line">port = <span class="number">873</span></span><br><span class="line">fake super = yes</span><br><span class="line">use chroot = no</span><br><span class="line">max connections = <span class="number">200</span></span><br><span class="line">timeout = <span class="number">600</span></span><br><span class="line">ignore errors</span><br><span class="line">read only = <span class="literal">false</span></span><br><span class="line">list = <span class="literal">false</span></span><br><span class="line">auth users = client1,client2</span><br><span class="line">secrets file = /etc/rsync.passwd</span><br><span class="line">log file = /var/log/rsyncd.log</span><br><span class="line"></span><br><span class="line"># 同步模块配置。</span><br><span class="line">[docs]</span><br><span class="line">comment = welcome to docs!</span><br><span class="line">path = /tmp/docs</span><br></pre></td></tr></table></figure><p><strong>注意，不要在参数后面加#和说明文字，是非法的。</strong></p><p>全局参数说明：</p><p>1）uid &#x3D; rsync，rsync服务端操作系统的用户，即上面第1点中创建的操作系统用户，您可以创建新的操作系统用户，也可以用现有的用户。</p><p>2）gid &#x3D; rsync，rsync服务端操作系统的用户的组，即uid用户的组。</p><p>3）port &#x3D; 873，用于通信的TCP端口，缺省是873。</p><p>4）fake super &#x3D; yes，rsync服务端操作系统的用户可以不用root。</p><p>5）use chroot &#x3D; no，关闭假根功能。</p><p>6）max connections &#x3D; 200，客户端最大连接数。</p><p>7）timeout &#x3D; 600，超时时间。</p><p>8）ignore errors，忽略错误信息。</p><p>9）read only &#x3D; false，是否为只读方式。</p><p>10）list &#x3D; false，不允许查看模块信息。</p><p>11）auth users &#x3D; client1,client2，指定允许登录的客户端认证用户清单，用逗号分隔，必须是&#x2F;etc&#x2F;rsync.passwd文件中配置的用户。</p><p>12）secrets file &#x3D; &#x2F;etc&#x2F;rsync.passwd，定义rsync客户端用户认证的密码文件。</p><p>13）log file &#x3D; &#x2F;var&#x2F;log&#x2F;rsyncd.log，rsync服务运行日志文件，注意，日志文件日积月累，必须保证有足够的磁盘空间。</p><p>同步参数说明：</p><p>1）[docs]，模块名称，自定义的名称，不一定要与同步目录相同。</p><p>2）comment &#x3D; welcome to docs!，模块说明文字。</p><p>3）path &#x3D; &#x2F;tmp&#x2F;docs，同步的目录名，必须是uid参数指定的用户和gid参数指定的组。</p><h2 id="5、把客户端的文件同步上传到服务器"><a href="#5、把客户端的文件同步上传到服务器" class="headerlink" title="5、把客户端的文件同步上传到服务器"></a>5、把客户端的文件同步上传到服务器</h2><p>1）采用client1用户，把客户端&#x2F;tmp&#x2F;docs1目录下的文件同步到服务器，命令如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz /tmp/docs1<span class="comment">/* client1@192.168.1.129::docs</span></span><br></pre></td></tr></table></figure><p><img src="https://img-blog.csdnimg.cn/20200401195721644.png" alt="在这里插入图片描述"></p><p>2）检查服务端的&#x2F;tmp&#x2F;docs目录和客户端的&#x2F;tmp&#x2F;docs目录下的文件是否相同。</p><p>3）再生成一些测试文件：创建&#x2F;tmp&#x2F;docs1&#x2F;aaa&#x2F;tmp.txt文件。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /tmp/docs1/aaa</span><br><span class="line">ls /tmp &gt; /tmp/docs1/aaa/tmp.txt</span><br></pre></td></tr></table></figure><p>4）再执行一次同步。<br><img src="https://img-blog.csdnimg.cn/20200401195805550.png" alt="在这里插入图片描述"></p><h2 id="6、从服务器同步下载文件到客户端"><a href="#6、从服务器同步下载文件到客户端" class="headerlink" title="6、从服务器同步下载文件到客户端"></a>6、从服务器同步下载文件到客户端</h2><p>1）采用client2用户，把服务器的文件下载到客户端&#x2F;tmp&#x2F;docs2目录命令如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz client2@<span class="number">192.168</span><span class="number">.1</span><span class="number">.129</span>::docs /tmp/docs2</span><br></pre></td></tr></table></figure><p><img src="https://img-blog.csdnimg.cn/20200401195835906.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d1Y3oxMjIxNDA3Mjk=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><p>注意，我用client1用户上传文件，用client2下载文件，其目的是为了演示多个客户端帐号的配置和使用方法，您也可以只用一个帐号上传和下载文件。</p><h2 id="7、客户端的密码配置"><a href="#7、客户端的密码配置" class="headerlink" title="7、客户端的密码配置"></a>7、客户端的密码配置</h2><p>以上演示客户端同步文件的时候，需要手工的输入密码，但是在实际应用中，命令可能在后台运行，不希望手工输入密码，这个需求有两种解决方法：</p><p>1）设置客户端的密码文件。</p><p>例如client1用户，密码文件是&#x2F;etc&#x2F;client1.passwd，内容如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo pwd1 &gt; /etc/client1.passwd</span><br><span class="line">chmod <span class="number">600</span> /etc/client1.passwd</span><br></pre></td></tr></table></figure><p><strong>注意，客户端的密码文件权限一定要是600，否则认证会失败。</strong></p><p>同步上传的命令如下：<br>rsync -avz &#x2F;tmp&#x2F;docs1&#x2F;* <a href="mailto:&#99;&#108;&#x69;&#101;&#x6e;&#x74;&#49;&#64;&#x31;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#49;&#x2e;&#49;&#50;&#57;">&#99;&#108;&#x69;&#101;&#x6e;&#x74;&#49;&#64;&#x31;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#49;&#x2e;&#49;&#50;&#57;</a>::docs –password-file&#x3D;&#x2F;etc&#x2F;client1.passwd</p><p>2）设置客户端的密码环境变量。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> RSYNC_PASSWORD=pwd1</span><br></pre></td></tr></table></figure><p>同步上传的命令如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz /tmp/docs1<span class="comment">/* client1@192.168.1.129::docs</span></span><br></pre></td></tr></table></figure><h1 id="四、应用经验"><a href="#四、应用经验" class="headerlink" title="四、应用经验"></a>四、应用经验</h1><h2 id="1、小心有坑"><a href="#1、小心有坑" class="headerlink" title="1、小心有坑"></a>1、小心有坑</h2><p>rsrync的配置有两个坑：1）配置文件&#x2F;etc&#x2F;rsyncd.conf中，参数后面不要用#注释；2）服务端和客户端密码文件的权限一定要是600，否则认证失败。</p><h2 id="2、客户端权限问题"><a href="#2、客户端权限问题" class="headerlink" title="2、客户端权限问题"></a>2、客户端权限问题</h2><p>客户端可以用任何用户来执行，只要该用户对本地目录有足够的权限就可以了。</p><h2 id="3、日志文件的问题"><a href="#3、日志文件的问题" class="headerlink" title="3、日志文件的问题"></a>3、日志文件的问题</h2><p>小心服务端的日志文件（log file）越积越大。</p><h2 id="4、效率问题"><a href="#4、效率问题" class="headerlink" title="4、效率问题"></a>4、效率问题</h2><p>rsync同步文件采用的是增量同步的方法，本质上就是在传输文件之前，先判断客户端与服务器目录的文件变量情况，如果待同步目录下的文件太多，这个判断很费时间。</p><h2 id="5、rsync-sersync架构"><a href="#5、rsync-sersync架构" class="headerlink" title="5、rsync+sersync架构"></a>5、rsync+sersync架构</h2><p>上面提到的rsync存在效率问题，最终的解决方法是采用rsync+sersync架构。</p><p>1）sersync可以记录被监听目录中发生变化的（增，删，改）具体某个文件或目录的名字；</p><p>2）rsync在同步时，只同步发生变化的文件或目录（每次发生变化的数据相对整个同步目录数据来说很小，rsync在遍历查找对比文件时，速度很快），因此效率很高。</p><p>rsync+sersync架构在本文就不介绍了，各位真的有需求时再研究它。</p><h1 id="五、版权声明"><a href="#五、版权声明" class="headerlink" title="五、版权声明"></a>五、版权声明</h1><p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。</p><p>来源：C语言技术网（<a href="http://www.freecplus.net/">www.freecplus.net</a>）</p><p>作者：码农有道</p>]]></content>
       
       
       
@@ -1002,7 +1002,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1029,7 +1031,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1056,7 +1060,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1083,7 +1089,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1110,7 +1118,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1137,7 +1147,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1164,7 +1176,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1191,7 +1205,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1218,7 +1234,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1245,7 +1263,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1272,7 +1292,11 @@
       
         <tags>
             
-            <tag> CPP Linux socket </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
+            
+            <tag> socket </tag>
             
         </tags>
       
@@ -1299,7 +1323,11 @@
       
         <tags>
             
-            <tag> CPP Linux socket </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
+            
+            <tag> socket </tag>
             
         </tags>
       
@@ -1326,7 +1354,9 @@
       
         <tags>
             
-            <tag> CPP Linux </tag>
+            <tag> CPP </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -1353,7 +1383,7 @@
       
         <tags>
             
-            <tag> C++ </tag>
+            <tag> CPP </tag>
             
         </tags>
       
@@ -1380,7 +1410,7 @@
       
         <tags>
             
-            <tag> C++ </tag>
+            <tag> CPP </tag>
             
         </tags>
       
@@ -1407,7 +1437,7 @@
       
         <tags>
             
-            <tag> C++ </tag>
+            <tag> CPP </tag>
             
         </tags>
       
