@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Oracle的体系结构 | 网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、概述Oracle的体系结构是数据库的组成、工作过程，以及数据库中数据的组织和管理机制，包含一系列组件（软件）、用户进程（User process）、服务进程（Server process、PGA）、SGA（共享池、数据缓存、日志缓冲区）、后台进程（SMON、DBWn、PMON、CKPT、LGWR、其它进程）、参数文件（Parameter file）、密码文件（Password）、数据文件（Da">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle的体系结构">
+<meta property="og:url" content="https://blog.ilyfikaros.com/post/9230b8a1.html">
+<meta property="og:site_name" content="网志">
+<meta property="og:description" content="一、概述Oracle的体系结构是数据库的组成、工作过程，以及数据库中数据的组织和管理机制，包含一系列组件（软件）、用户进程（User process）、服务进程（Server process、PGA）、SGA（共享池、数据缓存、日志缓冲区）、后台进程（SMON、DBWn、PMON、CKPT、LGWR、其它进程）、参数文件（Parameter file）、密码文件（Password）、数据文件（Da">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-01-05T14:42:52.000Z">
+<meta property="article:modified_time" content="2023-01-05T15:02:37.203Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="凌亦零,网志,LingYiLing,笔记,博客,Ling星轨迹,ILYFIKaros">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.ilyfikaros.com/post/9230b8a1.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Oracle的体系结构',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-05 23:02:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="网志"><span class="site-name">网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Oracle的体系结构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-05T14:42:52.000Z" title="发表于 2023-01-05 22:42:52">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-05T15:02:37.203Z" title="更新于 2023-01-05 23:02:37">2023-01-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Oracle的体系结构"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>Oracle的体系结构是数据库的组成、工作过程，以及数据库中数据的组织和管理机制，包含一系列组件（软件）、用户进程（User process）、服务进程（Server process、PGA）、SGA（共享池、数据缓存、日志缓冲区）、后台进程（SMON、DBWn、PMON、CKPT、LGWR、其它进程）、参数文件（Parameter file）、密码文件（Password）、数据文件（Data files）、控制文件（Control files）、在线重做日志文件（Redo log files）、归档日志文件（Archived log files）。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200313101507515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MTMzODk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="二、用户进程和服务进程"><a href="#二、用户进程和服务进程" class="headerlink" title="二、用户进程和服务进程"></a>二、用户进程和服务进程</h1><h2 id="1、用户进程"><a href="#1、用户进程" class="headerlink" title="1、用户进程"></a>1、用户进程</h2><p>用户进程（User process），是指用户通过客户端，比如SQL Plus、PL&#x2F;SQL Developer、SQL Load、应用程序等工具连接上Oracle数据库而产生的进程。用户进程处理用户输入并与服务器进程通信。用户进程还负责表现用户请求的信息，必要时可以将信息处置成更可用的形式。</p>
+<h2 id="2、服务进程"><a href="#2、服务进程" class="headerlink" title="2、服务进程"></a>2、服务进程</h2><p>服务进程（Server Process），当客户端发起连接时，Oracle创建一个用户进程来处理这个连接。</p>
+<p>用户进程启动后，Oracle还会创建一个服务进程来处理连接到实例的用户进程提交的请求。用户进程连接到数据库并创建一个会话时，Oracle服务器进程会分配专门用于当前用户会话的内存区，即PGA区，该区域是私有的，当进程创建时分配，进程结束后被释放，只能被一个服务进程使用。</p>
+<p>以客户端执行一条SQL为例：</p>
+<p>1）服务进程接收SQL语句；</p>
+<p>2）服务进程去共享池找SQL和执行计划，如果没找到，则解析SQL；</p>
+<p>3）服务进程根据执行计划去数据缓存中找相关的数据，如没有才到数据文件中取出数据放到数据缓存中，再返给客户端；</p>
+<p>4）若需要修改数据，服务进程把数据读取到数据缓存后再修改数据，修改后返给客户端。</p>
+<p>用户进程与服务器进程可以是一对一的关系（配置为专用服务器模式时）。一个服务器也可连接多个用户进程（配置为多线程服务器时），但这样做会减少对系统资源的占用。</p>
+<h1 id="三、系统全局区SGA"><a href="#三、系统全局区SGA" class="headerlink" title="三、系统全局区SGA"></a>三、系统全局区SGA</h1><p>系统全局区SGA（System Global Area），是Oracle实例的重要组成部分，在实例启动时分配，是一组包含Oracle数据和控制信息的共享内存。一个SGA只属于一个实例，也就是说，当一个服务器上有多个实例运行时，每个实例都有一个自己的SGA，实例之间不能相互访问。SGA包括共享池（Share pool）、数据缓存（Data buffer cache）和重做日志缓冲区（Redo log buffer），其中共享池又包括Library cache（库缓存）和Data dict cache（数据字典缓存）。</p>
+<h1 id="四、后台进程"><a href="#四、后台进程" class="headerlink" title="四、后台进程"></a>四、后台进程</h1><p>Oracle后台进程是一组运行于Oracle服务器端的后台程序，也是Oracle实例的重要组成部分。这些后台进程分别完成不同的功能。其中SMON、PMON、DBWR、LGWR和CKPT这5个后台进程必须正常启动，否则数据库实例无法工作。此外，还有很多辅助进程，用于实现辅助的功能，如果这些辅助进程发生问题，只会使某些功能受到影响，数据库实例仍是可用的。</p>
+<p>1）数据写入进程（DBWR）</p>
+<p> 数据写入进程的主要任务是负责将内存中的“脏”数据块回写到数据文件中。“脏”数据块是指高速数据缓冲区中的被修改过的数据块，这些数据块的内容与数据文件的数据块内容不一致。但DBWR并不是随时将所有的“脏”数据块都写入数据文件，只有满足一定的条件时，DBWR进程才开始成批量的将“脏”数据块写入数据文件Oracle这样做的目的是为了尽量减少I&#x2F;O操作，提高Oracle服务器性能。</p>
+<p>2）检查点进程（CKPT）</p>
+<p>检查点进程可以看作一个事件，当检查点事件发生时，CKPT会要求DBWR将某些“脏”数据块回写到数据文件。当用户进程发出数据请求时，Oracle系统从数据文件中读取需要的数据并存放到高速数据缓冲区中，用户对数据的操作时在缓冲区中进行的。当用户操作数据时，就会产生大量的日志信息并存储在重做日志缓冲区，当Oracle系统满足一定条件时，日志写入进程（LGWR）会将日志信息写入到重做日志文件组中，当发生日志切换时（写入操作正要从一个日志文件组切换到另一组时），就会启动检查点进程。</p>
+<p>另外，DBA还可以通过修改初始化参数文件SPFILE中的CHECKPOINT_PROCESS参数为TRUE来启动检查点进程。</p>
+<p>3）日志写入进程（LGWR）</p>
+<p>日志写入进程用于将重做日志缓冲区中的数据写入重做日志文件。Oracle系统将用户所做的修改日志信息写入日志文件，然后将修改结果写入数据文件。</p>
+<p>Oracle实例在运行中会产生大量日志信息，这些日志信息首先被记录在SGA的重做日志缓冲区中，当发生提交命令、或者重做日志缓冲区的信息满1&#x2F;3、或者日志信息存放超过3秒钟时，LGWR进程就将日志信息从重做日志缓冲区中读出并写入日志文件组中序号较小的文件中，一个日志组写满后接着写另外一组。当LGWR进程将所有䣌日志文件都写过一遍后，它将再次转向第一个日志文件组重新覆盖。</p>
+<p>4）归档进程（ARCH）</p>
+<p>归档进程是一个可选择的进程，只有当Oracle数据库处于归档模式时，该进程才可能起到作用。若Oracle数据库处于归档模式，当各个日志文件组都被写满即将被覆盖之前，先由归档进程（ARCH）把即将覆盖的日志文件中的日志信息读出，然后再把这些“读出的日志信息”写入到归档日志文件中。</p>
+<p>当系统比较繁忙而导致LGWR进程处于等待ARCH进程时，可通过修改LOG_ARCHIVE_MAX_PROCESSES参数启动多个归档进程，从而提高归档写磁盘的速度。</p>
+<p>5）系统监控进程（SMON）</p>
+<p>系统监控进程是在数据库启动时执行恢复工作的强制性进程。比如，在并行服务器模式下，SMON可以恢复另一个处于失败的数据库，使系统切换到另外一台正常的服务器上。</p>
+<p>6）进程监控进程（PMON）</p>
+<p>进程监控进程用于监控其他进程的状态，当有进程启动失败时，PMON会清除失败的用户进程，用于数据不一致时进行恢复工作。</p>
+<p>7）锁定进程（LCKN）</p>
+<p>这是一个可选进程，并行服务器模式下可以出现多个锁定进程以利于数据库通信。</p>
+<p>8）恢复进程（RECO）</p>
+<p>这是在分布式数据库模式下使用的一个可选进程，用于数据不一致时进行恢复工作。</p>
+<p>9）调度进程（DNNN）</p>
+<p> 这是一个可选进程，在共享服务器模式下使用，可以启动多个调度进程。</p>
+<p>10）快照进程（SNPN）：</p>
+<p>快照进程用于处理数据库快照的自动刷新，并通过DBMS_JOB包运行预定的数据库存储过程。</p>
+<h1 id="五、存储结构"><a href="#五、存储结构" class="headerlink" title="五、存储结构"></a>五、存储结构</h1><p>Oracle分为逻辑存储结构和物理存储结构，逻辑存储结构用来描述Oracle内部组织和管理数据的方式，是一种层次结构，是面向用户的；物理存储结构是实际的数据存储单元，就是数据库存放在操作系统上的文件。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200313101809756.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MTMzODk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="1、逻辑存储结构"><a href="#1、逻辑存储结构" class="headerlink" title="1、逻辑存储结构"></a>1、逻辑存储结构</h2><p>Oracle数据库中的数据文件被分组到一个或多个表空间中。在每个表空间中，逻辑数据库结构（如表和索引）都是片段，被进一步细分为“盘区”（extent）和“块”（block）。这种存储的逻辑细分c让Oracle更有效的控制磁盘。</p>
+<p>1）表空间</p>
+<p>表空间是Oracle数据库的最大逻辑划分区域，常用来存放数据表，索引等数据对象，任何实体对象在创建时必须指定表空间。</p>
+<p>表空间与数据文件相对应，一个表空间由一个或多个数据文件组成，一个数据文件只属于一个表空间。</p>
+<p>Oracle数据的存储空间在逻辑上变现为表空间而在物理上表现为数据文件，表空间相当于文件夹，数据文件相当于文件夹中的文件。</p>
+<p>2）段</p>
+<p>数据库中的下一个逻辑分组级别是段。段是一组盘区，这组盘区组成了被Oracle视为一个单位的数据库对象，如表或索引。因此，段一般是数据库终端用户要处理的最小存储单位。Oracle数据库中可看到4种类型的段：数据段（非分区表和分区表的每个分区）、索引段、临时段和回滚段。</p>
+<p>3）盘区</p>
+<p>它由一个或多个数据库块组成。当扩大数据库对象时，为该对象添加的空间将分配为一个盘区。</p>
+<p>4）块</p>
+<p>数据库块是Oracle数据库最小的存储单位。块的大小是数据库内给定表空间中特定数量的存储字节。默认块大小是8KB。</p>
+<h2 id="2、物理存储结构"><a href="#2、物理存储结构" class="headerlink" title="2、物理存储结构"></a>2、物理存储结构</h2><p>1）数据文件</p>
+<p>数据文件用于存储数据库中的所有数据，包含系统数据、数据字典数据、临时数据、索引数据、应用数据等。</p>
+<p>安装Oracle数据库时系统会自动为数据库创建几个数据文件，用户对数据库的操作本质是对数据文件的操作。一个表空间可以对应多个数据文件，一个数据文件只能从属于一个表空间。在逻辑上，数据对象都存放在表空间中，实质上是存放在空间对应的数据文件中。</p>
+<p>2）控制文件</p>
+<p>每个Oracle数据库有一组控制文件(control file)，用于记录和描述数据库的物理存储结构信息，包含数据库名、数据库数据文件和日志文件的名字和位置和数据库的时间戳。</p>
+<p>3）参数文件</p>
+<p>参数文件用于设置数据库启动时的参数初始值。</p>
+<p>4）密码文件：</p>
+<p>用于保存具有SYSDBA、SYSOPER权限的用户名和SYS用户密码。</p>
+<p>5）日志文件</p>
+<p>Oracle以SQL脚本的形式实时记录了数据变化的详细日志，这些日志保存在重做日志文件中。根据重做日志文件，可以对数据库进行备份和恢复。</p>
+<p>日志文件有两种：在线日志和归档日志。</p>
+<p>创建Oracle数据库实例的时候，缺省建立三组在线日志，每组一个日志文件。三组日志中只有一组处于活动状态，这组活动的日志也称为当前日志，数据库不断的往当前日志里写入SQL脚本，当前日志写满后，Oracle会切换到下一组日志，继续写入，就这样循环切换。</p>
+<p>日志组在切换时，如果数据库是归档模式，则将当前日志文件的内容转存为操作系统文件，成为归档日志；若当前数据库是非归档模式，则不进行归档操作，当前日志文件中的内容会被下一次覆盖。</p>
+<p>如果数据库运行在归档模式下，当数据库出现介质失败时，使用备份文件、归档日志和在线日志可以完全恢复数据库。</p>
+<p>6）跟踪文件</p>
+<p>用户记录用户进程、数据库后台进程的运行情况。</p>
+<h1 id="六、版权声明"><a href="#六、版权声明" class="headerlink" title="六、版权声明"></a>六、版权声明</h1><p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。<br>来源：C语言技术网（<a target="_blank" rel="noopener" href="http://www.freecplus.net)/">www.freecplus.net）</a><br>作者：码农有道</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/3fa9fcba.html" title="Oracle数据字典"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Oracle数据字典</div></div></a></div><div class="next-post pull-right"><a href="/post/19200837.html" title="Oracle字符集的设置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Oracle字符集的设置</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="toc-text">一、概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E7%A8%8B"><span class="toc-text">二、用户进程和服务进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B"><span class="toc-text">1、用户进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%9C%8D%E5%8A%A1%E8%BF%9B%E7%A8%8B"><span class="toc-text">2、服务进程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%B3%BB%E7%BB%9F%E5%85%A8%E5%B1%80%E5%8C%BASGA"><span class="toc-text">三、系统全局区SGA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B"><span class="toc-text">四、后台进程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-text">五、存储结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E9%80%BB%E8%BE%91%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-text">1、逻辑存储结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-text">2、物理存储结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-text">六、版权声明</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">Copyright © 2023. <a href="https://ilyfikaros.com/" target="_blank">ILYFIKaros</a>. All Rights Reserved. <a href="https://ilyfikaros.com/" target="_blank">Ling星轨迹</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
