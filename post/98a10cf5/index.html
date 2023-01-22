@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>C语言时间操作 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="UNIX操作系统根据计算机产生的年代和应用采用1970年1月1日作为UNIX的纪元时间，1970年1月1日0点作为计算机表示时间的是中间点，将从1970年1月1日开始经过的秒数用一个整数存放，这种高效简洁的时间表示方法被称为“Unix时间纪元”，向左和向右偏移都可以得到更早或者更后的时间。 在实际开发中，对日期和时间的操作场景非常多，例如程序启动和退出的时间，程序执行任务的时间，数据生成的时间，数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言时间操作">
+<meta property="og:url" content="https://blog.ilyfikaros.com/post/98a10cf5/index.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="UNIX操作系统根据计算机产生的年代和应用采用1970年1月1日作为UNIX的纪元时间，1970年1月1日0点作为计算机表示时间的是中间点，将从1970年1月1日开始经过的秒数用一个整数存放，这种高效简洁的时间表示方法被称为“Unix时间纪元”，向左和向右偏移都可以得到更早或者更后的时间。 在实际开发中，对日期和时间的操作场景非常多，例如程序启动和退出的时间，程序执行任务的时间，数据生成的时间，数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-01-05T09:10:23.000Z">
+<meta property="article:modified_time" content="2023-01-07T08:43:13.398Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/post/98a10cf5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C语言时间操作',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-07 16:43:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">124</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C语言时间操作</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-05T09:10:23.000Z" title="发表于 2023-01-05 17:10:23">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-07T08:43:13.398Z" title="更新于 2023-01-07 16:43:13">2023-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/C%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF%E7%BD%91/">C语言技术网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C语言时间操作"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>UNIX操作系统根据计算机产生的年代和应用采用1970年1月1日作为UNIX的纪元时间，1970年1月1日0点作为计算机表示时间的是中间点，将从1970年1月1日开始经过的秒数用一个整数存放，这种高效简洁的时间表示方法被称为“Unix时间纪元”，向左和向右偏移都可以得到更早或者更后的时间。</p>
+<p>在实际开发中，对日期和时间的操作场景非常多，例如程序启动和退出的时间，程序执行任务的时间，数据生成的时间，数据处理的各环节的时间等，无处不在。</p>
+<p>在学习时间之前，请把Linux操作系统的时区设置为中国上海时间。</p>
+<h1 id="一-time_t别名"><a class="markdownIt-Anchor" href="#一-time_t别名"></a> 一、time_t别名</h1>
+<p>在C语言中，用time_t来表示时间数据类型，它是一个long（长整数）类型的别名，在time.h文件中定义，表示一个日历时间，是从1970年1月1日0时0分0秒到现在的秒数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">time_t</span>;  </span><br></pre></td></tr></table></figure>
+<h1 id="二-time库函数"><a class="markdownIt-Anchor" href="#二-time库函数"></a> 二、time库函数</h1>
+<p>time函数的用途是返回一个值，也就是从1970年1月1日0时0分0秒到现在的秒数。</p>
+<p>time函数是C语言标准库中的函数，在time.h文件中声明。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">time_t</span> <span class="title">time</span><span class="params">(<span class="type">time_t</span> *t)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>time函数有两种调用方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">time_t</span> tnow;</span><br><span class="line">tnow =<span class="built_in">time</span>(<span class="number">0</span>);     <span class="comment">// 将空地址传递给time函数，并将time返回值赋给变量tnow</span></span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">time</span>(&amp;tnow);       <span class="comment">// 将变量tnow的地址作为参数传递给time函数</span></span><br></pre></td></tr></table></figure>
+<p>您可以写代码测试一下这两种方式，效果完全相同。</p>
+<h1 id="三-tm结构体"><a class="markdownIt-Anchor" href="#三-tm结构体"></a> 三、tm结构体</h1>
+<p>time_t只是一个长整型，不符合我们的使用习惯，需要转换成可以方便表示时间的结构体，即tm结构体，tm结构体在time.h中声明，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">tm</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> tm_sec;     <span class="comment">// 秒：取值区间为[0,59] </span></span><br><span class="line">  <span class="type">int</span> tm_min;     <span class="comment">// 分：取值区间为[0,59] </span></span><br><span class="line">  <span class="type">int</span> tm_hour;    <span class="comment">// 时：取值区间为[0,23] </span></span><br><span class="line">  <span class="type">int</span> tm_mday;    <span class="comment">// 日期：一个月中的日期：取值区间为[1,31]</span></span><br><span class="line">  <span class="type">int</span> tm_mon;     <span class="comment">// 月份：（从一月开始，0代表一月），取值区间为[0,11]</span></span><br><span class="line">  <span class="type">int</span> tm_year;    <span class="comment">// 年份：其值等于实际年份减去1900</span></span><br><span class="line">  <span class="type">int</span> tm_wday;    <span class="comment">// 星期：取值区间为[0,6]，其中0代表星期天，1代表星期一，以此类推 </span></span><br><span class="line">  <span class="type">int</span> tm_yday;    <span class="comment">// 从每年的1月1日开始的天数：取值区间为[0,365]，其中0代表1月1日，1代表1月2日，以此类推 </span></span><br><span class="line">  <span class="type">int</span> tm_isdst;   <span class="comment">// 夏令时标识符，该字段意义不大，我们不用夏令时。</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个结构定义了年、月、日、时、分、秒、星期、当年中的某一天、夏令时。用这个结构体可以很方便的显示时间。</p>
+<h1 id="四-localtime库函数"><a class="markdownIt-Anchor" href="#四-localtime库函数"></a> 四、localtime库函数</h1>
+<p>localtime函数用于把time_t表示的时间转换为struct tm结构体表示的时间，函数返回struct tm结构体的地址。</p>
+<p>函数声明：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">tm</span> * <span class="built_in">localtime</span>(<span class="type">const</span> <span class="type">time_t</span> *);</span><br></pre></td></tr></table></figure>
+<p>struct tm结构体包含了时间的各要素，但还不是我们习惯的时间表达方式，我们可以用格式化输出printf、sprintf或fprintf等函数，把struct tm结构体转换为我们想要的结果。</p>
+<p><strong>示例（book128.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 程序名：book128.c，此程序演示获取操作系统时间</span></span><br><span class="line"><span class="comment"> * 作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">time_t</span> tnow;</span><br><span class="line">  tnow=<span class="built_in">time</span>(<span class="number">0</span>);      <span class="comment">// 获取当前时间</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;tnow=%lu\n&quot;</span>,tnow);   <span class="comment">// 输出整数表示的时间</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">struct</span> <span class="title class_">tm</span> *sttm;  </span><br><span class="line">  sttm=<span class="built_in">localtime</span>(&amp;tnow);  <span class="comment">// 把整数的时间转换为struct tm结构体的时间</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// yyyy-mm-dd hh24:mi:ss格式输出，此格式用得最多</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%04u-%02u-%02u %02u:%02u:%02u\n&quot;</span>,sttm-&gt;tm_year+<span class="number">1900</span>,sttm-&gt;tm_mon+<span class="number">1</span>,\</span><br><span class="line">          sttm-&gt;tm_mday,sttm-&gt;tm_hour,sttm-&gt;tm_min,sttm-&gt;tm_sec);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%04u年%02u月%02u日%02u时%02u分%02u秒\n&quot;</span>,sttm-&gt;tm_year+<span class="number">1900</span>,\</span><br><span class="line">          sttm-&gt;tm_mon+<span class="number">1</span>,sttm-&gt;tm_mday,sttm-&gt;tm_hour,sttm-&gt;tm_min,sttm-&gt;tm_sec);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 只输出年月日</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%04u-%02u-%02u\n&quot;</span>,sttm-&gt;tm_year+<span class="number">1900</span>,sttm-&gt;tm_mon+<span class="number">1</span>,sttm-&gt;tm_mday); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200304150816893.png" alt="在这里插入图片描述" /></p>
+<h1 id="五-mktime库函数"><a class="markdownIt-Anchor" href="#五-mktime库函数"></a> 五、mktime库函数</h1>
+<p>mktime函数的功能与localtime函数相反。</p>
+<p>localtime函数用于把time_t表示的时间转换为struct tm表示的时间。</p>
+<p>mktime 函数用于把struct tm表示的时间转换为time_t表示的时间。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">time_t</span> <span class="title">mktime</span><span class="params">(<span class="keyword">struct</span> tm *tm)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>函数返回time_t的值。</p>
+<p><strong>示例（book130.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 程序名：book130.c，此程序演示时间操作的mktime库函数。</span></span><br><span class="line"><span class="comment"> * 作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 2019-12-25 15:05:03整数表示是1577257503</span></span><br><span class="line">  <span class="keyword">struct</span> <span class="title class_">tm</span> sttm;  </span><br><span class="line">  <span class="built_in">memset</span>(&amp;sttm,<span class="number">0</span>,<span class="built_in">sizeof</span>(sttm));</span><br><span class="line"></span><br><span class="line">  sttm.tm_year=<span class="number">2019</span><span class="number">-1900</span>; <span class="comment">// 注意，要减1900</span></span><br><span class="line">  sttm.tm_mon=<span class="number">12</span><span class="number">-1</span>;        <span class="comment">// 注意，要减1</span></span><br><span class="line">  sttm.tm_mday=<span class="number">25</span>;</span><br><span class="line">  sttm.tm_hour=<span class="number">15</span>;</span><br><span class="line">  sttm.tm_min=<span class="number">5</span>;</span><br><span class="line">  sttm.tm_sec=<span class="number">3</span>;</span><br><span class="line">  sttm.tm_isdst = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;2019-12-25 15:05:03 is %lu\n&quot;</span>,<span class="built_in">mktime</span>(&amp;sttm));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<h1 id="在这里插入图片描述六-程序睡眠"><a class="markdownIt-Anchor" href="#在这里插入图片描述六-程序睡眠"></a> <img src="https://img-blog.csdnimg.cn/20200304150951831.png" alt="在这里插入图片描述" /><br />
+六、程序睡眠</h1>
+<p>在实际开发中，我们经常需要把程序挂起一段时间，可以使用sleep和usleep两个库函数，需要包含unistd.h头文件中。函数的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">unsigned</span> <span class="type">int</span> <span class="title">sleep</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> seconds)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">usleep</span><span class="params">(<span class="type">useconds_t</span> usec)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>sleep函数的参数是秒，usleep函数的参数是微秒，1秒=1000000微秒。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sleep</span>(<span class="number">1</span>);           <span class="comment">// 程序睡眠1秒。</span></span><br><span class="line"><span class="built_in">sleep</span>(<span class="number">10</span>);          <span class="comment">// 程序睡眠10秒。</span></span><br><span class="line"><span class="built_in">usleep</span>(<span class="number">100000</span>);    <span class="comment">// 程序睡眠十分之一秒。</span></span><br><span class="line"><span class="built_in">usleep</span>(<span class="number">1000000</span>);   <span class="comment">// 程序睡眠一秒。</span></span><br></pre></td></tr></table></figure>
+<p>程序员不关心sleep和usleep函数的返回值。</p>
+<h1 id="七-精确到微秒的计时器"><a class="markdownIt-Anchor" href="#七-精确到微秒的计时器"></a> 七、精确到微秒的计时器</h1>
+<h2 id="1-精确到微秒的timeval结构体"><a class="markdownIt-Anchor" href="#1-精确到微秒的timeval结构体"></a> 1、精确到微秒的timeval结构体</h2>
+<p>timeval结构体在sys/time.h文件中定义，声明为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">timeval</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">long</span>  tv_sec;  <span class="comment">// 1970年1月1日到现在的秒。</span></span><br><span class="line">  <span class="type">long</span>  tv_usec; <span class="comment">// 当前秒的微妙，即百万分之一秒。</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="2-时区timezone-结构体"><a class="markdownIt-Anchor" href="#2-时区timezone-结构体"></a> 2、时区timezone 结构体</h2>
+<p>timezone 结构体在sys/time.h文件中定义，声明为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">timezone</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> tz_minuteswest;  <span class="comment">// 和UTC（格林威治时间）差了多少分钟。</span></span><br><span class="line">  <span class="type">int</span> tz_dsttime;      <span class="comment">// type of DST correction，修正参数据，忽略</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="3-gettimeofday库函数"><a class="markdownIt-Anchor" href="#3-gettimeofday库函数"></a> 3、gettimeofday库函数</h2>
+<p>gettimeofday是获得当前的秒和微秒的时间，其中的秒是指1970年1月1日到现在的秒，微秒是指当前秒已逝去的微秒数，可以用于程序的计时。调用gettimeofday函数需要包含sys/time.h头文件。</p>
+<p>函数声明：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">gettimeofday</span><span class="params">(<span class="keyword">struct</span>  timeval *tv, <span class="keyword">struct</span>  timezone *tz )</span></span></span><br></pre></td></tr></table></figure>
+<p>当前的时间存放在tv 结构体中，当地时区的信息则放到tz所指的结构体中，tz可以为空。</p>
+<p>函数执行成功后返回0，失败后返回-1。</p>
+<p>在使用gettimeofday()函数时，第二个参数一般都为空，我们一般都只是为了获得当前时间，不关心时区的信息。</p>
+<p><strong>示例（book132.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 程序名：book132.c，此程序演示精确到微秒的计时器。 </span></span><br><span class="line"><span class="comment"> * 作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/time.h&gt;</span>   <span class="comment">// 注意，不是time.h</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">struct</span> <span class="title class_">timeval</span> begin,end;  <span class="comment">// 定义用于存放开始和结束的时间</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">gettimeofday</span>(&amp;begin,<span class="number">0</span>);    <span class="comment">// 计时器开始</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;begin time(0)=%d,tv_sec=%d,tv_usec=%d\n&quot;</span>,<span class="built_in">time</span>(<span class="number">0</span>),begin.tv_sec,begin.tv_usec);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">sleep</span>(<span class="number">2</span>);</span><br><span class="line">  <span class="built_in">usleep</span>(<span class="number">100000</span>);     <span class="comment">// 程序睡眠十分之一秒。</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">gettimeofday</span>(&amp;end,<span class="number">0</span>);      <span class="comment">// 计时器结束</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;end   time(0)=%d,tv_sec=%d,tv_usec=%d\n&quot;</span>,<span class="built_in">time</span>(<span class="number">0</span>),end.tv_sec,end.tv_usec);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;计时过去了%d微秒。\n&quot;</span>,\</span><br><span class="line">         (end.tv_sec-begin.tv_sec)*<span class="number">1000000</span>+(end.tv_usec-begin.tv_usec));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200304151937932.png" alt="在这里插入图片描述" /></p>
+<p>各位，book132.c程序采用usleep睡眠十分之一秒，但是计时器显示的实际时间大于十分之一秒，为何？原因很简单，因为程序执行需要时间，虽然这个时间很短，在千分之一秒内，那也是需要时间。</p>
+<p>还有一个要注意的问题，time.h 是ISO C99 标准日期时间头文件。sys/time.h 是Linux系统的日期时间头文件，也就是说，timeval、timezone结构体和gettimeofday函数在windows平台中不能使用，真是麻烦。</p>
+<h1 id="八-应用经验"><a class="markdownIt-Anchor" href="#八-应用经验"></a> 八、应用经验</h1>
+<p>在实际开发中，除了当前的时间，还经常需要一个偏移量的时间，例如获取十分钟之后的时间，方法是采用time函数得到一个整数后，再加上10*60秒，再用localtime函数转换为结构体。</p>
+<h1 id="九-课后作业"><a class="markdownIt-Anchor" href="#九-课后作业"></a> 九、课后作业</h1>
+<p>继续丰富您的函数库。</p>
+<p>1）编写一个通用函数，把整数的时间转换为字符串格式的时间，格式如：“2019-02-08<br />
+12:05:08”，如果转换成功函数返回0，失败返回-1，函数的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">timetostr</span><span class="params">(<span class="type">const</span> <span class="type">time_t</span> ti,<span class="type">char</span> *strtime)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>2）编写一个通用函数，把字符串格式的时间转换为整数的时间，函数的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">strtotime</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *strtime,<span class="type">time_t</span> *ti)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>3）编写一个通用函数，获取操作系统的时间，函数的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">LocalTime</span><span class="params">(<span class="type">char</span> *out_stime,<span class="type">const</span> <span class="type">char</span> *in_fmt,<span class="type">const</span> <span class="type">int</span> in_interval)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>out_stime是输出结果，格式由fmt决定。</p>
+<p>in_interval是偏移常量，单位是秒。</p>
+<p>in_fmt指定了out_stime的格式，取值如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 常用的时间格式</span></span><br><span class="line"><span class="comment">yyyy-mm-dd hh24:mi:ss</span></span><br><span class="line"><span class="comment">yyyymmddhh24miss</span></span><br><span class="line"><span class="comment">yyyy-mm-dd</span></span><br><span class="line"><span class="comment">yyyymmdd</span></span><br><span class="line"><span class="comment">hh24:mi:ss</span></span><br><span class="line"><span class="comment">hh24miss</span></span><br><span class="line"><span class="comment">hh24:mi</span></span><br><span class="line"><span class="comment">hh24mi</span></span><br><span class="line"><span class="comment">hh24</span></span><br><span class="line"><span class="comment">mi</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>调用示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> strLocalTime[<span class="number">21</span>];</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 获取当前的时间，以yyyy-mm-dd hh24:mi:ss格式返回</span></span><br><span class="line"> <span class="built_in">memset</span>(strLocalTime,<span class="number">0</span>,<span class="built_in">sizeof</span>(strLocalTime));</span><br><span class="line"> <span class="built_in">LocalTime</span>(strLocalTime,<span class="string">&quot;yyyy-mm-dd hh24:mi:ss&quot;</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 获取比现在晚10分钟的时间，以yyyy-mm-dd hh24:mi:ss格式返回</span></span><br><span class="line"> <span class="built_in">memset</span>(strLocalTime,<span class="number">0</span>,<span class="built_in">sizeof</span>(strLocalTime));</span><br><span class="line"> <span class="built_in">LocalTime</span>(strLocalTime,<span class="string">&quot;yyyy-mm-dd hh24:mi:ss&quot;</span>,<span class="number">10</span>*<span class="number">60</span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 获取当前的时间，以hh24:mi:ss格式返回</span></span><br><span class="line"> <span class="built_in">memset</span>(strLocalTime,<span class="number">0</span>,<span class="built_in">sizeof</span>(strLocalTime));</span><br><span class="line"> <span class="built_in">LocalTime</span>(strLocalTime,<span class="string">&quot;hh24:mi:ss&quot;</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="十-版权声明"><a class="markdownIt-Anchor" href="#十-版权声明"></a> 十、版权声明</h1>
+<p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。<br />
+来源：C语言技术网（<a target="_blank" rel="noopener" href="http://www.freecplus.net">www.freecplus.net</a>）<br />
+作者：码农有道</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C</a></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/80fba3a4/" title="C语言编译预处理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C语言编译预处理</div></div></a></div><div class="next-post pull-right"><a href="/post/da2face3/" title="C语言目录操作"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C语言目录操作</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/a0664f6d/" title="C语言程序的基本结构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言程序的基本结构</div></div></a></div><div><a href="/post/a51a74ec/" title="C语言数据类型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言数据类型</div></div></a></div><div><a href="/post/2e37bf79/" title="C语言常量、变量和关键字"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言常量、变量和关键字</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-time_t%E5%88%AB%E5%90%8D"><span class="toc-text"> 一、time_t别名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-time%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-text"> 二、time库函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-tm%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text"> 三、tm结构体</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-localtime%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-text"> 四、localtime库函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-mktime%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-text"> 五、mktime库函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8%E8%BF%99%E9%87%8C%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%8F%8F%E8%BF%B0%E5%85%AD-%E7%A8%8B%E5%BA%8F%E7%9D%A1%E7%9C%A0"><span class="toc-text"> 
+六、程序睡眠</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83-%E7%B2%BE%E7%A1%AE%E5%88%B0%E5%BE%AE%E7%A7%92%E7%9A%84%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="toc-text"> 七、精确到微秒的计时器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%B2%BE%E7%A1%AE%E5%88%B0%E5%BE%AE%E7%A7%92%E7%9A%84timeval%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text"> 1、精确到微秒的timeval结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%97%B6%E5%8C%BAtimezone-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text"> 2、时区timezone 结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-gettimeofday%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-text"> 3、gettimeofday库函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB-%E5%BA%94%E7%94%A8%E7%BB%8F%E9%AA%8C"><span class="toc-text"> 八、应用经验</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D-%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A"><span class="toc-text"> 九、课后作业</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81-%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-text"> 十、版权声明</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

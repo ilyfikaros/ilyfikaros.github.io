@@ -1,0 +1,366 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Oracle用户和权限管理 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="当创建一个新数据库实例时，Oracle会创建sys、system和scott数据库用户。sys和system是管理员用户，它们的密码在创建数据库时指定。scott是示范用户（用于学习），里面包括了一些测试数据（DEPT、EMP、BONUS和SALGRADE表），scott用户缺省是锁定状态。  一、数据库管理员 数据库管理员（Database Administrator，简称DBA），是从事管理和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle用户和权限管理">
+<meta property="og:url" content="https://blog.ilyfikaros.com/post/6724a9ad/index.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="当创建一个新数据库实例时，Oracle会创建sys、system和scott数据库用户。sys和system是管理员用户，它们的密码在创建数据库时指定。scott是示范用户（用于学习），里面包括了一些测试数据（DEPT、EMP、BONUS和SALGRADE表），scott用户缺省是锁定状态。  一、数据库管理员 数据库管理员（Database Administrator，简称DBA），是从事管理和">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-01-05T14:35:59.000Z">
+<meta property="article:modified_time" content="2023-01-05T15:02:37.200Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="凌亦零,网志,LingYiLing,笔记,博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/post/6724a9ad/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Oracle用户和权限管理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-05 23:02:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">124</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Oracle用户和权限管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-05T14:35:59.000Z" title="发表于 2023-01-05 22:35:59">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-05T15:02:37.200Z" title="更新于 2023-01-05 23:02:37">2023-01-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Oracle用户和权限管理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>当创建一个新数据库实例时，Oracle会创建sys、system和scott数据库用户。sys和system是管理员用户，它们的密码在创建数据库时指定。scott是示范用户（用于学习），里面包括了一些测试数据（DEPT、EMP、BONUS和SALGRADE表），scott用户缺省是锁定状态。</p>
+<h1 id="一-数据库管理员"><a class="markdownIt-Anchor" href="#一-数据库管理员"></a> 一、数据库管理员</h1>
+<p>数据库管理员（Database Administrator，简称DBA），是从事管理和维护数据库管理系统的相关工作人员的统称，属于运维工程师的一个分支，主要负责数据库的设计、部署、运维和管理，侧重于运维管理。</p>
+<p>DBA的核心目标是保证数据库系统的稳定性、安全性、完整性和高性能，保证数据库服务7*24小时的稳定高效运转。</p>
+<p>数据库实例创建后，<strong>在数据库服务器上</strong>，用 <code>sqlplus / as sysdba</code> 可以以DBA身份登录数据库，如下：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200312151958968.png" alt="在这里插入图片描述" /></p>
+<h1 id="二-用户管理"><a class="markdownIt-Anchor" href="#二-用户管理"></a> 二、用户管理</h1>
+<h2 id="1-创建用户"><a class="markdownIt-Anchor" href="#1-创建用户"></a> 1、创建用户</h2>
+<p>创建用户的命令是 <code>create user</code>，它的选项非常多，在这里我介绍一些常用的选项。</p>
+<p>语法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create user 用户名 identified by 密码</span><br><span class="line">       [<span class="keyword">default</span> tablespace 表空间名]</span><br><span class="line">       [temporary tablespace 表空间名]</span><br><span class="line">       [quota 大小 on 表空间名]</span><br><span class="line">       [profile 用户配置文件];</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<p><code>create user 用户名 identified by 密码</code>：指定登录数据库的用户名和密码。</p>
+<p><code>[default tablespace 表空间名]</code>：指定用户的永久表空间，该用户全部的数据库对象（表、索引）将存放在该表空间中。</p>
+<p><code>[temporary tablespace 表空间名]</code>：指定用户的临时表空间，临时表空间主要用于排序、运算、管理索引、存放临时数据等，当任务完成之后系统会自动清理。</p>
+<p><code>[quota 大小 on 表空间名]</code>：表空间配额，用户使用表空间的大小，单位有[K|M|G|T|P|E]，缺省是unlimited，无限制。</p>
+<p><code>[profile 用户配置文件]</code>：用户的配置文件，它是密码限制，资源限制的命名集合，利用profile<br />
+可以对数据库用户进行基本的资源管理，密码管理，缺省是default profile，无限制。</p>
+<p>示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create user girl</span><br><span class="line">  identified by girlpwd</span><br><span class="line">  <span class="keyword">default</span> tablespace users</span><br><span class="line">  temporary tablespace temp</span><br><span class="line">  quota <span class="number">20</span>M on users;</span><br></pre></td></tr></table></figure>
+<p>创建一个用户名为girl的新用户，密码是pwdgirl，缺省表空间是users（可使用20M的空间），临时表空间是temp。</p>
+<p>注意，创建用户时，如果不指定default tablespace/ temporary tablespace选项，则使用系统缺省的永久/临时表空间，用以下SQL可以查看系统缺省的永久/临时表空间。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">select property_value from DATABASE_PROPERTIES where </span></span><br><span class="line"><span class="function">property_name <span class="title">in</span> <span class="params">(<span class="string">&#x27;DEFAULT_PERMANENT_TABLESPACE&#x27;</span>,<span class="string">&#x27;DEFAULT_TEMP_TABLESPACE&#x27;</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200312152433247.png" alt="在这里插入图片描述" /></p>
+<h2 id="2-修改用户的密码"><a class="markdownIt-Anchor" href="#2-修改用户的密码"></a> 2、修改用户的密码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter user 用户名 identified by 新密码;</span><br></pre></td></tr></table></figure>
+<p>普通用户只能修改自已的密码，DBA可以修改其它用户的密码。</p>
+<h2 id="3-锁定解锁用户"><a class="markdownIt-Anchor" href="#3-锁定解锁用户"></a> 3、锁定/解锁用户</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter user 用户名 account lock;</span><br><span class="line">alter user 用户名 account unlock;</span><br></pre></td></tr></table></figure>
+<p>锁定/解锁用户需要DBA权限。</p>
+<h2 id="4-修改用户表空间配额"><a class="markdownIt-Anchor" href="#4-修改用户表空间配额"></a> 4、修改用户表空间配额</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter user 用户名 quota 大小 on 表空间;</span><br></pre></td></tr></table></figure>
+<p>修改用户表空间配额需要DBA权限。</p>
+<h2 id="5-删除用户"><a class="markdownIt-Anchor" href="#5-删除用户"></a> 5、删除用户</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop user 用户名 [cascade];</span><br></pre></td></tr></table></figure>
+<p>drop user 只有在用户下没有任何数据库对象的时候才能删除用户，否则会提示错误。</p>
+<p>采用cascade选项删除用户以及用户下全部的数据库对象，包括表、视图、函数、同义词、过程等。</p>
+<p>删除用户需要DBA权限。</p>
+<h1 id="三-权限管理"><a class="markdownIt-Anchor" href="#三-权限管理"></a> 三、权限管理</h1>
+<p>权限是指用户执行特定命令或操作数据库对象的权利。Oracle的用户权限分系统权限和对象权限。</p>
+<h2 id="1-系统权限"><a class="markdownIt-Anchor" href="#1-系统权限"></a> 1、系统权限</h2>
+<p>系统权限针对的是系统安全性，执行数据库操作，如登录、创建表、创建函数等，通过查询SYSTEM_PRIVILEGE_MAP数据字典可以看到Oracle的两百多种系统权限。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from SYSTEM_PRIVILEGE_MAP;</span><br></pre></td></tr></table></figure>
+<p>以下是几种常用的系统权限：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create session       创建会话。</span><br><span class="line">create/drop user     创建/删除用户。</span><br><span class="line">create/drop sequence 创建/删除序列。</span><br><span class="line">create/drop synonym  创建/删除同名对象。</span><br><span class="line">create/drop table    创建/删除表。</span><br><span class="line">create/drop view     创建/删除视图。</span><br></pre></td></tr></table></figure>
+<h2 id="2-对象权限"><a class="markdownIt-Anchor" href="#2-对象权限"></a> 2、对象权限</h2>
+<p>对象权限针对的是数据安全性，对某一特定对象（如表，视图、序列、存储过程等）执行的特定操作，对象的权限分类如下：。</p>
+<p>1）select权限</p>
+<p>对表而言，允许对表执行select语句；对序列而言，允许对序列获取下一个值（nextval）和当前值（currnvl）。</p>
+<p>2）insert权限</p>
+<p>允许向表和视图中插入记录。</p>
+<p>3）update权限</p>
+<p>允许在表或视图中执行update语句，update权限必须随同select权限授予，否则被授权用户不能够选择行。</p>
+<p>4）delete权限</p>
+<p>允许在表或视图中执行delete语句，delete权限必须随同select权限授予，否则被授权用户不能够选择行。</p>
+<p>5）alter权限</p>
+<p>对表而言，允许对表执行alter table语句；对序列而言，允许对序列alter sequence语句。</p>
+<p>6）execute权限</p>
+<p>执行存储过程、函数和包的权限。</p>
+<p>7）index权限</p>
+<p>允许在表上创建索引。</p>
+<p>8）reference权限</p>
+<p>允许在表上创建完整性约束，如外键。</p>
+<p>9）all</p>
+<p>对象的全部权限（上面列出的全部权限）。</p>
+<p>以下是Oracle数据库对象与权限的对照表。</p>
+<table>
+<thead>
+<tr>
+<th>对象权限</th>
+<th>表</th>
+<th>视图</th>
+<th>序列</th>
+<th>过程（函数和包）</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>select</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+<td></td>
+<td>常用。</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>是</td>
+<td>是</td>
+<td></td>
+<td></td>
+<td>常用。</td>
+</tr>
+<tr>
+<td>update</td>
+<td>是</td>
+<td>是</td>
+<td></td>
+<td></td>
+<td>常用。</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>是</td>
+<td>是</td>
+<td></td>
+<td></td>
+<td>常用。</td>
+</tr>
+<tr>
+<td>alter</td>
+<td>是</td>
+<td></td>
+<td>是</td>
+<td></td>
+<td>不常用。</td>
+</tr>
+<tr>
+<td>execute</td>
+<td></td>
+<td></td>
+<td></td>
+<td>是</td>
+<td>不常用。</td>
+</tr>
+<tr>
+<td>index</td>
+<td>是</td>
+<td></td>
+<td></td>
+<td></td>
+<td>不常用。</td>
+</tr>
+<tr>
+<td>references</td>
+<td>是</td>
+<td></td>
+<td></td>
+<td></td>
+<td>不常用。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-角色"><a class="markdownIt-Anchor" href="#3-角色"></a> 3、角色</h2>
+<p>由于Oracle提供的权限非常之多，日常操作时我们不可能将所需权限一一赋予用户，此时引进角色概念。角色是一组相关权限的命名集合，使用角色最主要的目的是简化权限管理。将一组权限打包到角色中，将角色赋予用户就是把角色下得全部权限都赋给了用户，简化了赋权操作。</p>
+<p>Oracle提供三种标准的三种角色：</p>
+<p>1）connect角色</p>
+<p>connect是最基本的用户权限，拥有connect权限的用户只可以登录Oracle（仅具有创建SESSION的权限），不可以创建实体，不可以创建数据库结构。</p>
+<p>2）resource角色</p>
+<p>拥有resource权限的用户可以创建数据库对象，和对本用户的数据库对象拥有全部的操作权限。</p>
+<p>3）DBA角色</p>
+<p>DBA角色，拥有全部特权，是系统最高权限。</p>
+<h2 id="4-授于收回权限"><a class="markdownIt-Anchor" href="#4-授于收回权限"></a> 4、授于/收回权限</h2>
+<p>Oracle采用grant命令授于权限，revoke命令收回权限。</p>
+<p>grant命令非常复杂，在实际应用中远远没有那么复杂，所以本文只介绍grant的常用方法。</p>
+<p><strong>1）将对象权限授于用户和角色，revoke收回。</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant 对象权限列表 on 对象名 to &#123; <span class="keyword">public</span> | 角色名 | 用户名 &#125;,……;</span><br><span class="line">revoke对象权限列表 on 对象名 from &#123; <span class="keyword">public</span> | 角色名 | 用户名 &#125;,……;</span><br></pre></td></tr></table></figure>
+<p>将scott.T_GIRL表的select和insert权限授于girl和scott用户。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant select,insert on scott.T_GIRL to girl,scott;</span><br><span class="line">revoke select,insert on scott.T_GIRL from girl,scott;</span><br></pre></td></tr></table></figure>
+<p>将scott.T_GIRL表的全部权限授于girl和scott用户。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant all on scott.T_GIRL to girl,scott;</span><br><span class="line">revoke all on scott.T_GIRL from girl,scott;</span><br></pre></td></tr></table></figure>
+<p>将scott.T_GIRL表的全部权限授于全部用户。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all on scott.T_GIRL to <span class="keyword">public</span>;</span><br></pre></td></tr></table></figure>
+<p>将scott.T_GIRL表的全部权限授于resource角色。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all on scott.T_GIRL to resource;</span><br></pre></td></tr></table></figure>
+<p><strong>2）将系统权限和角色权限授于用户，revoke收回。</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant &#123; 系统权限 | 角色 &#125;, …… to &#123; <span class="keyword">public</span> | 角色名 | 用户名 &#125;,……;</span><br><span class="line">revoke &#123; 系统权限 | 角色 &#125;, …… from &#123; <span class="keyword">public</span> | 角色名 | 用户名 &#125;,……;</span><br></pre></td></tr></table></figure>
+<p>一般情况下，在新建数据库用户后，都会习惯性的给用户授权connect角色和resource角色。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant connect,resource to 用户名;</span><br></pre></td></tr></table></figure>
+<p>将select any table权限授于全部用户。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant select any table to <span class="keyword">public</span>;</span><br><span class="line">revoke select any table from <span class="keyword">public</span>;</span><br></pre></td></tr></table></figure>
+<p>将select any table权限授于connect角色。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant select any table to connect;</span><br></pre></td></tr></table></figure>
+<p>将select any table和insert any table权限授于girl和scott用户。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant select any table,insert any table to girl,scott;</span><br><span class="line">revoke select any table,insert any table from girl,scott;</span><br></pre></td></tr></table></figure>
+<p>将connect、resource权限授于girl用户。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant connect,resource to girl;</span><br></pre></td></tr></table></figure>
+<h2 id="5-查询权限"><a class="markdownIt-Anchor" href="#5-查询权限"></a> 5、查询权限</h2>
+<p>从数据字典中可以查询当前用户拥有的权限和角色。</p>
+<p>1）查询当前用户拥有的角色：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from USER_ROLE_PRIVS;</span><br></pre></td></tr></table></figure>
+<p>2）查询当前用户拥有的系统权限：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from USER_SYS_PRIVS;</span><br></pre></td></tr></table></figure>
+<p>3）查询当前用户拥有的对象权限：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from USER_TAB_PRIVS;</span><br></pre></td></tr></table></figure>
+<h2 id="6-注意事项"><a class="markdownIt-Anchor" href="#6-注意事项"></a> 6、注意事项</h2>
+<p>在Oracle中没有其他数据库系统中的数据库的概念，对象都是创建在用户下。当前用户具有当前用户下全部对象的全部权限无论该对象是否是当前用户所创建。举个简单例子，创建了girl用户并授予connect和resource权限，然后管理员在girl用户下创建一张表，girl用户可以删除管理员在girl用户下创建的表。</p>
+<h1 id="四-版权声明"><a class="markdownIt-Anchor" href="#四-版权声明"></a> 四、版权声明</h1>
+<p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。<br />
+来源：C语言技术网（<a target="_blank" rel="noopener" href="http://www.freecplus.net">www.freecplus.net</a>）<br />
+作者：码农有道</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/1d4455be/" title="Oracle表空间和数据文件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Oracle表空间和数据文件</div></div></a></div><div class="next-post pull-right"><a href="/post/2ca87e18/" title="Oracle union多表查询"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Oracle union多表查询</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E5%91%98"><span class="toc-text"> 一、数据库管理员</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-text"> 二、用户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="toc-text"> 1、创建用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E7%9A%84%E5%AF%86%E7%A0%81"><span class="toc-text"> 2、修改用户的密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%94%81%E5%AE%9A%E8%A7%A3%E9%94%81%E7%94%A8%E6%88%B7"><span class="toc-text"> 3、锁定&#x2F;解锁用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E8%A1%A8%E7%A9%BA%E9%97%B4%E9%85%8D%E9%A2%9D"><span class="toc-text"> 4、修改用户表空间配额</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7"><span class="toc-text"> 5、删除用户</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-text"> 三、权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90"><span class="toc-text"> 1、系统权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AF%B9%E8%B1%A1%E6%9D%83%E9%99%90"><span class="toc-text"> 2、对象权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%A7%92%E8%89%B2"><span class="toc-text"> 3、角色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%8E%88%E4%BA%8E%E6%94%B6%E5%9B%9E%E6%9D%83%E9%99%90"><span class="toc-text"> 4、授于&#x2F;收回权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9F%A5%E8%AF%A2%E6%9D%83%E9%99%90"><span class="toc-text"> 5、查询权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text"> 6、注意事项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-text"> 四、版权声明</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
