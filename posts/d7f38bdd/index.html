@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Ch17-折叠 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第17章 折叠 在阅读文件时，经常会有一些不相关的文本会妨碍您理解。使用 Vim 折叠可以隐藏这些不必要的信息。 本章中，您将学习如何使用不同的折叠方法。  手动折叠 想象您正在折叠一张纸来覆盖一些文本，实际的文本不会消失，它仍在那儿。Vim 折叠的工作方式与此相同，它折叠一段文本，在显示时会隐藏起来，但实际上并不会真的删除它。 折叠操作符是z。（折叠纸张时，它看起来也像字母 “z”）。 假设有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ch17-折叠">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/d7f38bdd/index.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="第17章 折叠 在阅读文件时，经常会有一些不相关的文本会妨碍您理解。使用 Vim 折叠可以隐藏这些不必要的信息。 本章中，您将学习如何使用不同的折叠方法。  手动折叠 想象您正在折叠一张纸来覆盖一些文本，实际的文本不会消失，它仍在那儿。Vim 折叠的工作方式与此相同，它折叠一段文本，在显示时会隐藏起来，但实际上并不会真的删除它。 折叠操作符是z。（折叠纸张时，它看起来也像字母 “z”）。 假设有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-02-08T07:55:19.000Z">
+<meta property="article:modified_time" content="2023-02-08T13:45:14.796Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="Vim">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/d7f38bdd/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ch17-折叠',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-08 21:45:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ch17-折叠</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-08T07:55:19.000Z" title="发表于 2023-02-08 15:55:19">2023-02-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-08T13:45:14.796Z" title="更新于 2023-02-08 21:45:14">2023-02-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ch17-折叠"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="第17章-折叠"><a class="markdownIt-Anchor" href="#第17章-折叠"></a> 第17章 折叠</h1>
+<p>在阅读文件时，经常会有一些不相关的文本会妨碍您理解。使用 Vim 折叠可以隐藏这些不必要的信息。</p>
+<p>本章中，您将学习如何使用不同的折叠方法。</p>
+<h2 id="手动折叠"><a class="markdownIt-Anchor" href="#手动折叠"></a> 手动折叠</h2>
+<p>想象您正在折叠一张纸来覆盖一些文本，实际的文本不会消失，它仍在那儿。Vim 折叠的工作方式与此相同，它<em>折叠</em>一段文本，在显示时会隐藏起来，但实际上并不会真的删除它。</p>
+<p>折叠操作符是<code>z</code>。（折叠纸张时，它看起来也像字母 “z”）。</p>
+<p>假设有如下文本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Fold me</span><br><span class="line">Hold me</span><br></pre></td></tr></table></figure>
+<p>把光标放在第一行，输入 <code>zfj</code>。Vim 将这两行折叠成一行，同时会看到类似消息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+-- 2 lines: Fold me -----</span><br></pre></td></tr></table></figure>
+<p>上面的命令分解如下：</p>
+<ul>
+<li><code>zf</code> 是折叠操作符。</li>
+<li><code>j</code> 是用于折叠操作符的动作。</li>
+</ul>
+<p>您可以使用 <code>zo</code> 打开/展开已折叠文本，使用 <code>zc</code> 关闭/收缩文本。</p>
+<p>折叠是一个操作符，所以它遵循语法规则（<code>动词+名词</code>）。您可以在折叠运算符后，加上一个动作(motion)或文本对象。例如，使用 <code>zfip</code> 可以折叠内部段落；使用 <code>zfG</code> 可以折叠至文件末尾；使用 <code>zfa&#123;</code> 可以折叠 <code>&#123;</code> 和 <code>&#125;</code> 之间的文本。</p>
+<p>您可以在可视模式下进行折叠。高亮您想要折叠的区域后 (<code>v</code>, <code>V</code>, 或 <code>Ctrl-v</code>)，再输入 <code>zf</code> 即可。</p>
+<p>您也可以在命令行模式下，使用 <code>:fold</code> 命令执行一次折叠。若要折叠当前行及紧随其后的第二行，可以运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:,+1fold</span><br></pre></td></tr></table></figure>
+<p><code>,+1</code> 是要折叠的范围。如果不传递范围参数，默认当前行。<code>+1</code> 是代表下一行的范围指示器。运行 <code>:5,10fold</code> 可以折叠第5至10行。运行 <code>:,$fold</code> 可以折叠当前行至文件末尾。</p>
+<p>还有许多其他折叠和展开的命令。我发现他们实在太多，以至于在刚起步时很难记住。最有用的一些命令是：</p>
+<ul>
+<li><code>zR</code> 展开所有折叠。</li>
+<li><code>zM</code> 收缩所有折叠。</li>
+<li><code>za</code> 切换折叠状态。</li>
+</ul>
+<p><code>zR</code> 和 <code>zM</code> 可用于任意行上，但 <code>za</code> 仅能用于已折叠/未折叠的行上。输入 <code>:h fold-commands</code> 可查阅更多有关折叠的指令。</p>
+<h2 id="不同的折叠方法"><a class="markdownIt-Anchor" href="#不同的折叠方法"></a> 不同的折叠方法</h2>
+<p>以上部分涵盖了 Vim 手动折叠的内容。实际上，Vim 有六种不同的折叠方法：</p>
+<ol>
+<li>手动折叠</li>
+<li>缩进折叠</li>
+<li>表达式折叠</li>
+<li>语法折叠</li>
+<li>差异折叠</li>
+<li>标志折叠</li>
+</ol>
+<p>运行 <code>:set foldmethod?</code> 可查看您当前正在使用哪一种折叠方式。默认情况下，Vim 使用手动方式。</p>
+<p>在本章的剩余部分，您将学习其他五种折叠方法。让我们从缩进折叠开始。</p>
+<h2 id="缩进折叠"><a class="markdownIt-Anchor" href="#缩进折叠"></a> 缩进折叠</h2>
+<p>要使用缩进折叠，需要将 <code>'foldmethod'</code> 选项更改为缩进：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set foldmethod=indent</span><br></pre></td></tr></table></figure>
+<p>假设有如下文本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">One</span><br><span class="line">  Two</span><br><span class="line">  Two again</span><br></pre></td></tr></table></figure>
+<p>运行 <code>:set foldmethod=indent</code> 后将看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">One</span><br><span class="line">+-- 2 lines: Two -----</span><br></pre></td></tr></table></figure>
+<p>使用缩进折叠后，Vim 将会查看每行的开头有多少空格，并将它与 <code>'shiftwidth'</code> 选项进行比较，以此来决定该行可折叠性。<code>'shiftwidth'</code> 返回每次缩进所需的空格数。如果运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set shiftwidth?</span><br></pre></td></tr></table></figure>
+<p>Vim 的默认 <code>'shiftwidth'</code> 值为2。对于上面的文本而言，“Two” 和 “Two again” 的开头都有两个空格。当 Vim 看到了空格数 <em>且</em> <code>'shiftwidth'</code>值都为2时，Vim 认为该行的缩进折叠级别为1。</p>
+<p>假设这次文本开头只有一个空格：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">One</span><br><span class="line"> Two</span><br><span class="line"> Two again</span><br></pre></td></tr></table></figure>
+<p>运行 <code>:set foldmethod=indent</code> 后，Vim 不再折叠已缩进的行了，因为这些行没有足够的空格。1个空格不会被视作一个缩进。然而，当您改变 <code>'shiftwidth' </code> 的值为1后：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set shiftwidth=1</span><br></pre></td></tr></table></figure>
+<p>文本现在可以折叠了！现在一个空格将被视为一个缩进。</p>
+<p>现在，我们将 <code>'shiftwidth' </code> 以及文本开头的空格数都重新恢复为2后，另外添加一些内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">One</span><br><span class="line">  Two</span><br><span class="line">  Two again</span><br><span class="line">    Three</span><br><span class="line">    Three again</span><br></pre></td></tr></table></figure>
+<p>运行折叠命令 (<code>zM</code>) 后可以看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">One</span><br><span class="line">+-- 4 lines: Two -----</span><br></pre></td></tr></table></figure>
+<p>展开已折叠的行 (<code>zR</code>)，接着移动光标至 “Three”，然后切换文本的折叠状态 (<code>za</code>)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">One</span><br><span class="line">  Two</span><br><span class="line">  Two again</span><br><span class="line">+-- 2 lines: Three -----</span><br></pre></td></tr></table></figure>
+<p>这是啥？叠中叠？</p>
+<p>是的，您可以嵌套折叠。文本 “Two” 和 “Two again” 的折叠级别都为1，文本 “Three” 和 “Three again” 的折叠级别都为2。如果在一段可折叠文本中，具有另一段折叠级别更高的可折叠文本，则可以具有多个折叠层。</p>
+<h2 id="表达式折叠"><a class="markdownIt-Anchor" href="#表达式折叠"></a> 表达式折叠</h2>
+<p>表达式折叠允许您定义要匹配折叠的表达式。定义折叠表达式后，Vim 会计算每行的 <code>'foldexpr'</code> 值。这是必须配置的变量，它要返回适当的值。如果返回 0，则不折叠行。如果它返回 1，则该行的折叠级别为 1。如果它返回 2，则该线的折叠级别为 2。除了整数外还有其他的值，但我不打算介绍它们。如果你好奇，可以查阅<code>:h fold-expr</code>。</p>
+<p>首先，更改折叠方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set foldmethod=expr</span><br></pre></td></tr></table></figure>
+<p>假设您有一份早餐食品列表，并且想要折叠所有以 “p” 开头的早餐项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">donut</span><br><span class="line">pancake</span><br><span class="line">pop-tarts</span><br><span class="line">protein bar</span><br><span class="line">salmon</span><br><span class="line">scrambled eggs</span><br></pre></td></tr></table></figure>
+<p>其次，更改 <code>foldexpr</code> 为捕获以 “p” 开头的表达式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set foldexpr=getline(v:lnum)[0]==\\&quot;p\\&quot;</span><br></pre></td></tr></table></figure>
+<p>这表达式看起来有点吓人。我们来分解下：</p>
+<ul>
+<li><code>:set foldexpr</code> 设置 <code>'foldexpr'</code> 为自定义表达式。</li>
+<li><code>getline()</code> 是 Vim 脚本的一个函数，它返回指定行的内容。如运行 <code>:echo getline(5)</code> 可以获取第5行的内容。</li>
+<li><code>v:lnum</code> 是 Vim <code>'foldexpr'</code> 表达式的特殊变量。Vim 在扫描每一行时，都会将行号存储至 <code>v:lnum</code> 变量。在第5行，<code>v:lnum</code> 值为5。在第10行，<code>v:lnum</code>值为10。</li>
+<li><code>[0]</code> 处于 <code>getline(v:lnum)[0]</code> 语境时，代表每一行的第一个字符。Vim 在扫描某一行时，<code>getline(v:lnum)</code> 返回该行的内容，而 <code>getline(v:lnum)[0]</code> 则返回这一行的第一个字符。例如，我们早餐食品列表的第一行是 “donut”，则 <code>getline(v:lnum)[0]</code> 返回 “d”；列表的第二行是 “pancake”，则 <code>getline(v:lnum)[0]</code> 返回 “p”。</li>
+<li><code>==\\&quot;p\\&quot;</code> 是等式表达式的后半部分，它检查刚才表达式的计算结果是否等于 “p”。如果是，则返回1，否则返回0。在 Vim 的世界里，1代表真，0代表假。所以，那些以 “p” 开头的行，表达式都会返回1。回想一下本节的开始，如果 <code>'foldexpr'</code> 的值为1，则折叠级别为1。</li>
+</ul>
+<p>在运行这个表达式后，您将看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">donut</span><br><span class="line">+-- 3 lines: pancake -----</span><br><span class="line">salmon</span><br><span class="line">scrambled eggs</span><br></pre></td></tr></table></figure>
+<h2 id="语法折叠"><a class="markdownIt-Anchor" href="#语法折叠"></a> 语法折叠</h2>
+<p>语法折叠是由Vim的语法高亮决定的。如果您使用了语法高亮插件，比如<a target="_blank" rel="noopener" href="https://github.com/sheerun/vim-polyglot">vim-polyglot</a>，那么装上插件就可以直接使用语法折叠。仅仅需要将<code>foldmethod</code>选项改为 <code>syntax</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set foldmethod=syntax</span><br></pre></td></tr></table></figure>
+<p>假设您正在编辑一个JavaScript文件，而且您已经装好了 vim-polyglot 插件。如果您有以下文本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const nums = [</span><br><span class="line">  one,</span><br><span class="line">  two,</span><br><span class="line">  three,</span><br><span class="line">  four</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>上述文本将会使用语法折叠折起来。当您为某个特定语言（位于 <code>syntax/</code> 目录中的语言即是典型例子）定义了语法高亮，您可以添加一个 <code>fold</code> 属性，使它支持折叠。下面是 vim-polyglot 中JavaScript语法文件中的一个片段。注意最后的 <code>fold</code> 关键字。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syntax region  jsBracket                      matchgroup=jsBrackets            start=/\[/ end=/\]/ contains=@jsExpression,jsSpreadExpression extend fold</span><br></pre></td></tr></table></figure>
+<p>本书不会详细介绍 <code>syntax</code> 功能。如果您感兴趣，可以查阅 <code>:h syntax.txt</code>。</p>
+<h2 id="差异折叠"><a class="markdownIt-Anchor" href="#差异折叠"></a> 差异折叠</h2>
+<p>Vim 可以对多个文件进行差异比较。</p>
+<p>如果您有 <code>file1.txt</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br></pre></td></tr></table></figure>
+<p>以及 <code>file2.txt</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">emacs is ok</span><br></pre></td></tr></table></figure>
+<p>运行 <code>vimdiff file1.txt file2.txt</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+-- 3 lines: vim is awesome -----</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">vim is awesome</span><br><span class="line">[vim is awesome] / [emacs is ok]</span><br></pre></td></tr></table></figure>
+<p>Vim 会自动折叠一些相同的行。运行 <code>vimdiff</code> 命令时，Vim 会自动使用 <code>foldmethod=diff</code>。此时如果运行 <code>:set foldmethod?</code>，它将返回 <code>diff</code>。</p>
+<h2 id="标志折叠"><a class="markdownIt-Anchor" href="#标志折叠"></a> 标志折叠</h2>
+<p>要使用标志折叠，请运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set foldmethod=marker</span><br></pre></td></tr></table></figure>
+<p>假设有如下文本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Hello</span><br><span class="line"></span><br><span class="line">&#123;&#123;&#123;</span><br><span class="line">world</span><br><span class="line">vim</span><br><span class="line">&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>输入 <code>zM</code> 后会看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line"></span><br><span class="line">+-- 4 lines: -----</span><br></pre></td></tr></table></figure>
+<p>Vim 将 <code>&#123;&#123;&#123;` 和 `&#125;&#125;&#125;</code> 视为折叠指示器，并折叠其中的内容。使用标志折叠时，Vim 会寻找由 <code>'foldmarker'</code> 选项定义的特殊标志，并标记折叠区域。要查看 Vim 使用的标志，请运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set foldmarker?</span><br></pre></td></tr></table></figure>
+<p>默认情况下，Vim 把 <code>&#123;&#123;&#123;` 和 `&#125;&#125;&#125;</code> 作为指示器。如果您想将指示器更改为其他诸如 “coffee1” 和 “coffee2” 的字符串，可以运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set foldmarker=coffee1,coffee2</span><br></pre></td></tr></table></figure>
+<p>假设有如下文本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line"></span><br><span class="line">coffee1</span><br><span class="line">world</span><br><span class="line">vim</span><br><span class="line">coffee2</span><br></pre></td></tr></table></figure>
+<p>现在，Vim 将使用 <code>coffee1</code> 和 <code>coffee2</code> 作为新折叠标志。注意，指示器必须是文本字符串，不能是正则表达式。</p>
+<h2 id="持久化折叠"><a class="markdownIt-Anchor" href="#持久化折叠"></a> 持久化折叠</h2>
+<p>当关闭 Vim 会话后，您将失去所有的折叠信息。假设您有 <code>count.txt</code> 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">one</span><br><span class="line">two</span><br><span class="line">three</span><br><span class="line">four</span><br><span class="line">five</span><br></pre></td></tr></table></figure>
+<p>手动从第三行开始往下折叠 (<code>:3,$fold</code>)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">one</span><br><span class="line">two</span><br><span class="line">+-- 3 lines: three ---</span><br></pre></td></tr></table></figure>
+<p>当您退出 Vim 再重新打开 <code>count.txt</code> 后，这些折叠都不见了！</p>
+<p>要在折叠后保留它们，可以运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:mkview</span><br></pre></td></tr></table></figure>
+<p>当打开 <code>count.txt</code> 后，运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:loadview</span><br></pre></td></tr></table></figure>
+<p>您的折叠信息都被保留下来了。然而，您需要手动运行 <code>mkview</code> 和 <code>loadview</code>。我知道，终有一日，我会忘记运行 <code>mkview</code> 就关闭文件了，接着便会丢失所有折叠信息。能不能自动实现这个呢？</p>
+<p>当然能！要在关闭 <code>.txt</code> 文件时自动运行 <code>mkview</code>，以及在打开 <code>.txt</code> 文件后自动运行 <code>loadview</code>，将下列内容添加至您的 vimrc：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">autocmd BufWinLeave *.txt mkview</span><br><span class="line">autocmd BufWinEnter *.txt silent loadview</span><br></pre></td></tr></table></figure>
+<p>在上一章您已经见过 <code>autocmd</code> 了，它用于在事件触发时执行一条命令。这里的两个事件是：</p>
+<ul>
+<li><code>BufWinLeave</code> 从窗口中删除缓冲时。</li>
+<li><code>BufWinEnter</code> 在窗口中加载缓冲时。</li>
+</ul>
+<p>现在，即使您在 <code>.txt</code> 文件内折叠内容后直接退出 Vim，下次再打开该文件时，您的折叠信息都能自动恢复。</p>
+<p>默认情况下，当运行 <code>mkview</code> 时，Vim将折叠信息保存在<code>~/.vim/view</code> (Unix 系统)。您可以查阅 <code>:h 'viewdir'</code> 来了解更多信息。</p>
+<h2 id="聪明地学习折叠"><a class="markdownIt-Anchor" href="#聪明地学习折叠"></a> 聪明地学习折叠</h2>
+<p>当我刚开始使用 Vim 时， 我会跳过学习 Vim 折叠，因为我觉得它不太实用。然而，随着我码龄的增长，我越发觉得折叠功能大有用处。得当地使用折叠功能，文本结构可以更加清晰，犹如一本书籍的目录。</p>
+<p>当您学习折叠时，请从手动折叠开始，因为它可以随学随用。然后逐渐学习不同的技巧来使用缩进和标志折叠。最后，学习如何使用语法和表达式折叠。您甚至可以使用后两个来编写您自己的 Vim 插件。</p>
+<h2 id="链接"><a class="markdownIt-Anchor" href="#链接"></a> 链接</h2>
+<ul>
+<li><a href="./directory.md">目录</a></li>
+<li>上一部分 <a href="./ch16_tags.md">Ch 16 - 标签</a></li>
+<li>下一部分 <a href="./ch18_git.md">Ch 18 - Git</a></li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Vim/">Vim</a></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/a575da65/" title="Ch18-Git"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Ch18-Git</div></div></a></div><div class="next-post pull-right"><a href="/posts/514bd033/" title="Ch16-标签"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ch16-标签</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/d25eff46/" title="Ch00-请先阅读"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Ch00-请先阅读</div></div></a></div><div><a href="/posts/972ef649/" title="Learn-Vim(the Smart Way) 中文翻译"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Learn-Vim(the Smart Way) 中文翻译</div></div></a></div><div><a href="/posts/d7470566/" title="Ch01-起步"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Ch01-起步</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC17%E7%AB%A0-%E6%8A%98%E5%8F%A0"><span class="toc-text"> 第17章 折叠</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E6%8A%98%E5%8F%A0"><span class="toc-text"> 手动折叠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E6%8A%98%E5%8F%A0%E6%96%B9%E6%B3%95"><span class="toc-text"> 不同的折叠方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%A9%E8%BF%9B%E6%8A%98%E5%8F%A0"><span class="toc-text"> 缩进折叠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8A%98%E5%8F%A0"><span class="toc-text"> 表达式折叠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E6%8A%98%E5%8F%A0"><span class="toc-text"> 语法折叠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%AE%E5%BC%82%E6%8A%98%E5%8F%A0"><span class="toc-text"> 差异折叠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%BF%97%E6%8A%98%E5%8F%A0"><span class="toc-text"> 标志折叠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E6%8A%98%E5%8F%A0"><span class="toc-text"> 持久化折叠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%AA%E6%98%8E%E5%9C%B0%E5%AD%A6%E4%B9%A0%E6%8A%98%E5%8F%A0"><span class="toc-text"> 聪明地学习折叠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5"><span class="toc-text"> 链接</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

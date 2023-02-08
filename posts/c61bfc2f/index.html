@@ -1,0 +1,271 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>CentOS7添加自定义系统服务 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CentOS 6版本的系统服务是&#x2F;etc&#x2F;init.d启动脚本的方式，CentOS 7采用强大的systemctl来管理系统服务，大幅提高了系统服务的运行效率，但是服务的配置和以前版本完全不同，这是很大的进步，systemctl太简单易用了。 CentOS7添加自定义系统服务的步骤如下： 1）编写自定义的系统服务脚本文件； 2）用systemctl命令把自定义的系统服务设置为开机&#x2F;关机自启动&#x2F;停止">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7添加自定义系统服务">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/c61bfc2f/index.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="CentOS 6版本的系统服务是&#x2F;etc&#x2F;init.d启动脚本的方式，CentOS 7采用强大的systemctl来管理系统服务，大幅提高了系统服务的运行效率，但是服务的配置和以前版本完全不同，这是很大的进步，systemctl太简单易用了。 CentOS7添加自定义系统服务的步骤如下： 1）编写自定义的系统服务脚本文件； 2）用systemctl命令把自定义的系统服务设置为开机&#x2F;关机自启动&#x2F;停止">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-01-05T13:49:39.000Z">
+<meta property="article:modified_time" content="2023-01-05T13:55:42.954Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="凌亦零,网志,LingYiLing,笔记,博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/c61bfc2f/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CentOS7添加自定义系统服务',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-05 21:55:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CentOS7添加自定义系统服务</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-05T13:49:39.000Z" title="发表于 2023-01-05 21:49:39">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-05T13:55:42.954Z" title="更新于 2023-01-05 21:55:42">2023-01-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CentOS7添加自定义系统服务"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>CentOS 6版本的系统服务是/etc/init.d启动脚本的方式，CentOS 7采用强大的systemctl来管理系统服务，大幅提高了系统服务的运行效率，但是服务的配置和以前版本完全不同，这是很大的进步，systemctl太简单易用了。</p>
+<p>CentOS7添加自定义系统服务的步骤如下：</p>
+<p>1）编写自定义的系统服务脚本文件；</p>
+<p>2）用systemctl命令把自定义的系统服务设置为开机/关机自启动/停止。</p>
+<p>本文以Oracle数据库为例子来介绍添加自定义系统服务的知识。假设ORACLE_HOME环境变量的值是/oracle/home，各位根据自己的实际情况调整脚本的内容，把文中/oracle/home替换成您ORACLE_HOME的值。</p>
+<h1 id="一-编写oracle数据库启动重启关闭的脚本"><a class="markdownIt-Anchor" href="#一-编写oracle数据库启动重启关闭的脚本"></a> 一、编写Oracle数据库启动/重启/关闭的脚本</h1>
+<h2 id="1-启动oracle数据库的shell脚本"><a class="markdownIt-Anchor" href="#1-启动oracle数据库的shell脚本"></a> 1、启动Oracle数据库的shell脚本</h2>
+<p>启动Oracle数据库的脚本为/oracle/home/bin/dbstart，内容如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlplus / as sysdba &lt;&lt;EOF</span><br><span class="line">startup;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>修改脚本的权限为可执行。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /oracle/home/bin/dbstart</span><br></pre></td></tr></table></figure>
+<h2 id="2-重启oracle数据库的shell脚本"><a class="markdownIt-Anchor" href="#2-重启oracle数据库的shell脚本"></a> 2、重启Oracle数据库的shell脚本</h2>
+<p>启动Oracle数据库的脚本为/oracle/home/bin/dbrestart，内容如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqlplus / as sysdba &lt;&lt;EOF</span><br><span class="line">shutdown immediate;</span><br><span class="line">startup;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>修改脚本的权限为可执行。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /oracle/home/bin/dbrestart</span><br></pre></td></tr></table></figure>
+<h2 id="3-关闭oracle数据库的shell脚本"><a class="markdownIt-Anchor" href="#3-关闭oracle数据库的shell脚本"></a> 3、关闭Oracle数据库的shell脚本</h2>
+<p>启动Oracle数据库的脚本为/oracle/home/bin/dbshut，内容如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlplus / as sysdba &lt;&lt;EOF</span><br><span class="line">shutdown immediate;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>修改脚本的权限为可执行。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /oracle/home/bin/dbshut</span><br></pre></td></tr></table></figure>
+<h1 id="二-编写自定义服务的配置文件"><a class="markdownIt-Anchor" href="#二-编写自定义服务的配置文件"></a> 二、编写自定义服务的配置文件</h1>
+<p>系统服务的启动/重启/停止由它的配置文件决定，本文把Oracle数据库的系统服务命名为oracle.service。</p>
+<p>创建服务配置文件/usr/lib/systemd/system/oracle.service，内容如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Oracle RDBMS</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/su - oracle -c <span class="string">&quot;/oracle/home/bin/dbstart &gt;&gt; /tmp/oracle.log&quot;</span></span><br><span class="line">ExecReload=/usr/bin/su - oracle -c <span class="string">&quot;/oracle/home/bin/dbrestart &gt;&gt; /tmp/oracle.log&quot;</span></span><br><span class="line">ExecStop=/usr/bin/su - oracle -c <span class="string">&quot;/oracle/home/bin/dbshut &gt;&gt; /tmp/oracle.log&quot;</span></span><br><span class="line">RemainAfterExit=yes</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>接下来介绍服务配置文件各部分的含义。</p>
+<h2 id="1-unit部分"><a class="markdownIt-Anchor" href="#1-unit部分"></a> 1、Unit部分</h2>
+<p>Unit部分是启动顺序与依赖关系。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Oracle RDBMS</span><br><span class="line">After=network.target</span><br></pre></td></tr></table></figure>
+<p>Description字段：给出当前服务的简单描述。</p>
+<p>Documentation字段：给出文档位置。</p>
+<p>After字段：表示本服务应该在某服务之后启动。</p>
+<p>Before字段：表示本服务应该在某服务之前启动。</p>
+<p>After和Before字段只涉及启动顺序，不涉及依赖关系。设置依赖关系，需要使用Wants字段和Requires字段。</p>
+<p>Wants字段：表示本服务与某服务之间存在“依赖”系，如果被依赖的服务启动失败或停止运行，不影响本服务的继续运行。</p>
+<p>Requires字段，表示本服务与某服务之间存在“强依赖”系，如果被依赖的服务启动失败或停止运行，本服务也必须退出。</p>
+<h2 id="2-service部分"><a class="markdownIt-Anchor" href="#2-service部分"></a> 2、Service部分</h2>
+<p>Service部分定义如何启动/重启/停止服务。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/su - oracle -c <span class="string">&quot;/oracle/home/bin/dbstart &gt;&gt; /tmp/oracle.log&quot;</span></span><br><span class="line">ExecReload=/usr/bin/su - oracle -c <span class="string">&quot;/oracle/home/bin/dbrestart &gt;&gt; /tmp/oracle.log&quot;</span></span><br><span class="line">ExecStop=/usr/bin/su - oracle -c <span class="string">&quot;/oracle/home/bin/dbshut &gt;&gt; /tmp/oracle.log&quot;</span></span><br><span class="line">RemainAfterExit=yes</span><br></pre></td></tr></table></figure>
+<p>1）启动类型（Type字段）</p>
+<p>Type字段定义启动类型。它可以设置的值如下。</p>
+<p>simple（默认值）：ExecStart字段启动的进程为主进程。</p>
+<p>forking：ExecStart字段将以fork()方式启动，此时父进程将会退出，子进程将成为主进程。</p>
+<p>oneshot：类似于simple，但只执行一次，Systemd会等它执行完，才启动其他服务。</p>
+<p>dbus：类似于simple，但会等待D-Bus信号后启动。</p>
+<p>notify：类似于simple，启动结束后会发出通知信号，然后Systemd再启动其他服务。</p>
+<p>idle：类似于simple，但是要等到其他任务都执行完，才会启动该服务。</p>
+<p>2）启动服务（ExecStart字段）</p>
+<p>启动服务时执行的命令，可以是可执行程序、系统命令或shell脚本。</p>
+<p>3）重启服务（ExecReload字段）</p>
+<p>重启服务时执行的命令，可以是可执行程序、系统命令或shell脚本。</p>
+<p>4）停止服务（ExecStop字段）</p>
+<p>停止服务时执行的命令，可以是可执行程序、系统命令或shell脚本。</p>
+<p>5）如果RemainAfterExit字段设为yes，表示进程退出以后，服务仍然保持执行。</p>
+<p>6）服务配置文件还可以读取环境变量参数文件，我个人认为比较麻烦，没有必要，就不介绍了，设置程序的环境变量有很多种方法，可以在脚本中配置，也可以用“su<br />
+–”的方法。</p>
+<h2 id="3-install部分"><a class="markdownIt-Anchor" href="#3-install部分"></a> 3、Install部分</h2>
+<p>Install部分定义如何安装这个配置文件，即怎样做到开机启动。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>WantedBy字段：表示该服务所在的Target。</p>
+<p>Target的含义是服务组，表示一组服务。WantedBy=multi-user.target指的是，oracle所在的Target是multi-user.target（多用户模式）。</p>
+<p>这个设置非常重要，因为执行systemctl enable<br />
+oracle.service命令时，oracle.service会被链接到/etc/systemd/system/multi-user.target.wants目录之中，实现开机启动的功能。</p>
+<h2 id="4-重启行为"><a class="markdownIt-Anchor" href="#4-重启行为"></a> 4、重启行为</h2>
+<p>Service部分还有一些字段，定义了重启行为。</p>
+<p>1）KillMode字段</p>
+<p>KillMode字段定义Systemd如何停止sshd服务，可以设置的值如下：</p>
+<p>control-group（默认值）：当前控制组里面的所有子进程，都会被杀掉。</p>
+<p>process：只杀主进程。</p>
+<p>mixed：主进程将收到SIGTERM信号，子进程收到SIGKILL信号。</p>
+<p>none：没有进程会被杀掉，只是执行服务的stop命令。</p>
+<p>2）Restart字段</p>
+<p>Restart字段定义了服务程序退出后，Systemd的重启方式，可以设置的值如下：</p>
+<p>no（默认值）：退出后不会重启。</p>
+<p>on-success：只有正常退出时（退出状态码为0），才会重启。</p>
+<p>on-failure：非正常退出时（退出状态码非0），包括被信号终止和超时，才会重启。</p>
+<p>on-abnormal：只有被信号终止和超时，才会重启。</p>
+<p>on-abort：只有在收到没有捕捉到的信号终止时，才会重启。</p>
+<p>on-watchdog：超时退出，才会重启。</p>
+<p>always：不管是什么退出原因，总是重启。</p>
+<p>3）RestartSec字段。</p>
+<p>RestartSec字段：表示Systemd重启服务之前，需要等待的秒数。</p>
+<h1 id="三-使用自定义的服务"><a class="markdownIt-Anchor" href="#三-使用自定义的服务"></a> 三、使用自定义的服务</h1>
+<h2 id="1-重新加载服务配置文件"><a class="markdownIt-Anchor" href="#1-重新加载服务配置文件"></a> 1、重新加载服务配置文件</h2>
+<p>每次修改了服务配置文件后，需要执行以下命令重新加载服务的配置文件。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<h2 id="2-启动停止启重oracle服务"><a class="markdownIt-Anchor" href="#2-启动停止启重oracle服务"></a> 2、启动/停止/启重oracle服务</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl start oracle # 启动oracle服务。</span><br><span class="line"></span><br><span class="line">systemctl restart oracle # 重启oracle服务。</span><br><span class="line"></span><br><span class="line">systemctl stop oracle # 关闭oracle服务。</span><br></pre></td></tr></table></figure>
+<h2 id="3-把oracle服务设置为开机关机自启动停止"><a class="markdownIt-Anchor" href="#3-把oracle服务设置为开机关机自启动停止"></a> 3、把oracle服务设置为开机/关机自启动/停止</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl is-enabled oracle # 查看oracle服务是否是开机自启动。</span><br><span class="line"></span><br><span class="line">systemctl enable oracle # 把oracle服务设置为开机自启动。</span><br></pre></td></tr></table></figure>
+<h2 id="4-查看oracle实例启动停止的日志"><a class="markdownIt-Anchor" href="#4-查看oracle实例启动停止的日志"></a> 4、查看Oracle实例启动/停止的日志</h2>
+<p>Oracle实例启动的日志在/tmp/oracle.log文件中。</p>
+<p>注意，只有通过systemctl启动/关闭Oracle实例和监听才会写日志，手工执行脚本不写日志。</p>
+<h1 id="四-版权声明"><a class="markdownIt-Anchor" href="#四-版权声明"></a> 四、版权声明</h1>
+<p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。</p>
+<p>来源：C语言技术网（<a target="_blank" rel="noopener" href="http://www.freecplus.net">www.freecplus.net</a>）</p>
+<p>作者：码农有道</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/bce3b467/" title="Centos7配置IP地址和DNS"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Centos7配置IP地址和DNS</div></div></a></div><div class="next-post pull-right"><a href="/posts/c1035555/" title="CentOS7计划任务crontab"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CentOS7计划任务crontab</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E7%BC%96%E5%86%99oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%AF%E5%8A%A8%E9%87%8D%E5%90%AF%E5%85%B3%E9%97%AD%E7%9A%84%E8%84%9A%E6%9C%AC"><span class="toc-text"> 一、编写Oracle数据库启动&#x2F;重启&#x2F;关闭的脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%90%AF%E5%8A%A8oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84shell%E8%84%9A%E6%9C%AC"><span class="toc-text"> 1、启动Oracle数据库的shell脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%87%8D%E5%90%AForacle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84shell%E8%84%9A%E6%9C%AC"><span class="toc-text"> 2、重启Oracle数据库的shell脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%85%B3%E9%97%ADoracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84shell%E8%84%9A%E6%9C%AC"><span class="toc-text"> 3、关闭Oracle数据库的shell脚本</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E7%BC%96%E5%86%99%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text"> 二、编写自定义服务的配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-unit%E9%83%A8%E5%88%86"><span class="toc-text"> 1、Unit部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-service%E9%83%A8%E5%88%86"><span class="toc-text"> 2、Service部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-install%E9%83%A8%E5%88%86"><span class="toc-text"> 3、Install部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%87%8D%E5%90%AF%E8%A1%8C%E4%B8%BA"><span class="toc-text"> 4、重启行为</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-text"> 三、使用自定义的服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%87%8D%E6%96%B0%E5%8A%A0%E8%BD%BD%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text"> 1、重新加载服务配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8%E5%81%9C%E6%AD%A2%E5%90%AF%E9%87%8Doracle%E6%9C%8D%E5%8A%A1"><span class="toc-text"> 2、启动&#x2F;停止&#x2F;启重oracle服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%8A%8Aoracle%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E4%B8%BA%E5%BC%80%E6%9C%BA%E5%85%B3%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%E5%81%9C%E6%AD%A2"><span class="toc-text"> 3、把oracle服务设置为开机&#x2F;关机自启动&#x2F;停止</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8Boracle%E5%AE%9E%E4%BE%8B%E5%90%AF%E5%8A%A8%E5%81%9C%E6%AD%A2%E7%9A%84%E6%97%A5%E5%BF%97"><span class="toc-text"> 4、查看Oracle实例启动&#x2F;停止的日志</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-text"> 四、版权声明</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

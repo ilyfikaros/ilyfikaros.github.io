@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Oracle存储过程 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、存储过程的概念 存储过程（stored procedure）是Oracle数据库中为了完成某功能的PL&#x2F;SQL代码集，就像没有返回值的自定义函数。  二、存储过程的创建、调用和权限  1、创建存储过程 12345678910111213create or replace procedure 存储过程名(参数1 模式 数据类型,......)as&#x2F;is  -- 定义局部变量  变量1 数据类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle存储过程">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/6fb0b350/index.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="一、存储过程的概念 存储过程（stored procedure）是Oracle数据库中为了完成某功能的PL&#x2F;SQL代码集，就像没有返回值的自定义函数。  二、存储过程的创建、调用和权限  1、创建存储过程 12345678910111213create or replace procedure 存储过程名(参数1 模式 数据类型,......)as&#x2F;is  -- 定义局部变量  变量1 数据类型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-01-05T14:21:11.000Z">
+<meta property="article:modified_time" content="2023-01-05T15:02:37.188Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="凌亦零,网志,LingYiLing,笔记,博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/6fb0b350/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Oracle存储过程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-05 23:02:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Oracle存储过程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-05T14:21:11.000Z" title="发表于 2023-01-05 22:21:11">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-05T15:02:37.188Z" title="更新于 2023-01-05 23:02:37">2023-01-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Oracle存储过程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一-存储过程的概念"><a class="markdownIt-Anchor" href="#一-存储过程的概念"></a> 一、存储过程的概念</h1>
+<p>存储过程（stored procedure）是Oracle数据库中为了完成某功能的PL/SQL代码集，就像没有返回值的自定义函数。</p>
+<h1 id="二-存储过程的创建-调用和权限"><a class="markdownIt-Anchor" href="#二-存储过程的创建-调用和权限"></a> 二、存储过程的创建、调用和权限</h1>
+<h2 id="1-创建存储过程"><a class="markdownIt-Anchor" href="#1-创建存储过程"></a> 1、创建存储过程</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">create <span class="keyword">or</span> replace procedure 存储过程名(参数<span class="number">1</span> 模式 数据类型,......)</span><br><span class="line">as/is</span><br><span class="line">  -- 定义局部变量</span><br><span class="line">  变量<span class="number">1</span> 数据类型;</span><br><span class="line">  ......</span><br><span class="line">begin</span><br><span class="line">  -- 实现存储过程功能的PL/SQL代码。</span><br><span class="line">  ......</span><br><span class="line">  exception</span><br><span class="line">  -- 异常处理的PL/SQL代码。</span><br><span class="line">  ......</span><br><span class="line">end;</span><br><span class="line">/</span><br></pre></td></tr></table></figure>
+<p>1）参数的模式有三种：</p>
+<p><strong>in</strong>：只读模式，在函数中，参数只能被引用/读取，不能改变它的值。</p>
+<p><strong>out</strong>：只写模式，参数只能被赋值，不能被引用/读取。</p>
+<p><strong>in out</strong>：可读可写。</p>
+<p>参数的模式可以不写，缺省为in，out和in out两种模式极少使用。</p>
+<p>2）as/is二选一，在这里没有区别。</p>
+<p>3）可以不定义局部变量。</p>
+<p>4）可以没有异常（exception）处理代码段。</p>
+<p>示例：</p>
+<p>1）生成测试数据，脚本如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">create table <span class="title">T_GIRL</span></span></span><br><span class="line"><span class="function"><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  id        <span class="type">char</span>(<span class="number">4</span>)         <span class="keyword">not</span> null,   -- 编号</span></span></span><br><span class="line"><span class="params"><span class="function">  name      varchar2(<span class="number">30</span>)    <span class="keyword">not</span> null,   -- 姓名</span></span></span><br><span class="line"><span class="params"><span class="function">  yz        varchar2(<span class="number">20</span>)        null,   -- 颜值</span></span></span><br><span class="line"><span class="params"><span class="function">  sc        varchar2(<span class="number">20</span>)        null,   -- 身材</span></span></span><br><span class="line"><span class="params"><span class="function">  weight    number(<span class="number">4</span>,<span class="number">1</span>)     <span class="keyword">not</span> null,   -- 体重</span></span></span><br><span class="line"><span class="params"><span class="function">  height    number(<span class="number">3</span>)       <span class="keyword">not</span> null,   -- 身高</span></span></span><br><span class="line"><span class="params"><span class="function">  birthday  date            <span class="keyword">not</span> null,   -- 出生时间</span></span></span><br><span class="line"><span class="params"><span class="function">  memo      varchar2(<span class="number">1000</span>)      null    -- 备注</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"><span class="function">insert into <span class="title">T_GIRL</span><span class="params">(id,name,yz,birthday,sc,weight,height,memo)</span></span></span><br><span class="line"><span class="function">  <span class="title">values</span><span class="params">(<span class="string">&#x27;0101&#x27;</span>,<span class="string">&#x27;西施&#x27;</span>,<span class="string">&#x27;漂亮&#x27;</span>,to_date(<span class="string">&#x27;2000-01-01 01:12:35&#x27;</span>,<span class="string">&#x27;yyyy-mm-dd hh24:mi:ss&#x27;</span>),</span></span></span><br><span class="line"><span class="params"><span class="function">         <span class="string">&#x27;火辣&#x27;</span>,<span class="number">48.5</span>,<span class="number">170</span>,<span class="string">&#x27;这是一个非常漂亮姑娘，老公是夫差，男朋友是范蠡。&#x27;</span>)</span></span>;</span><br><span class="line"><span class="function">insert into <span class="title">T_GIRL</span><span class="params">(id,name,yz,birthday,sc,weight,height,memo)</span></span></span><br><span class="line"><span class="function">  <span class="title">values</span><span class="params">(<span class="string">&#x27;0102&#x27;</span>,<span class="string">&#x27;貂禅&#x27;</span>,<span class="string">&#x27;漂亮&#x27;</span>,to_date(<span class="string">&#x27;1997-08-02 12:20:38&#x27;</span>,<span class="string">&#x27;yyyy-mm-dd hh24:mi:ss&#x27;</span>),</span></span></span><br><span class="line"><span class="params"><span class="function">         <span class="string">&#x27;苗条&#x27;</span>,<span class="number">45.2</span>,<span class="number">168</span>,<span class="string">&#x27;王允真不是男人，干不过董卓就把美人往火坑里推，千古罪人啊。&#x27;</span>)</span></span>;</span><br><span class="line"><span class="function">insert into <span class="title">T_GIRL</span><span class="params">(id,name,yz,birthday,sc,weight,height,memo)</span></span></span><br><span class="line"><span class="function">  <span class="title">values</span><span class="params">(<span class="string">&#x27;0103&#x27;</span>,<span class="string">&#x27;妲已&#x27;</span>,<span class="string">&#x27;漂亮&#x27;</span>,to_date(<span class="string">&#x27;1998-03-03 10:50:33&#x27;</span>,<span class="string">&#x27;yyyy-mm-dd hh24:mi:ss&#x27;</span>),</span></span></span><br><span class="line"><span class="params"><span class="function">         <span class="string">&#x27;火辣&#x27;</span>,<span class="number">53.6</span>,<span class="number">172</span>,<span class="string">&#x27;如果商真的因我而亡，您们男人做什么去了？&#x27;</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>2）创建存储过程girlinfo，传入超女id参数，显示超女的基本信息。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">create <span class="keyword">or</span> replace procedure <span class="title">girlinfo</span><span class="params">(in_id varchar2)</span></span></span><br><span class="line"><span class="function">is</span></span><br><span class="line"><span class="function">  s_name      <span class="title">varchar2</span><span class="params">(<span class="number">30</span>)</span></span>;   -- 姓名</span><br><span class="line">  <span class="function">s_yz        <span class="title">varchar2</span><span class="params">(<span class="number">20</span>)</span></span>;   -- 颜值</span><br><span class="line">  <span class="function">s_height    <span class="title">number</span><span class="params">(<span class="number">3</span>)</span></span>;      -- 身高</span><br><span class="line">begin</span><br><span class="line">  select name,yz,height into s_name,s_yz,s_height from T_GIRL where id=in_id;</span><br><span class="line">  dbms_output.<span class="built_in">put_line</span>(<span class="string">&#x27;姓名：&#x27;</span>||s_name||<span class="string">&#x27;颜值：&#x27;</span>||s_yz||<span class="string">&#x27;身高：&#x27;</span>||s_height);</span><br><span class="line">  exception                           </span><br><span class="line">  when others then</span><br><span class="line">  dbms_output.<span class="built_in">put_line</span>(<span class="string">&#x27;输入的id（&#x27;</span>||in_id||<span class="string">&#x27;）不正确，查询无结果。&#x27;</span>);</span><br><span class="line">end;                           </span><br><span class="line">/</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200311154427466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MTMzODk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<h2 id="2-存储过程的调用"><a class="markdownIt-Anchor" href="#2-存储过程的调用"></a> 2、存储过程的调用</h2>
+<p>1）直接执行</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exec 存储过程名(参数,……);</span><br><span class="line">execute 存储过程名(参数,……);</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<p>在上面创建的存储过程中用到了dbms_output，在sqlplus中要先执行set serveroutput on;才能输出内容。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200311154457646.png" alt="在这里插入图片描述" /></p>
+<p>2）在PL/SQL过程中调用</p>
+<p><img src="https://img-blog.csdnimg.cn/20200311154508430.png" alt="在这里插入图片描述" /></p>
+<h2 id="3-存储过程的权限"><a class="markdownIt-Anchor" href="#3-存储过程的权限"></a> 3、存储过程的权限</h2>
+<p>存储过程是数据库对象，Oracle对它权限管理方式与其它数据库对象相同。</p>
+<p>如果getinfo函数是用scott用户创建的，其它用户调用时需要加scott用户名前缀，并且具备相应的权限，否则会出现“<code>PLS-00201:必须声明标识符 'GIRLINFO'</code>”的错误。</p>
+<h1 id="三-删除存储过程"><a class="markdownIt-Anchor" href="#三-删除存储过程"></a> 三、删除存储过程</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop procedure 存储过程名;</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop procedure girlinfo;</span><br></pre></td></tr></table></figure>
+<h1 id="四-plsql语言"><a class="markdownIt-Anchor" href="#四-plsql语言"></a> 四、PL/SQL语言</h1>
+<p>PL/SQL是一种程序语言，叫做过程化SQL语言（Procedural Language/SQL）包括一整套的数据类型、条件结构、循环结构和异常处理结构，PL/SQL可以执行SQL语句，SQL语句中也可以使用PL/SQL函数。</p>
+<p>PL/SQL是Oracle数据库对SQL语句的扩展，在普通SQL语句的使用上增加了编程语言的特点，所以PL/SQL把数据操作和查询语句组织在PL/SQL代码的过程性单元中，通过逻辑判断、循环等操作实现复杂的功能或者计算。</p>
+<h1 id="五-应用经验"><a class="markdownIt-Anchor" href="#五-应用经验"></a> 五、应用经验</h1>
+<p>关于存储过程的优缺点，本人查找了一些资料，以下文字来源于百度百科。</p>
+<h2 id="1-存储过程的优点"><a class="markdownIt-Anchor" href="#1-存储过程的优点"></a> 1、存储过程的优点</h2>
+<p>1）重复使用：存储过程可以重复使用，从而可以减少数据库开发人员的工作量。</p>
+<p>2）存储过程位于服务器上，调用的时候只需要传递存储过程的名称以及参数就可以了，因此降低了网络传输的数据量。</p>
+<p>3）参数化的存储过程可以防止SQL注入式攻击，而且可以将Grant、Deny以及Revoke权限应用于存储过程，提高了安全性。</p>
+<p>4）存储过程只在创造时进行编译，以后每次执行存储过程都不需再重新编译，而一般SQL语句每执行一次就编译一次,所以使用存储过程可提高数据库执行速度。</p>
+<h2 id="2-存储过程的缺点"><a class="markdownIt-Anchor" href="#2-存储过程的缺点"></a> 2、存储过程的缺点</h2>
+<p>1）调试麻烦，但是用 PL/SQL Developer 调试很方便！弥补这个缺点。</p>
+<p>2）移植问题，数据库端代码当然是与数据库相关的。但是如果是做工程型项目，基本不存在移植问题。</p>
+<p>3）重新编译问题，因为后端代码是运行前编译的，如果带有引用关系的对象发生改变时，受影响的存储过程、包将需要重新编译（不过也可以设置成运行时刻自动编译）。</p>
+<p>4）如果在一个程序系统中大量的使用存储过程，到程序交付使用的时候随着用户需求的增加会导致数据结构的变化，接着就是系统的相关问题了，最后如果用户想维护该系统可以说是很难很难、而且代价是空前的，维护起来更麻烦。</p>
+<h2 id="3-我的看法"><a class="markdownIt-Anchor" href="#3-我的看法"></a> 3、我的看法</h2>
+<p>1）存储过程不会有任何性能的优势。</p>
+<p>2）调用远程存储过程减少网络流量的说活太牵强，并且，调用远程存储过程的风险很大。</p>
+<p>3）存储过程不能减少开发的工作量，PL/SQL也是一种开发语言，对开发者来说，要付出学习成本。</p>
+<p>4）存储过程的调试、重新编译、兼容、维护等问题，任何一项都是很麻烦。</p>
+<p>存储过程没有任何优点，作为一个程序员，我从来不用存储过程，大家对于这方面的知识了解即可，不必深入学习。</p>
+<h1 id="六-oracle的包"><a class="markdownIt-Anchor" href="#六-oracle的包"></a> 六、Oracle的包</h1>
+<p>PL/SQL为了满足程序模块化的需要，引入了包的构造，把存储过程、函数组合起来就成了包，通过使用包就可以分类管理存储过程和函数。有点类似C++中的命名空间。存储过程的应用场景已经很少，包就更少了。</p>
+<h1 id="七-版权声明"><a class="markdownIt-Anchor" href="#七-版权声明"></a> 七、版权声明</h1>
+<p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。<br />
+来源：C语言技术网（<a target="_blank" rel="noopener" href="http://www.freecplus.net">www.freecplus.net</a>）<br />
+作者：码农有道</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/171b244/" title="Oracle触发器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Oracle触发器</div></div></a></div><div class="next-post pull-right"><a href="/posts/32c920a8/" title="Oracle自定义函数"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Oracle自定义函数</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text"> 一、存储过程的概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA-%E8%B0%83%E7%94%A8%E5%92%8C%E6%9D%83%E9%99%90"><span class="toc-text"> 二、存储过程的创建、调用和权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="toc-text"> 1、创建存储过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%9A%84%E8%B0%83%E7%94%A8"><span class="toc-text"> 2、存储过程的调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%9A%84%E6%9D%83%E9%99%90"><span class="toc-text"> 3、存储过程的权限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E5%88%A0%E9%99%A4%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="toc-text"> 三、删除存储过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-plsql%E8%AF%AD%E8%A8%80"><span class="toc-text"> 四、PL&#x2F;SQL语言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-%E5%BA%94%E7%94%A8%E7%BB%8F%E9%AA%8C"><span class="toc-text"> 五、应用经验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text"> 1、存储过程的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text"> 2、存储过程的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%88%91%E7%9A%84%E7%9C%8B%E6%B3%95"><span class="toc-text"> 3、我的看法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD-oracle%E7%9A%84%E5%8C%85"><span class="toc-text"> 六、Oracle的包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83-%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-text"> 七、版权声明</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

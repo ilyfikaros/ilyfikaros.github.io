@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>C语言格式化输出 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、格式化输出 格式化输出的函数有printf、sprintf和snprintf等，功能略有不同，使用方法大同小异，本章节我们先以printf为例。 对于 printf 函数，相信大家并不陌生。之所以称它为格式化输出函数，该函数的声名如下： 1int printf(const char *format, ...) 大家看到printf函数的声明就会有点懵，它参数的写法与我们之前学到的函数知识不一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言格式化输出">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/e45b3b92/index.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="一、格式化输出 格式化输出的函数有printf、sprintf和snprintf等，功能略有不同，使用方法大同小异，本章节我们先以printf为例。 对于 printf 函数，相信大家并不陌生。之所以称它为格式化输出函数，该函数的声名如下： 1int printf(const char *format, ...) 大家看到printf函数的声明就会有点懵，它参数的写法与我们之前学到的函数知识不一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-01-05T09:02:33.000Z">
+<meta property="article:modified_time" content="2023-01-07T08:40:19.639Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/e45b3b92/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C语言格式化输出',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-07 16:40:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C语言格式化输出</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-05T09:02:33.000Z" title="发表于 2023-01-05 17:02:33">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-07T08:40:19.639Z" title="更新于 2023-01-07 16:40:19">2023-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/C%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF%E7%BD%91/">C语言技术网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C语言格式化输出"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一-格式化输出"><a class="markdownIt-Anchor" href="#一-格式化输出"></a> 一、格式化输出</h1>
+<p>格式化输出的函数有printf、sprintf和snprintf等，功能略有不同，使用方法大同小异，本章节我们先以printf为例。</p>
+<p>对于 printf 函数，相信大家并不陌生。之所以称它为格式化输出函数，该函数的声名如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">printf</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *format, ...)</span></span></span><br></pre></td></tr></table></figure>
+<p>大家看到printf函数的声明就会有点懵，它参数的写法与我们之前学到的函数知识不一样，printf函数是一个“可变参数函数”（即函数参数的个数是可变的），可变参数函数的知识以后再介绍，现在只要知道怎么使用就行了。</p>
+<p>printf函数的参数的个数和类型都是可变的，每一个参数的输出格式都有对应的格式说明符与之对应，从格式串的左端第1 个格式说明符对应第 1 个输出参数，第 2 个格式说明符对应第 2 个输出参数，第 3个格式说明符对应第 3 个输出参数，以此类推。</p>
+<p>其中，格式说明符的形式如下（方括号 [] 中的项为可选项）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%[flags][width][.prec] type</span><br></pre></td></tr></table></figure>
+<h2 id="1-类型符type"><a class="markdownIt-Anchor" href="#1-类型符type"></a> 1、类型符（type）</h2>
+<p>它用以表示输出数据的类型，以下是常用类型的汇总，不常用的就不列了。</p>
+<p>%hd、%d、%ld 以十进制、有符号的形式输出 short、int、long 类型的整数。</p>
+<p>%hu、%u、%lu 以十进制、无符号的形式输出 short、int、long 类型的整数</p>
+<p>%c 输出字符。</p>
+<p>%lf 以普通方式输出double（float弃用，long doube无用）。</p>
+<p>%e 以科学计数法输出double。</p>
+<p>%s 输出字符串。</p>
+<p>以上输出数据的知识在之前介绍数据类型的时候已演示过，这里就不举例了。</p>
+<h2 id="2-宽度width"><a class="markdownIt-Anchor" href="#2-宽度width"></a> 2、宽度（width）</h2>
+<p>它用于控制输出内容的宽度。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%12s=\n&quot;</span>,<span class="string">&quot;abc&quot;</span>);     <span class="comment">// 输出=         abc=</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%12d=\n&quot;</span>,<span class="number">123</span>);       <span class="comment">// 输出=         123=</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%12lf=\n&quot;</span>,<span class="number">123.5</span>);    <span class="comment">// 输出=  123.500000=</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-对齐标志flags"><a class="markdownIt-Anchor" href="#3-对齐标志flags"></a> 3、对齐标志（flags）</h2>
+<p>flags它用于控制输出内容的对齐方式。</p>
+<p><strong>不填或+</strong>：输出的内容右对齐，这是缺省的方式，上一小节就是右对齐的示例。</p>
+<p><strong>-</strong>：输出的内容左对齐。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%-12s=\n&quot;</span>,<span class="string">&quot;abc&quot;</span>);    <span class="comment">// 输出=abc         =</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%-12d=\n&quot;</span>,<span class="number">123</span>);     <span class="comment">// 输出=123         =</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%-12f=\n&quot;</span>,<span class="number">123.5</span>);    <span class="comment">// 输出=123.500000  =</span></span><br></pre></td></tr></table></figure>
+<p>如果输出的内容是整数或浮点数，并且对齐的方式是右对齐，可以加0填充，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%012s=\n&quot;</span>,<span class="string">&quot;abc&quot;</span>);  <span class="comment">// 输出=         abc=</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%012d=\n&quot;</span>,<span class="number">123</span>);   <span class="comment">// 输出=000000000123=</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%012f=\n&quot;</span>,<span class="number">123.5</span>);  <span class="comment">// 输出=00123.500000= </span></span><br></pre></td></tr></table></figure>
+<p>从上面第一行代码的结果看出，输出的内容不是整数或浮点数，是字符串，不能在前面填0。</p>
+<p>左对齐的时候，能在整数或浮点数的后面补0吗？浮点数最多可以补到6位，整数不行，为什么？您的存款能在后面补0吗？</p>
+<h2 id="4-精度prec"><a class="markdownIt-Anchor" href="#4-精度prec"></a> 4、精度（prec）</h2>
+<p>如果输出的内容是浮点数，它用于控制输出内容的精度，也就是说小数点后面保留多少位，后面的数四舍五入。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%12.2lf=\n&quot;</span>,<span class="number">123.5</span>);   <span class="comment">// 输出=      123.50=</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%.2lf=\n&quot;</span>,<span class="number">123.5</span>);     <span class="comment">// 输出=123.50=</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%12.2e=\n&quot;</span>,<span class="number">123500000000.0</span>);  <span class="comment">// 输出=    1.24e+11=</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;=%.2e=\n&quot;</span>,<span class="number">123500000000.0</span>);    <span class="comment">// 输出=1.24e+11=</span></span><br></pre></td></tr></table></figure>
+<h1 id="二-格式化输出到字符串"><a class="markdownIt-Anchor" href="#二-格式化输出到字符串"></a> 二、格式化输出到字符串</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">printf</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *format, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">sprintf</span><span class="params">(<span class="type">char</span> *str, <span class="type">const</span> <span class="type">char</span> *format, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">snprintf</span><span class="params">(<span class="type">char</span> *str, <span class="type">size_t</span> size, <span class="type">const</span> <span class="type">char</span> *format, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>功能：printf是把结果输出到屏幕，sprintf把格式化输出的内容保存到字符串str中，snprintf的n类似于strncpy中的n，意思是只获取输出结果的前n-1个字符，不是n个字符。</p>
+<p>在之前的章节中，介绍过把字符串转换为整数和浮点数据的库函数，C语言没有提供把整数和浮点数据转换为字符串的库函数，而是采用sprintf和snprintf函数格式化输出到字符串。</p>
+<p><strong>示例（book98.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 程序名：book98.c，此程序演示格式化输出sprintf和snprintf函数。</span></span><br><span class="line"><span class="comment"> * 作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="type">char</span> str[<span class="number">301</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 格式化输出到str中</span></span><br><span class="line">  <span class="built_in">sprintf</span>(str,<span class="string">&quot;%d,%c,%f,%s&quot;</span>,<span class="number">10</span>,<span class="string">&#x27;A&#x27;</span>,<span class="number">25.97</span>,<span class="string">&quot;一共输入了三个数。&quot;</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,str);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 格式化输出到str中，只截取前7个字符</span></span><br><span class="line">  <span class="built_in">snprintf</span>(str,<span class="number">8</span>,<span class="string">&quot;%d,%c,%f,%s&quot;</span>,<span class="number">10</span>,<span class="string">&#x27;A&#x27;</span>,<span class="number">25.97</span>,<span class="string">&quot;一共输入了三个数。&quot;</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行结果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200304104504898.png" alt="在这里插入图片描述" /></p>
+<p>程序运行第二行只输出了6个字符，注意，snprintf函数在unix和windows平台下的表现略有不同，在windows平台下，第二行会输出7个字符。</p>
+<h1 id="三-c语言代码的多行书写"><a class="markdownIt-Anchor" href="#三-c语言代码的多行书写"></a> 三、C语言代码的多行书写</h1>
+<p>在我们之前学习的过程中，编写的程序的功能很简单，一句代码很短，但是在实际开发中，参数往往很长很多，一句代码可能会很长，需要用多行才能书写。</p>
+<p>如果我们在一行代码的行尾放置一个反斜杠，c语言编译器会忽略行尾的换行符，而把下一行的内容也算作是本行的内容。这里反斜杠起到了续行的作用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">strcpy</span>(str,<span class="string">&quot;aaaaaaaaaa\</span></span><br><span class="line"><span class="string">bbbbbbbbb);</span></span><br></pre></td></tr></table></figure>
+<p>如果我们不使用反斜杠，当我们试图初始化一个跨多行的字符串时，c语言编译器可能会发出警告或错误，如下面的语句是不正确的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">strcpy</span>(str,<span class="string">&quot;aaaaaaaaaa</span></span><br><span class="line"><span class="string">bbbbbbbbb);</span></span><br></pre></td></tr></table></figure>
+<p>C语言中还有字符串多行书写的方法，那就是将它写个多个字符串，C语言编译器会自动将这些字符串连接起来，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">strcpy</span>(str,<span class="string">&quot;aaabbbccc&quot;</span>);</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;str=%s=\n&quot;</span>,str);   <span class="comment">// 输出str=aaabbbccc=</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">strcpy</span>(str,<span class="string">&quot;aaa&quot;</span><span class="string">&quot;bbb&quot;</span><span class="string">&quot;ccc&quot;</span>);</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;str=%s=\n&quot;</span>,str);   <span class="comment">// 输出str=aaabbbccc=</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">strcpy</span>(str,<span class="string">&quot;aaa&quot;</span>\</span><br><span class="line">            <span class="string">&quot;bbb&quot;</span>\</span><br><span class="line">            <span class="string">&quot;ccc&quot;</span>);</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;str=%s=\n&quot;</span>,str);   <span class="comment">// 输出str=aaabbbccc=</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="built_in">sprintf</span>(str,<span class="string">&quot;aaabbbccc&quot;</span>);</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;str=%s=\n&quot;</span>,str);   <span class="comment">// 输出str=aaabbbccc=</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">sprintf</span>(str,<span class="string">&quot;aaa&quot;</span><span class="string">&quot;bbb&quot;</span><span class="string">&quot;ccc&quot;</span>);</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;str=%s=\n&quot;</span>,str);   <span class="comment">// 输出str=aaabbbccc=</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">sprintf</span>(str,<span class="string">&quot;aaa&quot;</span>\</span><br><span class="line">             <span class="string">&quot;bbb&quot;</span>\</span><br><span class="line">             <span class="string">&quot;ccc&quot;</span>);</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;str=%s=\n&quot;</span>,str);   <span class="comment">// 输出str=aaabbbccc=</span></span><br></pre></td></tr></table></figure>
+<p>以上每段代码的输出结果完全一样，表达式：“aaa”  “bbb” “ccc” 实际上相当于&quot;aaabbbccc&quot;。</p>
+<p>把字符串很长，参数很多的代码用多行书写，可以使程序代码结构更清晰，以下代码是我实际开发中用到的一句代码，这还不算长的。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200304104727548.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MTMzODk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<h1 id="四-课后作业"><a class="markdownIt-Anchor" href="#四-课后作业"></a> 四、课后作业</h1>
+<p>1）编写示例程序，把本章节介绍的知识点全部演示一遍，用程序演示可以加深您的理解和映象。</p>
+<p>2）编写一个解析XML字符串的函数。</p>
+<p>函数声明：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span>  <span class="title">GetXMLBuffer</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *in_XMLBuffer,<span class="type">const</span> <span class="type">char</span> *in_FieldName,<span class="type">char</span> *out_Value)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>in_XMLBuffer，XML格式的字符串，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;name&gt;西施&lt;/name&gt;&lt;age&gt;<span class="number">18</span>&lt;/age&gt;&lt;sc&gt;火辣&lt;/sc&gt;&lt;yz&gt;漂亮&lt;/yz&gt;</span><br></pre></td></tr></table></figure>
+<p>in_FieldName，字段的标签名。</p>
+<p>out_Value，获取内容存放的变量的指针。</p>
+<p>返回值，0-成功，-1-失败。</p>
+<p>调用示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> strXMLBuffer[<span class="number">1024</span>];</span><br><span class="line"><span class="built_in">strcpy</span>(strXMLBuffer,<span class="string">&quot; &lt;name&gt;西施&lt;/name&gt;&lt;age&gt;18&lt;/age&gt;&lt;sc&gt;火辣&lt;/sc&gt;&lt;yz&gt;漂亮&lt;/yz&gt;&quot;</span>);</span><br><span class="line"><span class="type">char</span> strvalue[<span class="number">51</span>];</span><br><span class="line"><span class="built_in">GetXMLBuffer</span>(strXMLBuffer,<span class="string">&quot;name&quot;</span>,strvalue);   <span class="comment">// strvalue的内容将是&quot;西施&quot;</span></span><br><span class="line"><span class="built_in">GetXMLBuffer</span>(strXMLBuffer,<span class="string">&quot;age&quot;</span>,strvalue);     <span class="comment">// strvalue的内容将是&quot;18&quot;</span></span><br><span class="line"><span class="built_in">GetXMLBuffer</span>(strXMLBuffer,<span class="string">&quot;sc&quot;</span>,strvalue);       <span class="comment">// strvalue的内容将是&quot;火辣&quot;</span></span><br><span class="line"><span class="built_in">GetXMLBuffer</span>(strXMLBuffer,<span class="string">&quot;yz&quot;</span>,strvalue);       <span class="comment">// strvalue的内容将是&quot;漂亮&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="五-版权声明"><a class="markdownIt-Anchor" href="#五-版权声明"></a> 五、版权声明</h1>
+<p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。<br />
+来源：C语言技术网（<a target="_blank" rel="noopener" href="http://www.freecplus.net">www.freecplus.net</a>）<br />
+作者：码农有道</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C</a></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/adcf2046/" title="C语言main函数的参数"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C语言main函数的参数</div></div></a></div><div class="next-post pull-right"><a href="/posts/d6d91a4f/" title="C语言结构体"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C语言结构体</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/a0664f6d/" title="C语言程序的基本结构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言程序的基本结构</div></div></a></div><div><a href="/posts/a51a74ec/" title="C语言数据类型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言数据类型</div></div></a></div><div><a href="/posts/2e37bf79/" title="C语言常量、变量和关键字"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言常量、变量和关键字</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA"><span class="toc-text"> 一、格式化输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%B1%BB%E5%9E%8B%E7%AC%A6type"><span class="toc-text"> 1、类型符（type）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%BD%E5%BA%A6width"><span class="toc-text"> 2、宽度（width）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AF%B9%E9%BD%90%E6%A0%87%E5%BF%97flags"><span class="toc-text"> 3、对齐标志（flags）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%B2%BE%E5%BA%A6prec"><span class="toc-text"> 4、精度（prec）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text"> 二、格式化输出到字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-c%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81%E7%9A%84%E5%A4%9A%E8%A1%8C%E4%B9%A6%E5%86%99"><span class="toc-text"> 三、C语言代码的多行书写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A"><span class="toc-text"> 四、课后作业</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-text"> 五、版权声明</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

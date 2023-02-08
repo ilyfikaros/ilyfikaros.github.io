@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Linux调用可执行程序 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在C&#x2F;C程序中，经常需要调用其它的程序来先成某项任务，例如其它的C&#x2F;C程序、操作系统命令或Shell脚本，C&#x2F;C++提供了exec函数族和system函数来实现这个功能。  一、exec函数族 exec函数族提供了一个在进程中启动另一个程序执行的方法。它可以根据指定的文件名或目录名找到可执行文件，并用它来取代原调用进程的数据段、代码段和堆栈段，在执行完之后，原调用进程的内容除了进程号外，其他全部被">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux调用可执行程序">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/5a838d54/index.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="在C&#x2F;C程序中，经常需要调用其它的程序来先成某项任务，例如其它的C&#x2F;C程序、操作系统命令或Shell脚本，C&#x2F;C++提供了exec函数族和system函数来实现这个功能。  一、exec函数族 exec函数族提供了一个在进程中启动另一个程序执行的方法。它可以根据指定的文件名或目录名找到可执行文件，并用它来取代原调用进程的数据段、代码段和堆栈段，在执行完之后，原调用进程的内容除了进程号外，其他全部被">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-01-05T11:44:52.000Z">
+<meta property="article:modified_time" content="2023-01-18T17:20:46.450Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="CPP">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/5a838d54/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux调用可执行程序',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-19 01:20:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Linux调用可执行程序</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-05T11:44:52.000Z" title="发表于 2023-01-05 19:44:52">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-18T17:20:46.450Z" title="更新于 2023-01-19 01:20:46">2023-01-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/C%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF%E7%BD%91/">C语言技术网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux调用可执行程序"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>在C/C<ins>程序中，经常需要调用其它的程序来先成某项任务，例如其它的C/C</ins>程序、操作系统命令或Shell脚本，C/C++提供了exec函数族和system函数来实现这个功能。</p>
+<h1 id="一-exec函数族"><a class="markdownIt-Anchor" href="#一-exec函数族"></a> 一、exec函数族</h1>
+<p>exec函数族提供了一个在进程中启动另一个程序执行的方法。它可以根据指定的文件名或目录名找到可执行文件，并用它来取代原调用进程的数据段、代码段和堆栈段，在执行完之后，原调用进程的内容除了进程号外，其他全部被新的进程替换了。还有，这里的可执行文件既可以是二进制文件，也可以是Linux下任何可执行的脚本文件。</p>
+<p>exec函数族的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">execl</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path, <span class="type">const</span> <span class="type">char</span> *arg, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">execlp</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *file, <span class="type">const</span> <span class="type">char</span> *arg, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">execle</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path, <span class="type">const</span> <span class="type">char</span> *arg,..., <span class="type">char</span> * <span class="type">const</span> envp[])</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">execv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path, <span class="type">char</span> *<span class="type">const</span> argv[])</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">execvp</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *file, <span class="type">char</span> *<span class="type">const</span> argv[])</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">execvpe</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *file, <span class="type">char</span> *<span class="type">const</span> argv[],<span class="type">char</span> *<span class="type">const</span> envp[])</span></span>;</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<p>path：要执行的程序路径。可以是绝对路径或者是相对路径。在execv、execl和execle这三个函数中，使用带路径名的文件名作为参数。</p>
+<p>file：要执行的程序名称。如果该参数中包含“/”字符，则视为路径名直接执行；否则视为单独的文件名，系统将根据PATH环境变量指定的路径顺序搜索指定的文件。</p>
+<p>argv：命令行参数的数组。</p>
+<p>envp：带有该参数的exec函数可以在调用时指定一个环境变量数组。其他不带该参数的exec函数则使用调用者进程的环境变量。</p>
+<p>arg：程序的第0个参数，即程序名自身。相当于argv[0]。</p>
+<p>…：命令行参数列表。调用相应程序时有多少命令行参数，就需要有多少个输入参数项。注意：在使用此类函数时，在所有命令行参数的最后应该增加一个空的参数项(NULL)，表明命令行参数结束。</p>
+<p>如果执行失败则直接返回-1，失败原因存于errno 中。</p>
+<p>如果执行成功则函数不会返回，这句话可能难以理解，当在主程序中成功调用execl后，被调用的程序将取代调用者程序，也就是说，execl函数之后的代码都不会被执行。</p>
+<p>在实际开发中，最常用的是execl函数，其它的极少使用，我就不介绍了，如果大家认为execl满足不了实际开发的需求，再去研究其它几个函数。</p>
+<p><strong>示例（book266.cpp）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 程序名：book266.cpp，此程序用于演示用execl函数执行程序。</span></span><br><span class="line"><span class="comment"> * 作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> iret=<span class="built_in">execl</span>(<span class="string">&quot;/bin/lss&quot;</span>,<span class="string">&quot;/bin/ls&quot;</span>,<span class="string">&quot;-l&quot;</span>,<span class="string">&quot;/usr/include/stdio.h&quot;</span>,<span class="number">0</span>);   <span class="comment">// /bin/lss不存在，执行不能成功。</span></span><br><span class="line">  <span class="comment">// int iret=execl(&quot;/bin/ls&quot;,&quot;/bin/ls&quot;,&quot;-l&quot;,&quot;/usr/include/stdio.h&quot;,0); // 可以调用成功的代码。</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;iret=%d\n&quot;</span>,iret);</span><br><span class="line">  <span class="keyword">if</span> (iret==<span class="number">-1</span>) <span class="built_in">printf</span>(<span class="string">&quot;%d:%s\n&quot;</span>,errno,<span class="built_in">strerror</span>(errno));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们先测试执行失败的情况，启用以下代码。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> iret=<span class="built_in">execl</span>(<span class="string">&quot;/bin/lss&quot;</span>,<span class="string">&quot;/bin/ls&quot;</span>,<span class="string">&quot;-l&quot;</span>,<span class="string">&quot;/usr/include/stdio.h&quot;</span>,<span class="number">0</span>);   <span class="comment">// /bin/lss不存在，执行不能成功。</span></span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200306093252273.png" alt="在这里插入图片描述" /></p>
+<p>再测试执行成功的情况，启用以下代码。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> iret=<span class="built_in">execl</span>(<span class="string">&quot;/bin/ls&quot;</span>,<span class="string">&quot;/bin/ls&quot;</span>,<span class="string">&quot;-l&quot;</span>,<span class="string">&quot;/usr/include/stdio.h&quot;</span>,<span class="number">0</span>); <span class="comment">// 可以调用成功的代码。</span></span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200306093322697.png" alt="在这里插入图片描述" /></p>
+<p>从book266执行的结果可以看出，主程序中成功调用execl后，execl函数之后的代码都不会被执行。</p>
+<h1 id="二-system函数"><a class="markdownIt-Anchor" href="#二-system函数"></a> 二、system函数</h1>
+<p>system函数提供了另一种简单的执行程序的方法，把需要执行的命令用一个参数传给system函数。</p>
+<p>system函数的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">system</span><span class="params">(<span class="type">const</span> <span class="type">char</span> * string)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>system会调用fork产生子进程，由子进程来调用/bin/sh -c string来执行参数string字符串所代表的命令，此命令执行完后随即返回原调用的进程。在调用system期间SIGCHLD信号会被暂时搁置，SIGINT和SIGQUIT 信号则会被忽略。</p>
+<p>如果fork失败 返回-1，出现错误。</p>
+<p>如果execl失败，表示不能执行shell，返回值相当于shell执行了exit（127）。</p>
+<p>如果执行成功则返回子shell的终止状态。</p>
+<p>如果system在调用/bin/sh时失败则返回127，其他失败原因返回-1。若参数string为空指针（NULL），仅当命令处理程序可用时，返回非零值。如果system调用成功则最后会返回执行shell命令后的返回值，但是此返回值也有可能为system调用/bin/sh失败所返回的127，因此最好能再检查errno 来确认执行成功。</p>
+<p><strong>示例（book269.cpp）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 程序名：book269.cpp，此程序用于演示用system函数执行程序。</span></span><br><span class="line"><span class="comment"> * 作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">  <span class="type">int</span> iret;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用不成功的代码。</span></span><br><span class="line">  iret=<span class="built_in">system</span>(<span class="string">&quot;/bin/lss -l /usr/include/stdio.h&quot;</span>); </span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;iret=%d\n&quot;</span>,iret);</span><br><span class="line">  <span class="keyword">if</span> (iret==<span class="number">-1</span>) <span class="built_in">printf</span>(<span class="string">&quot;%d:%s\n&quot;</span>,errno,<span class="built_in">strerror</span>(errno));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 可以调用成功的代码。</span></span><br><span class="line">  iret=<span class="built_in">system</span>(<span class="string">&quot;/bin/ls -l /usr/include/stdio.h&quot;</span>); </span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;iret=%d\n&quot;</span>,iret);</span><br><span class="line">  <span class="keyword">if</span> (iret==<span class="number">-1</span>) <span class="built_in">printf</span>(<span class="string">&quot;%d:%s\n&quot;</span>,errno,<span class="built_in">strerror</span>(errno));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200306093517519.png" alt="在这里插入图片描述" /></p>
+<h1 id="三-版权声明"><a class="markdownIt-Anchor" href="#三-版权声明"></a> 三、版权声明</h1>
+<p>============<br />
+C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。<br />
+来源：C语言技术网（<a target="_blank" rel="noopener" href="http://www.freecplus.net">www.freecplus.net</a>）<br />
+作者：码农有道</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CPP/">CPP</a><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/6d3dd625/" title="Linux静态库与动态库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux静态库与动态库</div></div></a></div><div class="next-post pull-right"><a href="/posts/b7bd7fa2/" title="Linux线程同步"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux线程同步</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/b8c80ece/" title="学习Linux编程前的准备"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">学习Linux编程前的准备</div></div></a></div><div><a href="/posts/6e96bc72/" title="封装socket通信类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">封装socket通信类</div></div></a></div><div><a href="/posts/3fdf8525/" title="Linux多进程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">Linux多进程</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-exec%E5%87%BD%E6%95%B0%E6%97%8F"><span class="toc-text"> 一、exec函数族</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-system%E5%87%BD%E6%95%B0"><span class="toc-text"> 二、system函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-text"> 三、版权声明</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

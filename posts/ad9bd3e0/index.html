@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Ch23-Vim软件包 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第23章 Vim软件包 在前面的章节中，我提到使用第三方插件管理器来安装插件。从Vim 8开始，Vim自带了一个内置的插件管理器，名叫 软件包（packages）。在本章，您将学习如何使用Vim软件包来安装插件。 要看您的Vim编译版本是否能够使用软件包，运行 :version。然后查看是否有 +packages属性。另外，您也可以运行 :echo has(&#39;packages&#39;)（如果返回1，表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ch23-Vim软件包">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/ad9bd3e0/index.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="第23章 Vim软件包 在前面的章节中，我提到使用第三方插件管理器来安装插件。从Vim 8开始，Vim自带了一个内置的插件管理器，名叫 软件包（packages）。在本章，您将学习如何使用Vim软件包来安装插件。 要看您的Vim编译版本是否能够使用软件包，运行 :version。然后查看是否有 +packages属性。另外，您也可以运行 :echo has(&#39;packages&#39;)（如果返回1，表">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-02-08T07:55:25.000Z">
+<meta property="article:modified_time" content="2023-02-08T13:43:01.319Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="Vim">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/ad9bd3e0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ch23-Vim软件包',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-08 21:43:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ch23-Vim软件包</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-08T07:55:25.000Z" title="发表于 2023-02-08 15:55:25">2023-02-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-08T13:43:01.319Z" title="更新于 2023-02-08 21:43:01">2023-02-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ch23-Vim软件包"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="第23章-vim软件包"><a class="markdownIt-Anchor" href="#第23章-vim软件包"></a> 第23章 Vim软件包</h1>
+<p>在前面的章节中，我提到使用第三方插件管理器来安装插件。从Vim 8开始，Vim自带了一个内置的插件管理器，名叫 <em>软件包（packages）</em>。在本章，您将学习如何使用Vim软件包来安装插件。</p>
+<p>要看您的Vim编译版本是否能够使用软件包，运行 <code>:version</code>。然后查看是否有 <code>+packages</code>属性。另外，您也可以运行 <code>:echo has('packages')</code>（如果返回1，表示可以使用软件包）。</p>
+<h2 id="包目录"><a class="markdownIt-Anchor" href="#包目录"></a> 包目录</h2>
+<p>在根目录下查看您是否有一个 <code>~/.vim</code> 文件夹。如果没有就新建一个。在文件夹里面，创建一个子文件夹取名 <code>pack</code>(<code>~/.vim/pack/</code>)。Vim会在这个子文件夹内自动搜索插件。</p>
+<h2 id="两种加载方式"><a class="markdownIt-Anchor" href="#两种加载方式"></a> 两种加载方式</h2>
+<p>Vim软件包有两种加载机制：自动加载和手动加载。</p>
+<h3 id="自动加载"><a class="markdownIt-Anchor" href="#自动加载"></a> 自动加载</h3>
+<p>要想让Vim启动时自动加载插件，你需要将它们放置在 <code>start/</code>子目录中。路径看起来像这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.vim/pack/*/start/</span><br></pre></td></tr></table></figure>
+<p>现在您可能会问，为什么在<code>pack/</code> 和 <code>start/</code> 之间有一个 <code>*</code> ？这个星号可以是任意名字。让我们将它取为<code>packdemo/</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.vim/pack/packdemo/start/</span><br></pre></td></tr></table></figure>
+<p>记住，如果您忽略这一点，用下面的路径代替的话：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.vim/pack/start/</span><br></pre></td></tr></table></figure>
+<p>软件包系统是不会正常工作的。 必须在<code>pack/</code> 和 <code>start/</code>之间添加一个名字才能正常运行。</p>
+<p>在这个示例中，让我们尝试安装 [NERDTree](<a target="_blank" rel="noopener" href="https://github.com/preservim/nThe">https://github.com/preservim/nThe</a> package system won’t work. It is imperative to put a name between <code>pack/</code> and <code>start/</code>.erdtree) 插件。用任意方法进入 <code>start/</code> 目录（<code>cd ~/.vim/pack/packdemo/start/</code>），然后将NERDTree的仓库克隆下来：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/preservim/nerdtree.git</span><br></pre></td></tr></table></figure>
+<p>完成了！您已经完成了安装。下一次您启动Vim，您可以立即执行 NERDTree 命令 <code>:NERDTreeToggle</code>。</p>
+<p>在 <code>~/.vim/pack/*/start/</code> 目录中，您想克隆多少插件仓库就克隆多少。Vim将会自动加载每一个插件。如果您删除了克隆的仓库（<code>rm -rf nerdtree</code>），那么插件就失效了。</p>
+<h3 id="手动加载"><a class="markdownIt-Anchor" href="#手动加载"></a> 手动加载</h3>
+<p>要想在Vim启动时手动加载插件，您得将相关插件放置在 <code>opt/</code> 目录中，类似于自动加载，这个路径看起来像这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.vim/pack/*/opt/</span><br></pre></td></tr></table></figure>
+<p>让我们继续使用前面的 <code>packdemo/</code> 这个名字：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.vim/pack/packdemo/opt/</span><br></pre></td></tr></table></figure>
+<p>这一次，让我们安装<a target="_blank" rel="noopener" href="https://github.com/vim/killersheep">killersheep</a> 游戏（需要Vim8.2以上版本）。进入<code>opt/</code> 目录(<code>cd ~/.vim/pack/packdemo/opt/</code>) 然后克隆仓库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/vim/killersheep.git</span><br></pre></td></tr></table></figure>
+<p>启动Vim。执行游戏的命令是 <code>:KillKillKill</code>。试着运行一下。Vim将会提示这不是一个有效的编辑命令。您需要首先 <em>手动</em> 加载插件，运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:packadd killersheep</span><br></pre></td></tr></table></figure>
+<p>现在再运行一下 <code>:KillKillKill</code> 。命令已经可以使用了。</p>
+<p>您可能好奇，“为什么我需要手动加载插件？启动时自动加载岂不是更好？”</p>
+<p>很好的问题。有时候有些插件我们并不是所有的时候都在用，比如 KillerSheep 游戏。您可能不会想要加载10个不同的游戏导致Vim启动变慢。但是偶尔当您觉得乏味的时候，您可能想要玩几个游戏，使用手动加载一些非必须的插件。</p>
+<p>您也可以使用这个方法有条件的加载插件。可能您同时使用了Neovim和Vim，有一些插件是为NeoVim优化过的。您可以添加类似下列的内容到您的vimrc中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if has(&#x27;nvim&#x27;)</span><br><span class="line">  packadd! neovim-only-plugin</span><br><span class="line">else</span><br><span class="line">  packadd! generic-vim-plugin</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
+<h2 id="组织管理软件包"><a class="markdownIt-Anchor" href="#组织管理软件包"></a> 组织管理软件包</h2>
+<p>回想一下，要使用Vim的软件包系统必须有以下需求：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.vim/pack/*/start/</span><br></pre></td></tr></table></figure>
+<p>或者:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.vim/pack/*/opt/</span><br></pre></td></tr></table></figure>
+<p>实际上，<code>*</code>星号可以使 <em>任意</em> 名字，这个名字就可以用来管理您的插件。假设您想将您的插件根据类型（颜色、语法、游戏）分组：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~/.vim/pack/colors/</span><br><span class="line">~/.vim/pack/syntax/</span><br><span class="line">~/.vim/pack/games/</span><br></pre></td></tr></table></figure>
+<p>您仍然可以使用各个目录下的 <code>start/</code> 和 <code>opt/</code> 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~/.vim/pack/colors/start/</span><br><span class="line">~/.vim/pack/colors/opt/</span><br><span class="line"></span><br><span class="line">~/.vim/pack/syntax/start/</span><br><span class="line">~/.vim/pack/syntax/opt/</span><br><span class="line"></span><br><span class="line">~/.vim/pack/games/start/</span><br><span class="line">~/.vim/pack/games/opt/</span><br></pre></td></tr></table></figure>
+<h2 id="聪明地添加插件"><a class="markdownIt-Anchor" href="#聪明地添加插件"></a> 聪明地添加插件</h2>
+<p>您可能好奇，Vim软件包是否让一些流行的插件管理器，比如 vim-pathogen, vundle.vim, dein.vim, a还有vim-plug面临淘汰？</p>
+<p>答案永远是：“看情况而定。”</p>
+<p>我仍然使用vim-plug，因为使用它添加、删除、更新插件很容易。如果您使用了很多插件，插件管理器的好处更加明显，因为使用它可以对很多插件进行同时更新。有些插件管理器同时也提供了一些异步功能。</p>
+<p>如果您是极简主义者，可以尝试一下Vim软件包。如果您是一名插件重度使用者，您可能需要一个插件管理器。</p>
+<h2 id="链接"><a class="markdownIt-Anchor" href="#链接"></a> 链接</h2>
+<ul>
+<li><a href="./directory.md">目录</a></li>
+<li>上一部分 <a href="./ch22_vimrc.md">Ch 22 - Vimrc</a></li>
+<li>下一部分 <a href="./ch24_vim_runtime.md">Ch 24 - Vim Runtime</a></li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Vim/">Vim</a></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2d5c14f7/" title="Ch24-Vim Runtime"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Ch24-Vim Runtime</div></div></a></div><div class="next-post pull-right"><a href="/posts/29ce7871/" title="Ch22-Vimrc"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ch22-Vimrc</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/d25eff46/" title="Ch00-请先阅读"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Ch00-请先阅读</div></div></a></div><div><a href="/posts/972ef649/" title="Learn-Vim(the Smart Way) 中文翻译"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Learn-Vim(the Smart Way) 中文翻译</div></div></a></div><div><a href="/posts/d7470566/" title="Ch01-起步"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Ch01-起步</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC23%E7%AB%A0-vim%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-text"> 第23章 Vim软件包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E7%9B%AE%E5%BD%95"><span class="toc-text"> 包目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E5%8A%A0%E8%BD%BD%E6%96%B9%E5%BC%8F"><span class="toc-text"> 两种加载方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD"><span class="toc-text"> 自动加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%8A%A0%E8%BD%BD"><span class="toc-text"> 手动加载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E7%BB%87%E7%AE%A1%E7%90%86%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-text"> 组织管理软件包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%AA%E6%98%8E%E5%9C%B0%E6%B7%BB%E5%8A%A0%E6%8F%92%E4%BB%B6"><span class="toc-text"> 聪明地添加插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5"><span class="toc-text"> 链接</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

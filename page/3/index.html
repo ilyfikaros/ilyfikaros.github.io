@@ -55,7 +55,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2023-01-22 14:33:10'
+  postUpdate: '2023-02-08 21:52:41'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -169,218 +169,121 @@ window.addEventListener('load',()=> { preloader.endLoading() })
 if (false) {
   document.addEventListener('pjax:send', () => { preloader.initLoading() })
   document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">124</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://bimg.ilyfikaros.com/img/site_banner.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">凌亦零网志</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="mailto:ilyfikaros@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/9230b8a1/" title="Oracle的体系结构">Oracle的体系结构</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:42:52.000Z" title="发表于 2023-01-05 22:42:52">2023-01-05</time></span></div><div class="content"> 一、概述
-Oracle的体系结构是数据库的组成、工作过程，以及数据库中数据的组织和管理机制，包含一系列组件（软件）、用户进程（User process）、服务进程（Server process、PGA）、SGA（共享池、数据缓存、日志缓冲区）、后台进程（SMON、DBWn、PMON、CKPT、LGWR、其它进程）、参数文件（Parameter file）、密码文件（Password）、数据文件（Data files）、控制文件（Control files）、在线重做日志文件（Redo log files）、归档日志文件（Archived log files）。
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://bimg.ilyfikaros.com/img/site_banner.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">凌亦零网志</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="mailto:ilyfikaros@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/25eb02e8/" title="Ch05-移动文件">Ch05-移动文件</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-08T07:55:07.000Z" title="发表于 2023-02-08 15:55:07">2023-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="content"> 第5章 在文件中移动
+一开始，通过键盘移动会让你感觉特别慢特别不自在，但是不要放弃！一旦你习惯了它，比起鼠标你可以更快的在文件中去到任何地方。
+这一章，你将学习必要的移动以及如何高效的使用它们。 记住，这一章所讲的并不是Vim的全部移动命令(motions)，我们的目标是介绍有用的移动来快速提高效率。 如果你需要学习更多的移动命令，查看:h motion.txt。
+ 字符导航
+最基本的移动单元是上下左右移动一个字符。
+1234h   左j   下k   上l   右
+你也可以通过方向键进行移动，如果你只是初学者，使用任何你觉得最舒服的方法都没有关系。
+我更喜欢hjkl因为我的右手可以保持在键盘上的默认姿势，这样做可以让我更快的敲到周围的键。 为了习惯它，我实际上在刚开始的时候通过~/.vimrc关闭了方向键：
+1234noremap &lt;Up&gt; &lt;NOP&gt;noremap &lt;Down&gt; &lt;NOP&gt;noremap &lt;Left&gt; &lt;NOP&gt;noremap &lt;Right&gt; &lt;NOP&gt;
+也有一些插件可 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/0584a475/" title="Ch04-Vim语法">Ch04-Vim语法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-08T07:55:06.000Z" title="发表于 2023-02-08 15:55:06">2023-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="content"> 第4章 Vim 语法
+刚接触Vim时很容易被Vim许多复杂的命令吓到，如果你看到一个Vim的用户使用gUfV或1GdG，你可能不能立刻想到这些命令是在做什么。这一章中，我将把Vim命令的结构拆分成一个简单的语法规则进行讲解。
+这一章将是本书中最重要的一章，一旦你理解了Vim命令的语法结构，你将能够和Vim&quot;说话&quot;。注意，在这一章中当我讨论Vim语言时，我讨论并不是
+Vimscript(Vim自带的插件编写和自定义设置的语言)，这里我讨论的是Vim中normal模式的下的命令的通用规则。
+ 如何学习一门语言
+我并不是一个英语为母语的人，当我13岁移民到美国时我学习的英语，我会通过做三件事情建立我的语言能力：
 
- 二、用户进程和服务进程
- 1、用户进程
-用户进程（User process），是指用户通过客户端，比如SQL Plus、PL/SQL Developer、SQL Load、应用程序等工具连接上Oracle数据库而产生的进程。用户进程处理用户输入并与服务器进程通信。用户进程还负责表现用户请求的信息，必要时可以将信息处置成更可用的形式。
- 2、服务进程
-服务进程（Server Process），当客户端发起连接时，Oracle ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/19200837/" title="Oracle字符集的设置">Oracle字符集的设置</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:41:56.000Z" title="发表于 2023-01-05 22:41:56">2023-01-05</time></span></div><div class="content"> 一、字符集的概念
- 1、字符编码（character encoding）：
-字符编码是一种法则，在数字与符号之间建立的对应关系。不同的国家有不同的语言，包含的文字、标点符号、图形符号各有不同。例如在ASCII编码中，用数字97表达字符’a’与字符集相对应，常见的字符编码有ASCII，GBK，GB18030，Unicode等。
- 2、字符集（Character set）
-字符集是字符的集合，字符是文字和符号的总称，用ASCII编码的字符集称之为ASCII字符集，用GBK编码的字符集称之为GBK字符集。
- 3、国际编码（Unicode）
-为了解决传统的字符编码方案的局限，1994年发布了Unicode（国际编码、统一码、万国码、单一码、通用码），它是计算机科学领域里的一项业界标准，包括字符集、编码方案等。Unicode 将全世界所有的字符统一化，统一编码，再也不存在字符集不兼容和字符转换的问题。
-Unicode 有以下三种编码方式：
-1）UTF-8：兼容ASCII编码；拉丁文、希腊文等使用两个字节；包括汉字在内的其它常用字符使用三个字节；剩下的极少使用的字符使用四个字节。
-2）UTF-1 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/9e072477/" title="Oracle归档日志管理">Oracle归档日志管理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:41:04.000Z" title="发表于 2023-01-05 22:41:04">2023-01-05</time></span></div><div class="content"> 一、重做日志
-Oracle以SQL脚本的形式实时记录了数据变化的详细日志，这些日志保存在重做日志文件中。根据重做日志文件，可以对数据库进行备份和恢复。在下文中，把重做日志简称为日志。
-可以简单的认为，数据库每次在commit之前，会把操作数据的SQL脚本写入日志文件。
-日志文件有两种：在线日志和归档日志。
-创建Oracle数据库实例的时候，缺省建立三组在线日志，每组一个日志文件。三组日志中只有一组处于活动状态，这组活动的日志也称为当前日志，数据库不断的往当前日志里写入SQL脚本，当前日志写满后，Oracle会切换到下一组日志，继续写入，就这样循环切换。
-日志组在切换时，如果数据库是归档模式，则将当前日志文件的内容转存为操作系统文件，成为归档日志；若当前数据库是非归档模式，则不进行归档操作，当前日志文件中的内容会被下一次覆盖。
-如果数据库运行在归档模式下，当数据库出现介质失败时，使用备份文件、归档日志和在线日志可以完全恢复数据库。
- 二、日志管理
- 1、查看日志
-1）查看日志组和日志文件信息。
-1select group#,type,member from V$LOGFILE orde ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/a6591160/" title="Oracle数据备份和恢复">Oracle数据备份和恢复</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:40:01.000Z" title="发表于 2023-01-05 22:40:01">2023-01-05</time></span></div><div class="content">Oracle数据库的备份和恢复有很多种方法，是一个很大的话题，足可以写一本书，但是，本文只介绍采用exp和imp进行数据备份和恢复，这也是程序员最常用的方法。
-本文涉及的备份与恢复的其它概念都是狭义的，不完整的或不完全准确的，仅供参考。
- 一、备份与恢复的概念
- 1、什么是备份
-备份就是把数据库中的数据复制到存储设备的过程，存储设备包括磁盘、磁带、光盘等，随着存储技术的发展，磁带和光盘已经很少使用。
- 2、备份的方法
-1）物理备份
-对数据库操作系统的物理文件（数据文件，控制文件和日志文件）的备份。物理备份又可以分为脱机备份（冷备份）和联机备份（热备份），前者是在关闭数据库的时候进行的，后者是以归档日志的方式对运行的数据库进行备份。可以使用oracle的恢复管理器（rman）或操作系统命令进行数据库的物理备份。
-2）逻辑备份
-对数据库逻辑组件（如表和存储过程等数据库对象）的备份。逻辑备份的手段很多，如传统的exp，数据泵（expdp），数据库闪回技术等第三方工具，都可以进行数据库的逻辑备份。
- 3、备份的策略
-1）完全备份
-每次对数据库进行完整备份，当发生数据丢失的灾难时，完全备份无需依 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/95482dc7/" title="Oracle的启动和关闭">Oracle的启动和关闭</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:38:54.000Z" title="发表于 2023-01-05 22:38:54">2023-01-05</time></span></div><div class="content">Oracle数据库的启用和关闭需要DBA权限，本文介绍的全部操作由sysdba来执行。
-在运行数据库实例的操作系统的shell里执行以下命令就可以获得sysdba权限。
-1sqlplus / as sysdba
+学习语法规则
+扩展我的词汇量
+练习，练习，练习
 
- 一、数据库的启动
-Oracle数据库实例的启动要经历三个阶段。
-1）nomount：启动实例（Start an instance）。
-2）mount：装载数据库（Mount the database）。
-3）open：打开数据库（Open the database）。
- 1、启动实例
-执行以下命令启动数据库实例：
-1startup nomount;
+同样的，为了说好Vim语言，你需要学习语法规则，增加词汇量，并且不断练习直到你可以把执行命令变成肌肉记忆。
+ 语法规则
+你只需要知道一个Vim语言的语法规则：
+1verb + noun # 动词 + 名词
+这就类似与在英语中的祈使句：
 
-nomount状态启动Oracle的可执行程序，初始化数据库实例，包括以三步骤：
-1）读取参数文件pfile或spfile，pfile是文本文件，spfile是二进制文件，它们的内容相同，只是格式不一样，oracle推荐使用spfile。spfile存放在$ORACLE_HOME/dbs目录下，默认名字是spfile$ORACLE_SID.ora，如/oracle/home/dbs/spfilesnorcl11g.ora。
-2 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/1d4455be/" title="Oracle表空间和数据文件">Oracle表空间和数据文件</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:37:03.000Z" title="发表于 2023-01-05 22:37:03">2023-01-05</time></span></div><div class="content"> 一、表空间的概念
-Oracle数据库的数据存放在表空间中，表空间是一个逻辑的概念，它是由数据文件组成，表空间大小由数据文件的数量和大小决定。
-表空间有三种：Permanent Tablespaces（永久表空间）、Temporary Tablespaces（临时表空间）、Undo Tablespaces（回滚表空间），Oracle在创建数据库实例的时候，默认会创建三个永久表空间（SYSTEM、SYSAUX、USERS），一个临时表空间（TEMP），一个回滚表空间（UNDOTBS1）。
- 1、SYSTEM表空间
-SYSTEM表空间主要用于存放Oracle数据库内部的数据字典，它是Oracle数据库最重要的表空间，在创建数据库实例时被最先创建，包含了数据库的元数据，对于数据库来说生死攸关。
- 2、SYSAUX表空间
-SYSAUX表空间是SYSTEM表空间的辅助表空间，主要用于存储数据字典以外的其他数据对象，它在一定程度上降低了SYSTEM表空间的负荷。
- 3、UNDOTBS1表空间
-UNDO是回滚表空间，主要有四方面的用途，分别是：事物回滚、数据库恢复、读一致性、闪回查询。
-1）事物回滚 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/6724a9ad/" title="Oracle用户和权限管理">Oracle用户和权限管理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:35:59.000Z" title="发表于 2023-01-05 22:35:59">2023-01-05</time></span></div><div class="content">当创建一个新数据库实例时，Oracle会创建sys、system和scott数据库用户。sys和system是管理员用户，它们的密码在创建数据库时指定。scott是示范用户（用于学习），里面包括了一些测试数据（DEPT、EMP、BONUS和SALGRADE表），scott用户缺省是锁定状态。
- 一、数据库管理员
-数据库管理员（Database Administrator，简称DBA），是从事管理和维护数据库管理系统的相关工作人员的统称，属于运维工程师的一个分支，主要负责数据库的设计、部署、运维和管理，侧重于运维管理。
-DBA的核心目标是保证数据库系统的稳定性、安全性、完整性和高性能，保证数据库服务7*24小时的稳定高效运转。
-数据库实例创建后，在数据库服务器上，用 sqlplus / as sysdba 可以以DBA身份登录数据库，如下：
+“Eat(verb) a donut(noun)”
+“Kick(verb) ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/32c07678/" title="Ch03-打开和搜索文件">Ch03-打开和搜索文件</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-08T07:55:05.000Z" title="发表于 2023-02-08 15:55:05">2023-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="content"> 第3章 打开和搜索文件
+本章的目的是向您介绍如何在Vim中快速搜索，能够快速搜索是提高您的Vim工作效率的重要途径。当我解决了如何快速搜索文件这个问题后，我就决定改为完全使用Vim来工作。
+本章划分为两个部分：一是如何不依赖插件搜索；二是使用fzf插件搜索。让我们开始吧！
+ 打开和编辑文件
+要在Vim中打开一个文件，您可以使用:edit。
+1:edit file.txt
+如果file.txt已经存在，就会打开file.txtbuffer。如果file.txt不存在，会创建一个新buffer名为file.txt。
+:edit命令支持使用&lt;Tab&gt;进行自动补全。比如，如果您的文件位于Rails应用控制器的用户控制器目录./app/controllers/users_controllers.rb内，您可以使用&lt;Tab&gt;对文件路径名进行快速扩展。
+1:edit a&lt;Tab&gt;c&lt;Tab&gt;u&lt;Tab&gt;
+:edit可以接收通配符参数。*匹配当前目录下的任意文件。如果您只想查找当前目录下后缀名为.yml的文件：
+1:edit *.yml&l ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/e5aa9cfc/" title="Ch02-缓冲区，窗口选项卡">Ch02-缓冲区，窗口选项卡</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-08T07:55:04.000Z" title="发表于 2023-02-08 15:55:04">2023-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="content"> 第2章 缓冲区(Buffers)，窗口(Windows)和选项卡(Tabs)
+(译者注：在Vim中，Buffers缓冲区，Windows窗口，Tabs选项卡是专有名词。为适应不同读者的翻译习惯，确保没有歧义，本文将不对Buffers、Windows、Tabs这三个词进行翻译)。
+如果您使用过现代文本编辑器，您很可能对Windows和tabs这两个概念是非常熟悉的。但Vim使用了三个关于显示方面的抽象概念：buffers, windows, 还有tabs。在本章，我将向您解释什么是buffers, windows和tabs，以及它们在Vim中如何工作。
+在开始之前，确保您的vimrc文件中开启了set hidden选项。若没有配置该选项，当您想切换buffer且当前buffer没有保存时，Vim将提示您保存文件（如果您想快速切换，您不会想要这个提示）。我目前还没有讲vimrc，如果您没有vimrc配置文件，那就创建一个。它通常位于根目录下，名字叫.vimrc。我的vimrc位于~/.vimrc。要查看您自己的vimrc文件应该放置在哪，可以在Vim命令模式中输入:h vimrc。在vi ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/d7470566/" title="Ch01-起步">Ch01-起步</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-08T07:55:03.000Z" title="发表于 2023-02-08 15:55:03">2023-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="content"> 第1章 起步
+在本章，您将了解从终端启动Vim的几种不同方法。我写这本教程时使用的Vim版本是8.2。如果您使用Neovim或老版本的Vim，大部分情况下方法是通用的，但注意个别命令可能无效。
+ 安装
+我不会给出在某台特定机器上安装Vim的详细指令。好消息是，大部分Unix-based电脑应该预装了Vim。如果没有，大部分发行版也应该有关于如何安装Vim的指令。
+从Vim的官方网站或官方仓库可以获得下载链接：
 
- 二、用户管理
- 1、创建用户
-创建用户的命令是 create user，它的选项非常多，在这里我介绍一些常用的选项。
-语法：
-12345create user 用户名 identified by 密码       [default tablesp ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/2ca87e18/" title="Oracle union多表查询">Oracle union多表查询</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:34:53.000Z" title="发表于 2023-01-05 22:34:53">2023-01-05</time></span></div><div class="content">union就是把两个结果集合并起来，被合并的两个结果集的字段数量要相同，数据类型要相似（兼容）。
-union在合并两个结果集的时候，会自动去除重复的数据。
-union all在合并两个结果集的时候，只是简单的将两个结果集中的数据进行连接，不会去除重复的数据。
-我通过一些示例来向大家介绍子查询的常用方法。
- 一、生成测试数据
- 1、创建超女基本信息历史表（T_GIRL_HIS）
-123456789101112131415161718192021222324create table T_GIRL_HIS(  id        char(4)         not null,   -- 编号  name      varchar2(10)    not null,   -- 姓名  yz        varchar2(10)        null,   -- 颜值  sc        varchar2(10)        null,   -- 身材  weight    number(4,1)     not null,   -- 体重  height    number(3)  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/98513a74/" title="Oracle join多表查询">Oracle join多表查询</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:33:33.000Z" title="发表于 2023-01-05 22:33:33">2023-01-05</time></span></div><div class="content">join（连接）是一个查询，它将来自两个或多个表、视图的数据组合在一起。
-我通过一些示例来向大家介绍join的常用方法。
- 一、生成测试数据
- 1、创建超女基本信息历史表（T_GIRL_HIS）
-123456789101112131415161718192021222324create table T_GIRL_HIS(  id        char(4)         not null,   -- 编号  name      varchar2(10)    not null,   -- 姓名  yz        varchar2(10)        null,   -- 颜值  sc        varchar2(10)        null,   -- 身材  weight    number(4,1)     not null,   -- 体重  height    number(3)       not null,   -- 身高  birthday  date            not null,   -- 出生时间  memo      varchar2(1 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/5261b851/" title="Oracle子查询">Oracle子查询</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-05T14:32:09.000Z" title="发表于 2023-01-05 22:32:09">2023-01-05</time></span></div><div class="content">如果SQL语句中包含了另一个select语句的时候，就称为子查询，子查询在select、insert、update或delete命令中都可以包含子查询，子查询还可以包含在另外一个子查询中，以便完成更为复杂的查询。
-我通过一些示例来向大家介绍子查询的常用方法。
- 一、生成测试数据
- 1、颜值参数表
+Vim 官网
+Vim 官方仓库
+Vim 官方仓库镜像
 
+ Vim命令
+当您安装好Vim后，在终端运行以下命令：
+1vim
+您应该会看到一个介绍界面。这就是您用来处理文本的工作区。不像其它大部分文本编辑器和IDE，Vim是一个模式编辑器。如果您想输入&quot;hello&quot;，您需要使用’i’命令切换到插入模式。按下’ihello'可以在工作区插入文本&quot;hello&quot;。
+ 退出Vim
+有好几种不同的方法都可以退出Vim。（译者注：在stackflow论坛上，有个著名的问题“如何退出Vim”，五年来，有超过100万开发者遇到相同的问题。_，这件事已经成为 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/d25eff46/" title="Ch00-请先阅读">Ch00-请先阅读</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-08T07:55:02.000Z" title="发表于 2023-02-08 15:55:02">2023-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="content"> 第0章 请先阅读
+ 为什么写这本教程
+有很多途径可以学习Vim:vimtutor就是一个很好的途径，另外还有Vim自带的帮助手册（:help查看）包含了所有需要的参考信息。
+但是在日常使用中，对于绝大部分用户的需求而言，vimtutor讲得太浅不能满足需要，而:help所提供的信息又有很多是用不上的。本指南尝试在两者之间搭一座桥，仅重点介绍关键功能，使您尽可能在最短的时间内掌握Vim中最有用的知识。
+绝大部分情况下，您并不会使用到Vim100%的功能。您可能仅仅需要掌握其中20%就可以成为一名娴熟的Vim用户。本指南将为您展示Vim中最有用的功能。
+本指南带有作者强烈的个人观点。它涵盖了作者在使用Vim的过程中经常用到的技巧。章节按照作者认为的，最适合初学者最符合逻辑的顺序排列。
+本指南包含大量示例。当学习一个新技能时，示例是不可缺少的，大量的示例可以更有效的巩固所学概念。
+部分读者可能好奇为什么要学习Vimscript？我刚使用Vim时，仅仅满足于知道如何使用Vim。随着时间推移，我越来越需要使用Vimscript去写一些自定义命令，以满足特殊的编辑需要。在您使用Vim的过程中，您 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/284cf1bb/" title="Learn-Vim中文目录">Learn-Vim中文目录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-08T07:55:01.000Z" title="发表于 2023-02-08 15:55:01">2023-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="content"> 目录
+ 序言
 
+Ch 0 - 请先阅读
 
-编号（主键）
-颜值描述
-显示顺序
-备注
+ 第一部分：聪明地学习Vim
 
+Ch 1 - 起步
+Ch 2 - 缓冲区，窗口和选项卡
+Ch 3 - 打开和搜索文件
+Ch 4 - Vim 语法
+Ch 5 - 移动文件
+Ch 6 - 插入模式
+Ch 7 - 点命令
+Ch 8 - 寄存器
+Ch 9 - 宏
+Ch 10 - 撤消
+Ch 11 - 可视模式
+Ch 12 - 搜索和替换
+Ch 13 - 全局命令
+Ch 14 - 外部命令
+Ch 15 - 命令行模式
+Ch 16 - 标签
+Ch 17 - 折叠
+Ch 18 - Git
+Ch 19 - 编译
+Ch 20 - 视图、会话和 Viminfo
+Ch 21 - 多文件操作
 
+ 第二部分：聪明地定制Vim
 
+Ch 22 - Vimrc
+Ch 23 - Vim软件包
+Ch 24 - Vim Runtime
 
-1
-倾国倾城
-1
-第一等美女。
-
-
-2
-风华绝代
-2
-第二等美女。
-
-
-3
-迷倒众生
-3
-第三等美女。
-
-
-4
-漂亮
-4
-普通美女。
-
-
-5
-一般
-5
-
-
-
-6
-猪扒
-6
-
-
-
-
- 2、身材参数表
-
-
-
-编号（主键）
-身材描述
-显示顺序
-备注
-
-
-
-
-1
-火辣
-1
-前凸后翘。
-
-
-2
-丰满
-2
-体态丰腴。
-
-
-3
-苗条
-3
-风姿绰约。
-
-
-4
-一般
-4
-
-
-
-5
-膘肥体壮
-5
-强悍无比。
-
-
-
- 3、超女基本信息表
-
-
-
-编号 （主键）
-姓名
-颜值代码 （外键）
-身材代码 （外键）
-身高
-备注
-
-
-
-
-0101
-西施
-2
-4
-170
-这是一个非常漂亮姑娘，老公是夫差，男朋友是范蠡。
-
-
-0102
-貂禅
-1
-2
-168
-王允真不是男人，干不过 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#content-inner">13</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">凌亦零</div><div class="author-info__description">凌亦零网志（blog.ilyfikaros.com），用于存放网络日志，主要为凌亦零的个人笔记与收藏</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">124</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:ilyfikaros@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/ee62c796/" title="Hexo自带markdown渲染器渲染括号问题">Hexo自带markdown渲染器渲染括号问题</a><time datetime="2023-01-19T04:46:48.000Z" title="发表于 2023-01-19 12:46:48">2023-01-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/ac1033c5/" title="MySQL事务基础">MySQL事务基础</a><time datetime="2023-01-06T14:10:30.000Z" title="发表于 2023-01-06 22:10:30">2023-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1801a1aa/" title="MySQL视图基础">MySQL视图基础</a><time datetime="2023-01-06T09:43:11.000Z" title="发表于 2023-01-06 17:43:11">2023-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/9da3e761/" title="MySQL子查询">MySQL子查询</a><time datetime="2023-01-06T08:00:52.000Z" title="发表于 2023-01-06 16:00:52">2023-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/dc3b805/" title="MySQL多表查询">MySQL多表查询</a><time datetime="2023-01-06T04:50:17.000Z" title="发表于 2023-01-06 12:50:17">2023-01-06</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/c8b934ee/" title="C++输出数据">C++输出数据</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-25T09:37:14.000Z" title="发表于 2023-01-25 17:37:14">2023-01-25</time></span></div><div class="content"></div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/ee62c796/" title="Hexo自带markdown渲染器渲染括号问题">Hexo自带markdown渲染器渲染括号问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-19T04:46:48.000Z" title="发表于 2023-01-19 12:46:48">2023-01-19</time></span></div><div class="content"> 一、问题发现
+Hexo是一个基于Node.js的静态网页博客框架，使用Markdown文档生成网页文章，对程序员比较友好。笔者前段时间使用Hexo搭建博客，使用一段时间后发现其生成的文章，存在括号内的内容为网址时会变成乱码超链接的现象，影响阅读体验。
+笔者搭建博客时Node.js的版本为12.19.0，hexo-cli的版本为4.3.0，经过上网搜索和排除博客安装的插件影响后依旧无法解决问题。在重装博客之后，笔者立即进行测试，发现问题依旧存在。笔者之前曾在CSDN和自己Wodrpress网站上发布过相同的Markdown格式的文章，均未出现此类问题，于是怀疑是Hexo自带的Markdown渲染器的问题，在先后尝试修改文章格式和更换Markdown渲染插件等方法后，解决了该问题。
+ 二、问题描述
+Hexo原生自带的渲染器为hexo-renderer-marked，笔者在重装博客之后，立即进行了如下测试：
+123hexo new post &quot;test&quot;    %新建测试文档test.md，并填入测试内容%hexo cl; hexo s         %启动服务器，观 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/posts/ac1033c5/" title="MySQL事务基础">MySQL事务基础</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-06T14:10:30.000Z" title="发表于 2023-01-06 22:10:30">2023-01-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B/MySQL/">MySQL</a></span></div><div class="content"> 事务的提出
+MySQL事务（transaction）主要用于处理敏感的、复杂度高的数据。处理逻辑为query语句要么一块执行，要么全部回滚。例如网上购物时，只有确认付款之后商品才会到个人账户，在此之前全部过程顾客不持有商品。
+注意：MySQL事务只有在指定数据库引擎为innodb时可用。
+ 事务的基本用法
+假设用户A向用户B转账50块钱，则需要将A用户的账户余额减少50块钱，将B用户的账户添加50块钱，操作如下：
+12345678910start transaction;		# 开始事务update wallet set balance=balance-50;# query语句错误，未写条件rollback;				# 进行回滚，撤回错误sql语句start transaction;update wallet set balance=balance-50 where id=1;update wallet set balance=balance+50 where id=2;commit;					# 提交事务# 注意：事务开启可以随时rollback，一旦commit，就不能再roll ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/#content-inner">16</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">凌亦零</div><div class="author-info__description">凌亦零网志（blog.ilyfikaros.com），用于存放网络日志，主要为凌亦零的个人笔记与收藏</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:ilyfikaros@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/972ef649/" title="Learn-Vim(the Smart Way) 中文翻译">Learn-Vim(the Smart Way) 中文翻译</a><time datetime="2023-02-08T07:55:30.000Z" title="发表于 2023-02-08 15:55:30">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2d5c14f7/" title="Ch24-Vim Runtime">Ch24-Vim Runtime</a><time datetime="2023-02-08T07:55:26.000Z" title="发表于 2023-02-08 15:55:26">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/ad9bd3e0/" title="Ch23-Vim软件包">Ch23-Vim软件包</a><time datetime="2023-02-08T07:55:25.000Z" title="发表于 2023-02-08 15:55:25">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/29ce7871/" title="Ch22-Vimrc">Ch22-Vimrc</a><time datetime="2023-02-08T07:55:24.000Z" title="发表于 2023-02-08 15:55:24">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/0783c3af/" title="Ch21-多文件操作">Ch21-多文件操作</a><time datetime="2023-02-08T07:55:23.000Z" title="发表于 2023-02-08 15:55:23">2023-02-08</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             
             </div>
             <ul class="card-category-list" id="aside-cat-list">
-            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/"><span class="card-category-list-name">编程</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/MySQL/"><span class="card-category-list-name">MySQL</span><span class="card-category-list-count">5</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/"><span class="card-category-list-name">转载</span><span class="card-category-list-count">53</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/C%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF%E7%BD%91/"><span class="card-category-list-name">C语言技术网</span><span class="card-category-list-count">53</span></a></li></ul></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/C/" style="font-size: 1.5em; color: #99a9bf">C</a> <a href="/tags/CPP/" style="font-size: 1.42em; color: #99a6b7">CPP</a> <a href="/tags/Hexo/" style="font-size: 1.1em; color: #999">Hexo</a> <a href="/tags/Linux/" style="font-size: 1.34em; color: #99a3b0">Linux</a> <a href="/tags/MySQL/" style="font-size: 1.26em; color: #999fa8">MySQL</a> <a href="/tags/socket/" style="font-size: 1.18em; color: #999ca1">socket</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><span class="card-archive-list-count">124</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">124</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">239.7k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-01-22T06:33:09.902Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function subtitleType () {
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/"><span class="card-category-list-name">编程</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/MySQL/"><span class="card-category-list-name">MySQL</span><span class="card-category-list-count">5</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/"><span class="card-category-list-name">转载</span><span class="card-category-list-count">80</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/C%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF%E7%BD%91/"><span class="card-category-list-name">C语言技术网</span><span class="card-category-list-count">53</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/"><span class="card-category-list-name">Learn-Vim(the Smart Way) 中文翻译</span><span class="card-category-list-count">27</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/C/" style="font-size: 1.5em; color: #99a9bf">C</a> <a href="/tags/CPP/" style="font-size: 1.37em; color: #99a4b2">CPP</a> <a href="/tags/Hexo/" style="font-size: 1.1em; color: #999">Hexo</a> <a href="/tags/Linux/" style="font-size: 1.3em; color: #99a1ac">Linux</a> <a href="/tags/MySQL/" style="font-size: 1.23em; color: #999ea6">MySQL</a> <a href="/tags/Vim/" style="font-size: 1.43em; color: #99a6b9">Vim</a> <a href="/tags/socket/" style="font-size: 1.17em; color: #999c9f">socket</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><span class="card-archive-list-count">27</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><span class="card-archive-list-count">125</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">152</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">318.6k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-02-08T13:52:40.872Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function subtitleType () {
   getScript('https://sdk.jinrishici.com/v2/browser/jinrishici.js').then(() => {
     jinrishici.load(result =>{
       if (true) {
