@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Ch04-Vim语法 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="声明  本文搬运自Github仓库Learn-Vim_zh_cn，并针对部分错别字做出修正。  刚接触Vim时很容易被Vim许多复杂的命令吓到，如果你看到一个Vim的用户使用gUfV或1GdG，你可能不能立刻想到这些命令是在做什么。这一章中，我将把Vim命令的结构拆分成一个简单的语法规则进行讲解。 这一章将是本书中最重要的一章，一旦你理解了Vim命令的语法结构，你将能够和Vim&quot;说话&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ch04-Vim语法">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/0584a475.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="声明  本文搬运自Github仓库Learn-Vim_zh_cn，并针对部分错别字做出修正。  刚接触Vim时很容易被Vim许多复杂的命令吓到，如果你看到一个Vim的用户使用gUfV或1GdG，你可能不能立刻想到这些命令是在做什么。这一章中，我将把Vim命令的结构拆分成一个简单的语法规则进行讲解。 这一章将是本书中最重要的一章，一旦你理解了Vim命令的语法结构，你将能够和Vim&quot;说话&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-02-08T07:55:06.000Z">
+<meta property="article:modified_time" content="2023-02-08T15:30:08.821Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="Vim">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/0584a475.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ch04-Vim语法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-08 23:30:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ch04-Vim语法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-08T07:55:06.000Z" title="发表于 2023-02-08 15:55:06">2023-02-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-08T15:30:08.821Z" title="更新于 2023-02-08 23:30:08">2023-02-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ch04-Vim语法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="声明"><a class="markdownIt-Anchor" href="#声明"></a> 声明</h2>
+<blockquote>
+<p><font color=red>本文搬运自Github仓库<a href="https://github.com/wsdjeg/Learn-Vim_zh_cn" target="_blank">Learn-Vim_zh_cn</a>，并针对部分错别字做出修正。</font></p>
+</blockquote>
+<p>刚接触Vim时很容易被Vim许多复杂的命令吓到，如果你看到一个Vim的用户使用<code>gUfV</code>或<code>1GdG</code>，你可能不能立刻想到这些命令是在做什么。这一章中，我将把Vim命令的结构拆分成一个简单的语法规则进行讲解。</p>
+<p>这一章将是本书中最重要的一章，一旦你理解了Vim命令的语法结构，你将能够和Vim&quot;说话&quot;。注意，在这一章中当我讨论Vim语言时，我讨论并不是<br />
+Vimscript(Vim自带的插件编写和自定义设置的语言)，这里我讨论的是Vim中normal模式的下的命令的通用规则。</p>
+<h2 id="如何学习一门语言"><a class="markdownIt-Anchor" href="#如何学习一门语言"></a> 如何学习一门语言</h2>
+<p>我并不是一个英语为母语的人，当我13岁移民到美国时我学习的英语，我会通过做三件事情建立我的语言能力：</p>
+<ol>
+<li>学习语法规则</li>
+<li>扩展我的词汇量</li>
+<li>练习，练习，练习</li>
+</ol>
+<p>同样的，为了说好Vim语言，你需要学习语法规则，增加词汇量，并且不断练习直到你可以把执行命令变成肌肉记忆。</p>
+<h2 id="语法规则"><a class="markdownIt-Anchor" href="#语法规则"></a> 语法规则</h2>
+<p>你只需要知道一个Vim语言的语法规则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">verb + noun # 动词 + 名词</span><br></pre></td></tr></table></figure>
+<p>这就类似与在英语中的祈使句：</p>
+<ul>
+<li>“Eat(verb) a donut(noun)”</li>
+<li>“Kick(verb) a ball(noun)”</li>
+<li>“Learn(verb) the Vim Editor(noun)”</li>
+</ul>
+<p>现在你需要的就是用Vim中基本的动词和名字来建立你的词汇表</p>
+<h2 id="名词动作-motion"><a class="markdownIt-Anchor" href="#名词动作-motion"></a> 名词(动作 Motion)</h2>
+<p>我们这里将 <strong>动作 Motion</strong> 作为名词， <strong>动作Motion</strong>用来在Vim中到处移动。下面列出了一些常见的<strong>动作</strong>的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">h	左</span><br><span class="line">j	下</span><br><span class="line">k	上</span><br><span class="line">l	右</span><br><span class="line">w	向前移动到下一个单词的开头</span><br><span class="line">&#125;	跳转到下一个段落</span><br><span class="line">$	跳转到当前行的末尾</span><br></pre></td></tr></table></figure>
+<p>在之后的章节你将学习更多的关于<strong>动作</strong>的内容，所以如果你不理解上面这些<strong>动作</strong>也不必担心。</p>
+<h2 id="动词操作符-operator"><a class="markdownIt-Anchor" href="#动词操作符-operator"></a> 动词(操作符 Operator)</h2>
+<p>根据<code>:h operator</code>，Vim共有16个<strong>操作符</strong>，然而根据我的经验，学习这3个<strong>操作符</strong>在80%的情况下就已经够用了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y	yank(复制)</span><br><span class="line">d	delete(删除)</span><br><span class="line">c	change 删除文本，将删除的文本存到寄存器中，进入插入模式</span><br></pre></td></tr></table></figure>
+<p>顺带说一句，当你yank一段文本后，您可以使用<code>p</code>将它粘贴到光标后，或使用<code>P</code>粘贴到光标前。</p>
+<h2 id="动词操作符-operator和名词动作-motions的结合"><a class="markdownIt-Anchor" href="#动词操作符-operator和名词动作-motions的结合"></a> 动词（操作符 Operator）和名词（动作 motions）的结合</h2>
+<p>现在你已经知道了基本的动词和名词，我们来用一下我们的语法规则，动词和名词的结合！假设你有下面这段文本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> learn = <span class="string">&quot;Vim&quot;</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>复制当前位置到行尾的所有内容：<code>y$</code></li>
+<li>删除当前位置到下一个单词的开头：<code>dw</code></li>
+<li>修改当前位置到这个段落的结尾：<code>c&#125;</code></li>
+</ul>
+<p><strong>动作 motions</strong>也接受数字作为参数(这个部分我将在下个章节展开)，如果你需要向上移动3行，你可以用<code>3k</code>代替按3次<code>k</code>，数字可应用在Vim语法中。</p>
+<ul>
+<li>向左拷贝2个字符：<code>y2h</code></li>
+<li>删除后两个单词：<code>d2w</code></li>
+<li>修改后面两行：<code>c2j</code></li>
+</ul>
+<p>目前，你也许需要想很久才能完成一个简单的命令，不过我刚开始时也是这样，我也经历过类似的挣扎的阶段但是不久我的速度就快了起来，你也一样。唯一途径就是重复、重复再重复。</p>
+<p>作为补充，行级的 <strong>操作符 operations</strong> (作用在整行中的操作符)在文本编辑中和其他的 <strong>操作符</strong> 一样，Vim允许你通过按两次 <strong>操作符</strong>使它执行行级的操作，例如<code>dd</code>，<code>yy</code>，<code>cc</code>来执行删除，复制或修改整个行。您可以使用其他operations试一下（比如<code>gUgU</code>）。</p>
+<p>666!从这可以看出Vim命令的一种执行模式。但是到目前为止还没有结束，Vim有另一种类型的名词：文本对象(text object)</p>
+<h2 id="更多名词文本对象-text-objects"><a class="markdownIt-Anchor" href="#更多名词文本对象-text-objects"></a> 更多名词(文本对象 Text Objects)</h2>
+<p>想象一下你现在正在某个被括号包围的文本中例如<code>(hello Vim)</code>，你现在想要删掉括号中的所有内容，你会怎样快速的完成它？是否有一种方法能够把括号中内容作为整体删除呢？</p>
+<p>答案是有的。文本通常是结构化的，特别是代码中，文本经常被放置在小括号、中括号、大括号、引号等当中。Vim提供了一种处理这种结构的文本对象的方法。</p>
+<p>文本对象可以被 <strong>操作符 operations</strong> 使用，这里有两类文本对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i + object  内部文本对象</span><br><span class="line">a + object  外部文本对象</span><br></pre></td></tr></table></figure>
+<p><strong>内部文本对象</strong>选中的部分不包含包围文本对象的空白或括号等，<strong>外部文本对象</strong>则包括了包围内容的空白或括号等对象。外部对象总是比内部对象选中的内容更多。如果你的光标位于一对括号内部，例如<code>(hello Vim)</code>中：</p>
+<ul>
+<li>删除括号内部的内容但保留括号：<code>di(</code></li>
+<li>删除括号以及内部的内容：<code>da(</code></li>
+</ul>
+<p>让我们看一些别的例子，假设你有这样一段Javascript的函数，你的光标停留在&quot;Hello&quot;中的&quot;H&quot;上：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hello = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello Vim&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除整个&quot;Hello Vim&quot;：<code>di(</code></li>
+<li>删除整个函数(被{}包含)：<code>di&#123;</code></li>
+<li>删除&quot;Hello&quot;这个词：<code>diw</code></li>
+</ul>
+<p>文本对象很强大因为你可以在同一个位置指向不同的内容，可以删除一对小括号中的文本，也可以是当前大括号中的函数体，也可以是当前单词。这一点也很好记忆，当你看到<code>di(</code>，<code>di&#123;</code>和<code>diw</code>时，你也可以很好的意识到他们表示的是什么：小括号，大括号，单词。</p>
+<p>让我们来看最后一个例子。假设你有这样一些html的标签的文本：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Header1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Paragraph1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Paragraph2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果你的光标位于&quot;Header1&quot;文本上：</p>
+<ul>
+<li>删除&quot;Header1&quot;：<code>dit</code></li>
+<li>删除<code>&lt;h1&gt;Header1&lt;/h1&gt;</code>：<code>dat</code></li>
+</ul>
+<p>如果你的光标在&quot;div&quot;文本上：</p>
+<ul>
+<li>删除<code>h1</code>和所有<code>p</code>标签的行：<code>dit</code></li>
+<li>删除所有文本：<code>dat</code></li>
+<li>删除&quot;div&quot;：<code>di&lt;</code></li>
+</ul>
+<p>下面列举的一些通常见到的文本对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">w     一个单词</span><br><span class="line">p     一个段落</span><br><span class="line">s     一个句子</span><br><span class="line">(或)  一对()</span><br><span class="line">&#123;或&#125;  一对&#123;&#125;</span><br><span class="line">[或]  一对[]</span><br><span class="line">&lt;或&gt;  一对&lt;&gt;</span><br><span class="line">t     XML标签</span><br><span class="line">&quot;     一对&quot;&quot;</span><br><span class="line">&#x27;     一对&#x27;&#x27;</span><br><span class="line">`     一对``</span><br></pre></td></tr></table></figure>
+<p>你可以通过<code>:h text-objects</code>了解更多</p>
+<h2 id="结合性和语法"><a class="markdownIt-Anchor" href="#结合性和语法"></a> 结合性和语法</h2>
+<p>在学习Vim的语法之后，让我们来讨论一下Vim中的结合性以及为什么在文本编辑器中这是一个强大的功能。</p>
+<p>结合性意味着你有很多可以组合起来完成更复杂命令的普通命令，就像你在编程中可以通过一些简单的抽象建立更复杂的抽象，在Vim中你可以通过简单的命令的组合执行更复杂的命令。Vim语法正是Vim中命令的可结合性的体现。</p>
+<p>Vim的结合性最强大之处体现在它和外部程序结合时，Vim有一个 <strong>过滤操作符</strong><code>!</code>可以用外部程序过滤我们的文本。假设你有下面这段混乱的文本并且你想把它用tab格式化的更好看的一些：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Id|Name|Cuteness</span><br><span class="line">01|Puppy|Very</span><br><span class="line">02|Kitten|Ok</span><br><span class="line">03|Bunny|Ok</span><br></pre></td></tr></table></figure>
+<p>这件事情通过Vim命令不太容易完成，但是你可以通过终端提供的命令<code>column</code>很快的完成它，当你的光标位于&quot;Id&quot;上时，运行<code>!&#125;column -t -s &quot;|&quot;</code>，你的文本就变得整齐了许多：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Id  Name    Cuteness</span><br><span class="line">01  Puppy   Very</span><br><span class="line">02  Kitten  Ok</span><br><span class="line">03  Bunny   Ok</span><br></pre></td></tr></table></figure>
+<p>让我们分解一下上面那条命令，动词是<code>!</code>(<strong>过滤操作符</strong>)，名词是<code>&#125;</code>(到下一个段落)。<strong>过滤操作符</strong><code>!</code>接受终端命令作为另一个参数，因此我把<code>column -t -s &quot;|&quot;</code>传给它。我不想详细描述<code>column</code>是如何工作的，但是总之它格式化了文本。</p>
+<p>假设你不止想格式化你的文本，还想只展示<code>Ok</code>结尾的行，你知道<code>awk</code>命令可以做这件事情，那么你可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!&#125;column -t -s &quot;|&quot; | awk &#x27;NR &gt; 1 &amp;&amp; /Ok/&#123;print $0&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">02  Kitten  Ok</span><br><span class="line">03  Bunny   Ok</span><br></pre></td></tr></table></figure>
+<p>666！管道竟然在Vim中也能起作用。</p>
+<p>这就是Vim的结合性的强大之处。你知道的动词 <strong>操作符</strong>，名词 <strong>动作</strong>，终端命令越多，你组建复杂操作的能力成倍增长。</p>
+<p>换句话说，假设你只知道四个<strong>动作</strong>：<code>w, $, &#125;, G</code>和删除操作符(<code>d</code>)，你可以做8件事：按四种方式移动(<code>w, $, &#125;, G</code>)和删除4种文本对象(<code>dw, d$, d&#125;, dG</code>)。如果有一天你学习了小写变大写的<strong>操作符</strong>(<code>gU</code>)，你的Vim工具箱中多的不是1种工具，而是4种：<code>gUw, gU$, gU&#125;, gUG</code>。现在你的Vim工具箱中就有12种工具了。如果你知道10个<strong>动作</strong>和5个<strong>操作符</strong>，那么你就有60种工具(50个操作+10个移动)。另外，行号动作(<code>nG</code>)给你了<code>n</code>种<strong>动作</strong>，其中<code>n</code>是你文件中的行数(例如前往第5行，<code>5G</code>)。搜索动作(<code>/</code>)实际上给你带来无限数量的<strong>动作</strong>因为你可以搜索任何内容。你知道多少终端命令，外部命令操作符(<code>!</code>)就给你了多少种过滤工具。使用Vim这种能够组合的工具，所有你知道的东西都可以被串起来完成更复杂的操作。你知道的越多，你就越强大。</p>
+<p>这种具有结合性的行为也正符合Unix的哲学：<em>一个命令做好一件事</em>。<strong>动作</strong>只需要做一件事：前往X。<strong>操作符</strong>只需要做一件事：完成Y。通过结合一个<strong>操作符</strong>和一个<strong>动作</strong>，你就获得了YX：在X上完成Y。</p>
+<p>甚至，<strong>动作</strong>和<strong>操作符</strong>都是可拓展的，你可以自己创造<strong>动作</strong>和<strong>操作符</strong>去丰富你的Vim工具箱，<a target="_blank" rel="noopener" href="https://github.com/kana/vim-textobj-user"><code>Vim-textobj-user</code></a>插件允许你创建自己的文本对象，同时包含有<a target="_blank" rel="noopener" href="https://github.com/kana/vim-textobj-user/wiki">一系列定义好的文本对象</a>。</p>
+<p>另外，如果你不知道我刚才使用的<code>column</code>和<code>awk</code>命令也没有关系，重要的是Vim可以和终端命令很好的结合起来。</p>
+<h2 id="聪明地学习语法"><a class="markdownIt-Anchor" href="#聪明地学习语法"></a> 聪明地学习语法</h2>
+<p>你刚刚学完Vim唯一的语法规则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">verb + noun</span><br></pre></td></tr></table></figure>
+<p>我学Vim中最大的&quot;AHA moment&quot;之一是当我刚学完大写命令(<code>gU</code>)时，想要把一个单词变成大写，我本能的运行了<code>gUiW</code>，它居然成功了，我光标所在的单词都大写了。我正是从那是开始理解Vim的。我希望你也会在不久之后有你自己的&quot;AHA moment&quot;，如果之前没有的话。</p>
+<p>这一章的目标是向你展现Vim中的<code>verb+noun</code>模式，因此之后你就可以像学习一门新的语言一样渐进的学习Vim而不是死记每个命令的组合。</p>
+<p>学习这种模式并且理解其中的含义，这是聪明的学习方式。</p>
+<h2 id="链接"><a class="markdownIt-Anchor" href="#链接"></a> 链接</h2>
+<ul>
+<li><a href="https://blog.ilyfikaros.com/posts/284cf1bb/">目录</a></li>
+<li>上一部分 <a href="https://blog.ilyfikaros.com/posts/32c07678/">Ch 3 - 打开和搜索文件</a></li>
+<li>下一部分 <a href="https://blog.ilyfikaros.com/posts/25eb02e8/">Ch 5 - 移动文件</a></li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Vim/">Vim</a></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/25eb02e8.html" title="Ch05-移动文件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Ch05-移动文件</div></div></a></div><div class="next-post pull-right"><a href="/posts/32c07678.html" title="Ch03-打开和搜索文件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ch03-打开和搜索文件</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/972ef649.html" title="Learn-Vim(the Smart Way) 中文翻译"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Learn-Vim(the Smart Way) 中文翻译</div></div></a></div><div><a href="/posts/d25eff46.html" title="Ch00-请先阅读"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Ch00-请先阅读</div></div></a></div><div><a href="/posts/d7470566.html" title="Ch01-起步"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Ch01-起步</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E"><span class="toc-text"> 声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E8%AF%AD%E8%A8%80"><span class="toc-text"> 如何学习一门语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="toc-text"> 语法规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8D%E8%AF%8D%E5%8A%A8%E4%BD%9C-motion"><span class="toc-text"> 名词(动作 Motion)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E8%AF%8D%E6%93%8D%E4%BD%9C%E7%AC%A6-operator"><span class="toc-text"> 动词(操作符 Operator)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E8%AF%8D%E6%93%8D%E4%BD%9C%E7%AC%A6-operator%E5%92%8C%E5%90%8D%E8%AF%8D%E5%8A%A8%E4%BD%9C-motions%E7%9A%84%E7%BB%93%E5%90%88"><span class="toc-text"> 动词（操作符 Operator）和名词（动作 motions）的结合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E5%90%8D%E8%AF%8D%E6%96%87%E6%9C%AC%E5%AF%B9%E8%B1%A1-text-objects"><span class="toc-text"> 更多名词(文本对象 Text Objects)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%90%88%E6%80%A7%E5%92%8C%E8%AF%AD%E6%B3%95"><span class="toc-text"> 结合性和语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%AA%E6%98%8E%E5%9C%B0%E5%AD%A6%E4%B9%A0%E8%AF%AD%E6%B3%95"><span class="toc-text"> 聪明地学习语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5"><span class="toc-text"> 链接</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

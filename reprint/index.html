@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>转载 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="凌亦零网志（blog.ilyfikaros.com），用于存放网络日志，主要为凌亦零的个人笔记与收藏">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>转载 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C语言技术网  一、C语言教程  01_C语言程序的基本结构 02_C语言数据类型 [03_C语言常量、变量和关键字] [04_C语言输入和输出] [05_C语言运算符] [06_C语言if分支结构] [07_C语言switch分支结构] [08_C语言循环结构] [09_C语言数组] [10_C语言函数] [11_C语言变量的作用域] [12_C语言指针] [13_C语言整数] [14_C语言">
 <meta property="og:type" content="website">
 <meta property="og:title" content="转载">
 <meta property="og:url" content="https://blog.ilyfikaros.com/reprint/index.html">
 <meta property="og:site_name" content="凌亦零网志">
-<meta property="og:description" content="凌亦零网志（blog.ilyfikaros.com），用于存放网络日志，主要为凌亦零的个人笔记与收藏">
+<meta property="og:description" content="C语言技术网  一、C语言教程  01_C语言程序的基本结构 02_C语言数据类型 [03_C语言常量、变量和关键字] [04_C语言输入和输出] [05_C语言运算符] [06_C语言if分支结构] [07_C语言switch分支结构] [08_C语言循环结构] [09_C语言数组] [10_C语言函数] [11_C语言变量的作用域] [12_C语言指针] [13_C语言整数] [14_C语言">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
 <meta property="article:published_time" content="2023-01-06T15:43:53.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:23:07.975Z">
+<meta property="article:modified_time" content="2023-02-10T10:23:13.369Z">
 <meta property="article:author" content="凌亦零">
 <meta property="article:tag" content="凌亦零,网志,LingYiLing,笔记,博客">
 <meta name="twitter:card" content="summary">
@@ -57,7 +57,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2023-01-07 22:23:07'
+  postUpdate: '2023-02-10 18:23:13'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -171,11 +171,184 @@ window.addEventListener('load',()=> { preloader.endLoading() })
 if (false) {
   document.addEventListener('pjax:send', () => { preloader.initLoading() })
   document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint/"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">转载</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">凌亦零</div><div class="author-info__description">凌亦零网志（blog.ilyfikaros.com），用于存放网络日志，主要为凌亦零的个人笔记与收藏</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:ilyfikaros@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/972ef649/" title="Learn-Vim(the Smart Way) 中文翻译">Learn-Vim(the Smart Way) 中文翻译</a><time datetime="2023-02-08T07:55:30.000Z" title="发表于 2023-02-08 15:55:30">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2d5c14f7/" title="Ch24-Vim Runtime">Ch24-Vim Runtime</a><time datetime="2023-02-08T07:55:26.000Z" title="发表于 2023-02-08 15:55:26">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/ad9bd3e0/" title="Ch23-Vim软件包">Ch23-Vim软件包</a><time datetime="2023-02-08T07:55:25.000Z" title="发表于 2023-02-08 15:55:25">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/29ce7871/" title="Ch22-Vimrc">Ch22-Vimrc</a><time datetime="2023-02-08T07:55:24.000Z" title="发表于 2023-02-08 15:55:24">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/0783c3af/" title="Ch21-多文件操作">Ch21-多文件操作</a><time datetime="2023-02-08T07:55:23.000Z" title="发表于 2023-02-08 15:55:23">2023-02-08</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">转载</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><h2 id="c语言技术网"><a class="markdownIt-Anchor" href="#c语言技术网"></a> C语言技术网</h2>
+<h3 id="一-c语言教程"><a class="markdownIt-Anchor" href="#一-c语言教程"></a> 一、C语言教程</h3>
+<ul>
+<li><a href="https://blog.ilyfikaros.com/posts/a0664f6d/">01_C语言程序的基本结构</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/a51a74ec/">02_C语言数据类型</a></li>
+<li>[03_C语言常量、变量和关键字]</li>
+<li>[04_C语言输入和输出]</li>
+<li>[05_C语言运算符]</li>
+<li>[06_C语言if分支结构]</li>
+<li>[07_C语言switch分支结构]</li>
+<li>[08_C语言循环结构]</li>
+<li>[09_C语言数组]</li>
+<li>[10_C语言函数]</li>
+<li>[11_C语言变量的作用域]</li>
+<li>[12_C语言指针]</li>
+<li>[13_C语言整数]</li>
+<li>[14_C语言字符]</li>
+<li>[15_C语言浮点数]</li>
+<li>[16_C语言字符串]</li>
+<li>[17_C语言数据类型转换]</li>
+<li>[18_C语言结构体]</li>
+<li>[19_C语言格式化输出]</li>
+<li>[20_C语言main函数的参数]</li>
+<li>[21_C语言动态内存管理]</li>
+<li>[22_C语言文件操作]</li>
+<li>[23_C语言目录操作]</li>
+<li>[24_C语言时间操作]</li>
+<li>[25_C语言编译预处理]</li>
+<li>[26_C语言系统错误]</li>
+<li>[27_C语言目录和文件操作扩展]</li>
+<li>[28_C语言gdb调试]</li>
+<li>[29_C语言makefile文件]</li>
+</ul>
+<h3 id="二-c教程"><a class="markdownIt-Anchor" href="#二-c教程"></a> 二、C++教程</h3>
+<ul>
+<li>[01_从C到CPP]</li>
+<li>[02_CPP函数重载]</li>
+<li>[03_CPP类和对象]</li>
+<li>[04_CPP类的详解]</li>
+<li>[05_CPP引用]</li>
+<li>[06_CPP运算符重载]</li>
+<li>[07_CPP的string类]</li>
+<li>[08_CPP的vector容器]</li>
+<li>[09_CPP动态内存管理]</li>
+<li>[10_CPP类的继承与派生]</li>
+<li>[11_CPP类的多态]</li>
+</ul>
+<h3 id="三-linux编程基础"><a class="markdownIt-Anchor" href="#三-linux编程基础"></a> 三、Linux编程基础</h3>
+<ul>
+<li>[12_学习Linux编程前的准备]</li>
+<li>[13_封装socket通信类]</li>
+<li>[14_封装socket通信类]</li>
+<li>[15_Linux多进程]</li>
+<li>[16_Linux多进程的应用]</li>
+<li>[17_Linux进程间通信]</li>
+<li>[18_Linux信号]</li>
+<li>[19_Linux共享内存]</li>
+<li>[20_Linux信号量]</li>
+<li>[21_Linux多线程]</li>
+<li>[22_Linux线程同步]</li>
+<li>[23_Linux调用可执行程序]</li>
+<li>[24_Linux静态库与动态库]</li>
+</ul>
+<h3 id="四-数据库教程"><a class="markdownIt-Anchor" href="#四-数据库教程"></a> 四、数据库教程</h3>
+<ul>
+<li>[01_Oracle数据库介绍]</li>
+<li>[02_Oracle11g数据库快速安装]</li>
+<li>[03_Oracle11g客户端安装配置]</li>
+<li>[04_Oracle环境变量]</li>
+<li>[05_Oracle数据类型]</li>
+<li>[06_Oracle的表]</li>
+<li>[07_Oracle事务]</li>
+<li>[08_Oracle的where子句]</li>
+<li>[09_Oracle的order-by关键字]</li>
+<li>[09_Oracle的order-by关键字]</li>
+<li>[10_Oracle虚表]</li>
+<li>[11_Oracle序列生成器]</li>
+<li>[12_Oracle日期操作函数]</li>
+<li>[13_Oracle常用函数]</li>
+<li>[14_Oracle自定义函数]</li>
+<li>[15_Oracle存储过程]</li>
+<li>[16_Oracle触发器]</li>
+<li>[17_Oracle伪列]</li>
+<li>[18_Oracle索引]</li>
+<li>[19_Oracle视图]</li>
+<li>[20_Oracle数据库链路]</li>
+<li>[21_Oracle同义词]</li>
+<li>[22_Oracle的别名]</li>
+<li>[23_Oracle的distinct关键字]</li>
+<li>[24_Oracle的主键和外键]</li>
+<li>[25_Oracle子查询]</li>
+<li>[26_Oracle-join多表查询]</li>
+<li>[27_Oracle-union多表查询]</li>
+<li>[28_Oracle用户和权限管理]</li>
+<li>[29_Oracle表空间和数据文件]</li>
+<li>[30_Oracle的启动和关闭]</li>
+<li>[31_Oracle数据备份和恢复]</li>
+<li>[32_Oracle归档日志管理]</li>
+<li>[33_Oracle字符集的设置]</li>
+<li>[34_Oracle的体系结构]</li>
+<li>[35_Oracle数据字典]</li>
+<li>[36_Oracle数据库开机自启动的配置]</li>
+</ul>
+<h3 id="五-linux教程"><a class="markdownIt-Anchor" href="#五-linux教程"></a> 五、Linux教程</h3>
+<ul>
+<li>[01_Linux系统简介]</li>
+<li>[02_Linux学习环境]</li>
+<li>[03_CentOS7的安装和配置ftp]</li>
+<li>[04_Linux常用命令]</li>
+<li>[05_vi常用命令]</li>
+<li>[06_CentOS7设置环境变量]</li>
+<li>[07_CentOS7设置中文字符集]</li>
+<li>[08_CentOS7安装软件包的方法]</li>
+<li>[09_CentOS7系统服务管理]</li>
+<li>[10_CentOS7配置防火墙]</li>
+<li>[10_CentOS7配置防火墙]</li>
+<li>[12_CentOS7计划任务crontab]</li>
+<li>[13_CentOS7添加自定义系统服务]</li>
+<li>[14_Centos7配置IP地址和DNS]</li>
+<li>[15_Linux开机启动程序]</li>
+<li>[16_CentOS7配置samba共享文件系统]</li>
+<li>[17_CentOS7配置rsync实现文件同步]</li>
+</ul>
+<h3 id="六-freecplus框架"><a class="markdownIt-Anchor" href="#六-freecplus框架"></a> 六、freecplus框架</h3>
+<ul>
+<li>[01_freecplus框架-字符串操作]</li>
+<li>[02_freecplus框架-xml解析]</li>
+<li>[03_freecplus框架-日期、时间和计时器]</li>
+<li>[04_freecplus框架-目录操作]</li>
+<li>[05_freecplus框架-文件操作-md]</li>
+<li>[06_freecplus框架-日志文件操作]</li>
+<li>[07_freecplus框架-加载参数文件]</li>
+<li>[08_freecplus框架-tcp网络通信]</li>
+<li>[09_freecplus框架-ftp客户端]</li>
+<li>[10_freecplus框架-Oracle数据库操作]</li>
+<li>[11_freecplus框架-MySQL数据库操作]</li>
+<li>[12_freecplus框架-PostgreSQL数据库操作]</li>
+</ul>
+<h2 id="learn-vim"><a class="markdownIt-Anchor" href="#learn-vim"></a> Learn Vim</h2>
+<h3 id="序言"><a class="markdownIt-Anchor" href="#序言"></a> 序言</h3>
+<ul>
+<li><a href="https://blog.ilyfikaros.com/posts/d25eff46/">Ch 0 - 请先阅读</a></li>
+</ul>
+<h3 id="第一部分聪明地学习vim"><a class="markdownIt-Anchor" href="#第一部分聪明地学习vim"></a> 第一部分：聪明地学习Vim</h3>
+<ul>
+<li><a href="https://blog.ilyfikaros.com/posts/d7470566/">Ch 1 - 起步</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/e5aa9cfc/">Ch 2 - 缓冲区，窗口和选项卡</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/32c07678/">Ch 3 - 打开和搜索文件</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/0584a475/">Ch 4 - Vim 语法</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/25eb02e8/">Ch 5 - 移动文件</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/f92aab20/">Ch 6 - 插入模式</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/83932852/">Ch 7 - 点命令</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/49130c49/">Ch 8 - 寄存器</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/7e0645cb/">Ch 9 - 宏</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/49fd3ee8/">Ch 10 - 撤消</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/ba239799/">Ch 11 - 可视模式</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/36365707/">Ch 12 - 搜索和替换</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/fbe80173/">Ch 13 - 全局命令</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/e58db16f/">Ch 14 - 外部命令</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/d3de6571/">Ch 15 - 命令行模式</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/514bd033/">Ch 16 - 标签</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/d7f38bdd/">Ch 17 - 折叠</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/a575da65/">Ch 18 - Git</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/520a0cad/">Ch 19 - 编译</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/26a705fd/">Ch 20 - 视图、会话和 Viminfo</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/0783c3af/">Ch 21 - 多文件操作</a></li>
+</ul>
+<h3 id="第二部分聪明地定制vim"><a class="markdownIt-Anchor" href="#第二部分聪明地定制vim"></a> 第二部分：聪明地定制Vim</h3>
+<ul>
+<li><a href="https://blog.ilyfikaros.com/posts/29ce7871/">Ch 22 - Vimrc</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/ad9bd3e0/">Ch 23 - Vim软件包</a></li>
+<li><a href="https://blog.ilyfikaros.com/posts/2d5c14f7/">Ch 24 - Vim Runtime</a></li>
+</ul>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">凌亦零</div><div class="author-info__description">凌亦零网志（blog.ilyfikaros.com），用于存放网络日志，主要为凌亦零的个人笔记与收藏</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:ilyfikaros@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/972ef649.html" title="Learn-Vim(the Smart Way) 中文翻译">Learn-Vim(the Smart Way) 中文翻译</a><time datetime="2023-02-08T07:55:30.000Z" title="发表于 2023-02-08 15:55:30">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2d5c14f7.html" title="Ch24-Vim Runtime">Ch24-Vim Runtime</a><time datetime="2023-02-08T07:55:26.000Z" title="发表于 2023-02-08 15:55:26">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/ad9bd3e0.html" title="Ch23-Vim软件包">Ch23-Vim软件包</a><time datetime="2023-02-08T07:55:25.000Z" title="发表于 2023-02-08 15:55:25">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/29ce7871.html" title="Ch22-Vimrc">Ch22-Vimrc</a><time datetime="2023-02-08T07:55:24.000Z" title="发表于 2023-02-08 15:55:24">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/0783c3af.html" title="Ch21-多文件操作">Ch21-多文件操作</a><time datetime="2023-02-08T07:55:23.000Z" title="发表于 2023-02-08 15:55:23">2023-02-08</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             
             </div>
             <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/"><span class="card-category-list-name">编程</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/MySQL/"><span class="card-category-list-name">MySQL</span><span class="card-category-list-count">5</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/"><span class="card-category-list-name">转载</span><span class="card-category-list-count">80</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/C%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF%E7%BD%91/"><span class="card-category-list-name">C语言技术网</span><span class="card-category-list-count">53</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/"><span class="card-category-list-name">Learn-Vim(the Smart Way) 中文翻译</span><span class="card-category-list-count">27</span></a></li></ul></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/C/" style="font-size: 1.5em; color: #99a9bf">C</a> <a href="/tags/CPP/" style="font-size: 1.37em; color: #99a4b2">CPP</a> <a href="/tags/Hexo/" style="font-size: 1.1em; color: #999">Hexo</a> <a href="/tags/Linux/" style="font-size: 1.3em; color: #99a1ac">Linux</a> <a href="/tags/MySQL/" style="font-size: 1.23em; color: #999ea6">MySQL</a> <a href="/tags/Vim/" style="font-size: 1.43em; color: #99a6b9">Vim</a> <a href="/tags/socket/" style="font-size: 1.17em; color: #999c9f">socket</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><span class="card-archive-list-count">27</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><span class="card-archive-list-count">125</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">152</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">319k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-02-08T16:30:26.969Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/C/" style="font-size: 1.5em; color: #99a9bf">C</a> <a href="/tags/CPP/" style="font-size: 1.37em; color: #99a4b2">CPP</a> <a href="/tags/Hexo/" style="font-size: 1.1em; color: #999">Hexo</a> <a href="/tags/Linux/" style="font-size: 1.3em; color: #99a1ac">Linux</a> <a href="/tags/MySQL/" style="font-size: 1.23em; color: #999ea6">MySQL</a> <a href="/tags/Vim/" style="font-size: 1.43em; color: #99a6b9">Vim</a> <a href="/tags/socket/" style="font-size: 1.17em; color: #999c9f">socket</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><span class="card-archive-list-count">27</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><span class="card-archive-list-count">125</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">152</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">319k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-02-10T10:24:20.734Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

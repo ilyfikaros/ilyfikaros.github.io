@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Ch20-视图、会话和 Viminfo | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="声明  本文搬运自Github仓库Learn-Vim_zh_cn，并针对部分错别字做出修正。   第20章 视图、会话和 Viminfo 当您做了一段时间的项目后，您可能会发现这个项目逐渐形了成自己的设置、折叠、缓冲区、布局等，就像住了一段时间公寓后，精心装饰了它一样。问题是，关闭 Vim 后，所有的这些更改都会丢失。如果能保留这些更改，等到下次打开 Vim 时，一切恢复如初，岂不美哉？ 本章中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ch20-视图、会话和 Viminfo">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/26a705fd.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="声明  本文搬运自Github仓库Learn-Vim_zh_cn，并针对部分错别字做出修正。   第20章 视图、会话和 Viminfo 当您做了一段时间的项目后，您可能会发现这个项目逐渐形了成自己的设置、折叠、缓冲区、布局等，就像住了一段时间公寓后，精心装饰了它一样。问题是，关闭 Vim 后，所有的这些更改都会丢失。如果能保留这些更改，等到下次打开 Vim 时，一切恢复如初，岂不美哉？ 本章中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-02-08T07:55:22.000Z">
+<meta property="article:modified_time" content="2023-02-08T16:26:47.654Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="Vim">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/26a705fd.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ch20-视图、会话和 Viminfo',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-09 00:26:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ch20-视图、会话和 Viminfo</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-08T07:55:22.000Z" title="发表于 2023-02-08 15:55:22">2023-02-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-08T16:26:47.654Z" title="更新于 2023-02-09 00:26:47">2023-02-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/Learn-Vim-the-Smart-Way-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">Learn-Vim(the Smart Way) 中文翻译</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ch20-视图、会话和 Viminfo"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="声明"><a class="markdownIt-Anchor" href="#声明"></a> 声明</h2>
+<blockquote>
+<p><font color=red>本文搬运自Github仓库<a href="https://github.com/wsdjeg/Learn-Vim_zh_cn" target="_blank">Learn-Vim_zh_cn</a>，并针对部分错别字做出修正。</font></p>
+</blockquote>
+<h1 id="第20章-视图-会话和-viminfo"><a class="markdownIt-Anchor" href="#第20章-视图-会话和-viminfo"></a> 第20章 视图、会话和 Viminfo</h1>
+<p>当您做了一段时间的项目后，您可能会发现这个项目逐渐形了成自己的设置、折叠、缓冲区、布局等，就像住了一段时间公寓后，精心装饰了它一样。问题是，关闭 Vim 后，所有的这些更改都会丢失。如果能保留这些更改，等到下次打开 Vim 时，一切恢复如初，岂不美哉？</p>
+<p>本章中，您将学习如何使用 视图、会话 和 Viminfo 来保存项目的“快照”。</p>
+<h2 id="视图"><a class="markdownIt-Anchor" href="#视图"></a> 视图</h2>
+<p>视图是这三个部分（视图、会话、Viminfo）中的最小子集，它是单个窗口相关设置的集合。如果您长时间在一个窗口上工作，并且想要保留其映射和折叠，您可以使用视图。</p>
+<p>我们来创建一个 <code>foo.txt</code> 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">foo1</span><br><span class="line">foo2</span><br><span class="line">foo3</span><br><span class="line">foo4</span><br><span class="line">foo5</span><br><span class="line">foo6</span><br><span class="line">foo7</span><br><span class="line">foo8</span><br><span class="line">foo9</span><br><span class="line">foo10</span><br></pre></td></tr></table></figure>
+<p>在这个文件中，做三次修改：</p>
+<ol>
+<li>在第 1 行，创建一个手动折叠 <code>zf4j</code>（折叠接下来 4 行）。</li>
+<li>更改 <code>number</code> 设置：<code>setlocal nonumber norelativenumber</code>。这会移除窗口左侧的数字指示器。</li>
+<li>创建本地映射，每当按一次 <code>j</code> 时，向下两行：<code>:nnoremap &lt;buffer&gt; j jj</code>。</li>
+</ol>
+<p>您的文件看起来应该像：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+-- 5 lines: foo1 -----</span><br><span class="line">foo6</span><br><span class="line">foo7</span><br><span class="line">foo8</span><br><span class="line">foo9</span><br><span class="line">foo10</span><br></pre></td></tr></table></figure>
+<h3 id="配置视图属性"><a class="markdownIt-Anchor" href="#配置视图属性"></a> 配置视图属性</h3>
+<p>运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set viewoptions?</span><br></pre></td></tr></table></figure>
+<p>默认情况下会显示（根据您的 vimrc 可能会有所不同）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viewoptions=folds,cursor,curdir</span><br></pre></td></tr></table></figure>
+<p>我们来配置 <code>viewoptions</code>。要保留的三个属性分别是折叠、映射和本地设置选项。如果您的设置和我的相似，那么您已经有了 <code>folds</code> 选项。运行下列命令使视图记住 <code>localoptions</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set viewoptions+=localoptions</span><br></pre></td></tr></table></figure>
+<p>查阅 <code>:h viewoptions</code> 可了解 <code>viewoptions</code> 的其他可用选项。现在运行 <code>:set viewoptions?</code>，您将看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viewoptions=folds,cursor,curdir,localoptions</span><br></pre></td></tr></table></figure>
+<h3 id="保存视图"><a class="markdownIt-Anchor" href="#保存视图"></a> 保存视图</h3>
+<p>在 <code>foo.txt</code> 窗口经过适当折叠并设置了 <code>nonumber norelativenumber</code> 选项后，现在我们来保存视图。运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:mkview</span><br></pre></td></tr></table></figure>
+<p>Vim 创建了一个视图文件。</p>
+<h3 id="视图文件"><a class="markdownIt-Anchor" href="#视图文件"></a> 视图文件</h3>
+<p>您可能会想“Vim 将这个视图文件保存到哪儿了呢？”，运行下列命令就可以看到答案了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set viewdir?</span><br></pre></td></tr></table></figure>
+<p>默认情况下会显示 <code>~/.vim/view</code>（根据您的操作系统，可能会有不同的路径。查阅 <code>:h viewdir</code> 获得更多信息）。如果您运行的是基于Unix的操作系统，想修改该路径，可以在您的 vimrc 中添加下列内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set viewdir=$HOME/else/where</span><br></pre></td></tr></table></figure>
+<h3 id="加载视图文件"><a class="markdownIt-Anchor" href="#加载视图文件"></a> 加载视图文件</h3>
+<p>关闭并重新打开 <code>foo.txt</code>，您会看到原来的文本，没有任何改变。这是预期行为。运行下列命令可以加载视图文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:loadview</span><br></pre></td></tr></table></figure>
+<p>现在您将看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+-- 5 lines: foo1 -----</span><br><span class="line">foo6</span><br><span class="line">foo7</span><br><span class="line">foo8</span><br><span class="line">foo9</span><br><span class="line">foo10</span><br></pre></td></tr></table></figure>
+<p>那些折叠、本地设置以及映射都恢复了。如果您细心还可以发现，光标位于上一次您运行 <code>:mkview</code> 时所处的行上。只要您有 <code>cursor</code> 选项，视图将记住光标位置。</p>
+<h3 id="多个视图"><a class="markdownIt-Anchor" href="#多个视图"></a> 多个视图</h3>
+<p>Vim 允许您保存 9 个编号的视图（1-9）。</p>
+<p>假设您想用 <code>:9,10 fold</code> 来额外折叠最后两行，我们把这存为视图 1。运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:mkview 1</span><br></pre></td></tr></table></figure>
+<p>如果您又想用 <code>:6,7 fold</code> 再折叠一次，并存为不同的视图，运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:mkview 2</span><br></pre></td></tr></table></figure>
+<p>关闭并重新打开 <code>foo.txt</code> 文件，运行下列命令可以加载视图 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:loadview 1</span><br></pre></td></tr></table></figure>
+<p>要加载视图 2，运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:loadview 2</span><br></pre></td></tr></table></figure>
+<p>要加载原始视图，运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:loadview</span><br></pre></td></tr></table></figure>
+<h3 id="自动创建视图"><a class="markdownIt-Anchor" href="#自动创建视图"></a> 自动创建视图</h3>
+<p>有一件可能会发生的很倒霉的事情是，您花了很长时间在一个大文件中进行折叠，一不小心关闭了窗口，接着丢失了所有折叠信息。您可以在 vimrc 中添加下列内容，使得在关闭缓冲区后 Vim 能自动创建视图，防止此类灾难发生：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autocmd BufWinLeave *.txt mkview</span><br></pre></td></tr></table></figure>
+<p>另外也能在打开缓冲区后自动加载视图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autocmd BufWinEnter *.txt silent loadview</span><br></pre></td></tr></table></figure>
+<p>现在，当您编辑 <code>txt</code> 文件时，不用再担心创建和加载视图了。但也注意，随着时间的推移，视图文件会不断积累，记得每隔几个月清理一次。</p>
+<h2 id="会话"><a class="markdownIt-Anchor" href="#会话"></a> 会话</h2>
+<p>如果说视图保存了某个窗口的设置，那么会话则保存了所有窗口（包括布局）的信息。</p>
+<h3 id="创建新会话"><a class="markdownIt-Anchor" href="#创建新会话"></a> 创建新会话</h3>
+<p>假设您在 <code>foobarbaz</code> 工程中编辑着 3 个文件：</p>
+<p><code>foo.txt</code> 的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">foo1</span><br><span class="line">foo2</span><br><span class="line">foo3</span><br><span class="line">foo4</span><br><span class="line">foo5</span><br><span class="line">foo6</span><br><span class="line">foo7</span><br><span class="line">foo8</span><br><span class="line">foo9</span><br><span class="line">foo10</span><br></pre></td></tr></table></figure>
+<p><code>bar.txt</code> 的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bar1</span><br><span class="line">bar2</span><br><span class="line">bar3</span><br><span class="line">bar4</span><br><span class="line">bar5</span><br><span class="line">bar6</span><br><span class="line">bar7</span><br><span class="line">bar8</span><br><span class="line">bar9</span><br><span class="line">bar10</span><br></pre></td></tr></table></figure>
+<p><code>baz.txt</code> 的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">baz1</span><br><span class="line">baz2</span><br><span class="line">baz3</span><br><span class="line">baz4</span><br><span class="line">baz5</span><br><span class="line">baz6</span><br><span class="line">baz7</span><br><span class="line">baz8</span><br><span class="line">baz9</span><br><span class="line">baz10</span><br></pre></td></tr></table></figure>
+<p>假设您的窗口布局如下所示（适当地使用 <code>split</code> 和 <code>vsplit</code> 来放置）：</p>
+<p><img src="/image/session-layout.png" alt="Session Layout" /></p>
+<p>要保留这个外观，您需要保存会话。运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:mksession</span><br></pre></td></tr></table></figure>
+<p>与默认存储在 <code>~/.vim/view</code> 的 <code>mkview</code> 不同，<code>mksession</code> 在当前目录存储会话文件（<code>Session.vim</code>）。如果好奇，您可以看看文件。</p>
+<p>如果您想将会话文件另存他处，可以将参数传递给 <code>mksession</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:mksession ~/some/where/else.vim</span><br></pre></td></tr></table></figure>
+<p>使用 <code>!</code> 来调用命令可以覆盖一个已存在的会话文件（<code>:mksession! ~/some/where/else.vim</code>）。</p>
+<h3 id="加载会话"><a class="markdownIt-Anchor" href="#加载会话"></a> 加载会话</h3>
+<p>运行下列命令可以加载会话：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:source Session.vim</span><br></pre></td></tr></table></figure>
+<p>现在 Vim 看起来就像您离开它时的样子！或者，您也可以从终端加载会话文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim -S Session.vim</span><br></pre></td></tr></table></figure>
+<h3 id="配置会话属性"><a class="markdownIt-Anchor" href="#配置会话属性"></a> 配置会话属性</h3>
+<p>您可以配置会话要保存的属性。若要查看当前哪些属性正被保存，请运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set sessionoptions?</span><br></pre></td></tr></table></figure>
+<p>我的显示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blank,buffers,curdir,folds,help,tabpages,winsize,terminal</span><br></pre></td></tr></table></figure>
+<p>如果在保存会话时不想存储 <code>terminal</code>，可以运行下列命令将其从会话选项中删除：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set sessionoptions-=terminal</span><br></pre></td></tr></table></figure>
+<p>如果要在保存会话时存储 <code>options</code>，请运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set sessionoptions+=options</span><br></pre></td></tr></table></figure>
+<p>下面是一些 <code>sessionoptions</code> 可以存储的属性：</p>
+<ul>
+<li><code>blank</code> 存储空窗口</li>
+<li><code>buffers</code> 存储缓冲区</li>
+<li><code>folds</code> 存储折叠</li>
+<li><code>globals</code> 存储全局变量（必须以大写字母开头，并且至少包含一个小写字母）</li>
+<li><code>options</code> 存储选项和映射</li>
+<li><code>resize</code> 存储窗口行列</li>
+<li><code>winpos</code> 存储窗口位置</li>
+<li><code>winsize</code> 存储窗口大小</li>
+<li><code>tabpages</code> 存储选项卡</li>
+<li><code>unix</code> 以 Unix 格式存储文件</li>
+</ul>
+<p>查阅 <code>:h 'sessionoptions'</code> 来获取完整列表。</p>
+<p>会话是保存项目外部属性的好工具。但是，一些内部属性不存储在会话中，如本地标记、寄存器、历史记录等。要保存它们，您需要使用 Viminfo！</p>
+<h2 id="viminfo"><a class="markdownIt-Anchor" href="#viminfo"></a> Viminfo</h2>
+<p>如果您留意，在复制一个单词进寄存器 a，再退出并重新打开 Vim 后，您仍然可以看到存储在寄存器中的文本。这就是 Viminfo 的功劳。没有它，在您关闭 Vim 后，Vim 会忘记这些寄存器。</p>
+<p>如果您使用 Vim 8 或更高版本，Vim 会默认启用 Viminfo。因此您可能一直在使用 Viminfo，而您对它毫不知情！</p>
+<p>您可能会问：Viminfo 存储了什么？与会话有何不同？</p>
+<p>要使用 Viminfo，您必须启用了 <code>+viminfo</code> 特性（<code>:version</code>）。Viminfo 存储着：</p>
+<ul>
+<li>命令行历史记录。</li>
+<li>字符串搜索历史记录。</li>
+<li>输入行历史记录。</li>
+<li>非空寄存器的内容。</li>
+<li>多个文件的标记。</li>
+<li>文件标记，它指向文件中的位置。</li>
+<li>上次搜索 / 替换模式（用于 “n” 和 “&amp;”）。</li>
+<li>缓冲区列表。</li>
+<li>全局变量。</li>
+</ul>
+<p>通常，会话存储“外部”属性，Viminfo 存储“内部”属性。</p>
+<p>每个项目可以有一个会话文件，而 Viminfo 与会话不同，通常每台计算机只使用一个 Viminfo。Viminfo 是项目无关的。</p>
+<p>对于 Unix，Viminfo 的默认位置是 <code>$HOME/.viminfo</code>（<code>~/.viminfo</code>）。如果您用其他操作系统，Viminfo 位置可能会有所不同。可以查阅 <code>:h viminfo-file-name</code>。每一次您做出的“内部”更改，如将文本复制进一个寄存器，Vim 都会自动更新 Viminfo 文件。</p>
+<p><em>请确保您设置了 <code>nocompatible</code> 选项（<code>set nocompatible</code>），否则您的 Viminfo 将不起作用。</em></p>
+<h3 id="读写-viminfo"><a class="markdownIt-Anchor" href="#读写-viminfo"></a> 读写 Viminfo</h3>
+<p>尽管只使用一个 Viminfo 文件，但您还是可以创建多个 Viminfo 文件。使用 <code>:wviminfo</code> 命令（缩写为 <code>:wv</code>）来创建多个 Viminfo 文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wv ~/.viminfo_extra</span><br></pre></td></tr></table></figure>
+<p>要覆盖现有的 Viminfo 文件，向 <code>wv</code> 命令多添加一个叹号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wv! ~/.viminfo_extra</span><br></pre></td></tr></table></figure>
+<p>Vim 默认情况下会读取 <code>~/.viminfo</code> 文件。运行 <code>:rviminfo</code>（缩写为 <code>:rv</code>）可以读取不同的 Vimfile 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:rv ~/.viminfo_extra</span><br></pre></td></tr></table></figure>
+<p>要在终端使用不同的 Viminfo 文件来启动 Vim，请使用 “i” 标志：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim -i viminfo_extra</span><br></pre></td></tr></table></figure>
+<p>如果您要将 Vim 用于不同的任务，比如写代码和写作，您可以创建两个 Viminfo，一个针对写作优化，另一个为写代码优化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim -i viminfo_writing</span><br><span class="line"></span><br><span class="line">vim -i viminfo_coding</span><br></pre></td></tr></table></figure>
+<h3 id="不使用-viminfo-启动-vim"><a class="markdownIt-Anchor" href="#不使用-viminfo-启动-vim"></a> 不使用 Viminfo 启动 Vim</h3>
+<p>要不使用 Viminfo 启动 Vim，可以在终端运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim -i NONE</span><br></pre></td></tr></table></figure>
+<p>要永不使用 Viminfo，可以在您的 vimrc 文件添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set viminfo=&quot;NONE&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="配置-viminfo-属性"><a class="markdownIt-Anchor" href="#配置-viminfo-属性"></a> 配置 Viminfo 属性</h3>
+<p>和 <code>viewoptions</code> 以及 <code>sessionoptions</code> 类似，您可以用 <code>viminfo</code> 选项指定要存储的属性。请运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set viminfo?</span><br></pre></td></tr></table></figure>
+<p>您会得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!,&#x27;100,&lt;50,s10,h</span><br></pre></td></tr></table></figure>
+<p>看起来有点晦涩难懂。命令分解如下：</p>
+<ul>
+<li><code>!</code> 保存以大写字母开头、却不包含小写字母的全局变量。回想一下 <code>g:</code> 代表了一个全局变量。例如，假设您写了赋值语句 <code>let g:FOO = &quot;foo&quot;</code>，Viminfo 将存储全局变量 <code>FOO</code>。然而如果您写了 <code>let g:Foo = &quot;foo&quot;</code>，Viminfo 将不存储它，因为它包含了小写字母。没有 <code>!</code>，Vim 不会存储这些全局变量。</li>
+<li><code>'100</code> 代表标记。在这个例子中，Viminfo 将保存最近 100 个文件的本地标记（a-z）。注意，如果存储的文件过多，Vim 会变得很慢，1000 左右就可以了。</li>
+<li><code>&lt;50</code> 告诉 Viminfo 每个寄存器最多保存多少行（这个例子中是 50 行）。如果我复制 100 行文本进寄存器 a（<code>&quot;ay99j</code>）后关闭 Vim，下次打开 Vim 并从寄存器 a（<code>&quot;ap</code>）粘贴时，Vim 最多只粘贴 50 行；如果不指定最大行号， <em>所有</em> 行都将被保存；如果指定 0，什么都不保存了。</li>
+<li><code>s10</code> 为寄存器设置大小限制（kb）。在这个例子中，任何大于 10kb 的寄存器都会被排除。</li>
+<li><code>h</code> 禁用高亮显示（<code>hlsearch</code> 时）。</li>
+</ul>
+<p>可以查阅 <code>:h 'viminfo'</code> 来了解其他更多选项。</p>
+<h2 id="聪明地使用视图-会话和-viminfo"><a class="markdownIt-Anchor" href="#聪明地使用视图-会话和-viminfo"></a> 聪明地使用视图、会话和 Viminfo</h2>
+<p>Vim 能使用视图、会话和 Viminfo 来保存不同级别的 Vim 环境快照。对于微型项目，可以使用视图；对于大型项目，可以使用会话。您应该花些时间来查阅视图、会话和 Viminfo 提供的所有选项。</p>
+<p>为您的编辑风格创建属于您自己的视图、会话和 Viminfo。如果您要换台计算机使用 Vim，只需加载您的设置，立刻就会感到就像在家里的工作环境一样！</p>
+<h2 id="链接"><a class="markdownIt-Anchor" href="#链接"></a> 链接</h2>
+<ul>
+<li><a href="https://blog.ilyfikaros.com/posts/284cf1bb/">目录</a></li>
+<li>上一部分 <a href="https://blog.ilyfikaros.com/posts/520a0cad/">Ch 19 - 编译</a></li>
+<li>下一部分 <a href="https://blog.ilyfikaros.com/posts/0783c3af/">Ch 21 - 多文件操作</a></li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Vim/">Vim</a></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/0783c3af.html" title="Ch21-多文件操作"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Ch21-多文件操作</div></div></a></div><div class="next-post pull-right"><a href="/posts/520a0cad.html" title="Ch19-编译"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ch19-编译</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/972ef649.html" title="Learn-Vim(the Smart Way) 中文翻译"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Learn-Vim(the Smart Way) 中文翻译</div></div></a></div><div><a href="/posts/d25eff46.html" title="Ch00-请先阅读"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Ch00-请先阅读</div></div></a></div><div><a href="/posts/d7470566.html" title="Ch01-起步"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="title">Ch01-起步</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E"><span class="toc-text"> 声明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC20%E7%AB%A0-%E8%A7%86%E5%9B%BE-%E4%BC%9A%E8%AF%9D%E5%92%8C-viminfo"><span class="toc-text"> 第20章 视图、会话和 Viminfo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE"><span class="toc-text"> 视图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%A7%86%E5%9B%BE%E5%B1%9E%E6%80%A7"><span class="toc-text"> 配置视图属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98%E8%A7%86%E5%9B%BE"><span class="toc-text"> 保存视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE%E6%96%87%E4%BB%B6"><span class="toc-text"> 视图文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E8%A7%86%E5%9B%BE%E6%96%87%E4%BB%B6"><span class="toc-text"> 加载视图文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA%E8%A7%86%E5%9B%BE"><span class="toc-text"> 多个视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="toc-text"> 自动创建视图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%9A%E8%AF%9D"><span class="toc-text"> 会话</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E4%BC%9A%E8%AF%9D"><span class="toc-text"> 创建新会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E4%BC%9A%E8%AF%9D"><span class="toc-text"> 加载会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BC%9A%E8%AF%9D%E5%B1%9E%E6%80%A7"><span class="toc-text"> 配置会话属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#viminfo"><span class="toc-text"> Viminfo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%86%99-viminfo"><span class="toc-text"> 读写 Viminfo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8-viminfo-%E5%90%AF%E5%8A%A8-vim"><span class="toc-text"> 不使用 Viminfo 启动 Vim</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-viminfo-%E5%B1%9E%E6%80%A7"><span class="toc-text"> 配置 Viminfo 属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%AA%E6%98%8E%E5%9C%B0%E4%BD%BF%E7%94%A8%E8%A7%86%E5%9B%BE-%E4%BC%9A%E8%AF%9D%E5%92%8C-viminfo"><span class="toc-text"> 聪明地使用视图、会话和 Viminfo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5"><span class="toc-text"> 链接</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>C语言循环结构 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、程序结构 在C语言程序中，一共有三种程序结构：顺序结构、选择结构(if和switch分支结构)、循环结构； 1）顺序结构 从头到尾一句接着一句的执行下去，直到执行完最后一句； 2）选择结构 执行到某个节点时，根据判断条件的结果来决定执行分支的方向，由if和switch实现。 3）循环结构 循环结构有一个循环体，循环体里是一段代码。对于循环结构来说，判断循环的条件，来决定是否继续执行循环体，由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言循环结构">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/c5f99b02.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="一、程序结构 在C语言程序中，一共有三种程序结构：顺序结构、选择结构(if和switch分支结构)、循环结构； 1）顺序结构 从头到尾一句接着一句的执行下去，直到执行完最后一句； 2）选择结构 执行到某个节点时，根据判断条件的结果来决定执行分支的方向，由if和switch实现。 3）循环结构 循环结构有一个循环体，循环体里是一段代码。对于循环结构来说，判断循环的条件，来决定是否继续执行循环体，由">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-01-05T08:43:33.000Z">
+<meta property="article:modified_time" content="2023-01-07T08:34:47.660Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/c5f99b02.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C语言循环结构',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-07 16:34:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C语言循环结构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-05T08:43:33.000Z" title="发表于 2023-01-05 16:43:33">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-07T08:34:47.660Z" title="更新于 2023-01-07 16:34:47">2023-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/C%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF%E7%BD%91/">C语言技术网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C语言循环结构"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一-程序结构"><a class="markdownIt-Anchor" href="#一-程序结构"></a> 一、程序结构</h1>
+<p>在C语言程序中，一共有三种程序结构：顺序结构、选择结构(if和switch分支结构)、循环结构；</p>
+<p>1）顺序结构</p>
+<p>从头到尾一句接着一句的执行下去，直到执行完最后一句；</p>
+<p>2）选择结构</p>
+<p>执行到某个节点时，根据判断条件的结果来决定执行分支的方向，由if和switch实现。</p>
+<p>3）循环结构</p>
+<p>循环结构有一个循环体，循环体里是一段代码。对于循环结构来说，判断循环的条件，来决定是否继续执行循环体，由while、do while和for来实现。</p>
+<h1 id="二-while循环"><a class="markdownIt-Anchor" href="#二-while循环"></a> 二、while循环</h1>
+<p>while循环的一般形式为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (表达式)</span><br><span class="line">&#123;</span><br><span class="line">  语句块</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>意思是，先计算<strong>表达式</strong>的值，当值为真时（非0即是真），执行<strong>语句块</strong>，执行完<strong>语句块</strong>后，回到循环首部再次计算<strong>表达式</strong>的值，如果为真，又执行一次<strong>语句块</strong>……，这个过程会一直重复，直到<strong>表达式</strong>的值为假，就不再执行<strong>语句块</strong>。</p>
+<p>循环也常常出现在我们的生活中，以超女选秀为例。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 超女已准备出场</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (是否有未出场的超女)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 判断超女的年龄</span></span><br><span class="line">  <span class="comment">// 判断超女的身材</span></span><br><span class="line">  <span class="comment">// 判断超女的颜值</span></span><br><span class="line">  <span class="comment">// 送往后宫</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>超女选秀就是一个循环，<strong>是否有未出场的超女</strong>是循环首部要判断的条件，它的取值会随着循环次数的增加而改变，<strong>判断超女的年龄、判断超女的身材、判断超女的颜值、送往后宫</strong>是循环体，随着循环次数的增加，全部的超女已出场，循环体不再执行。</p>
+<h1 id="三-do-while循环"><a class="markdownIt-Anchor" href="#三-do-while循环"></a> 三、do while循环</h1>
+<p>do while循环的一般形式为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span></span><br><span class="line">&#123;</span><br><span class="line">  语句块</span><br><span class="line">&#125;  <span class="keyword">while</span> (表达式)</span><br></pre></td></tr></table></figure>
+<p>do while先执行一次循环，然后再判断表达式的值，如果为真，再执行一次循环体，如此重复下去。</p>
+<p>在实际开发中，几乎不用 do while，所以就不讲它了。</p>
+<h1 id="四-循环的跳转"><a class="markdownIt-Anchor" href="#四-循环的跳转"></a> 四、循环的跳转</h1>
+<p>continue和break两个关键字用在循环体中，用于控制循环体代码的执行流程。</p>
+<p>continue跳转到循环的首部。</p>
+<p>break跳出循环。</p>
+<p>以超女选秀为例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 超女已准备出场</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (是否有未出场的超女)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 判断超女的年龄</span></span><br><span class="line">  <span class="keyword">if</span> (年龄小于<span class="number">16</span>岁) <span class="keyword">continue</span>;</span><br><span class="line">  <span class="comment">// 判断超女的身材</span></span><br><span class="line">  <span class="keyword">if</span> (身材不火辣) <span class="keyword">continue</span>;</span><br><span class="line">  <span class="comment">// 判断超女的颜值</span></span><br><span class="line">  <span class="keyword">if</span> (颜值不漂亮) <span class="keyword">continue</span>;</span><br><span class="line">  <span class="comment">// 判断已选出的超女数量，如果已经有10位了，就不要再选了</span></span><br><span class="line">  <span class="keyword">if</span> (已选出的超女数量等于<span class="number">10</span>) <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 送往后宫</span></span><br></pre></td></tr></table></figure>
+<p>超女出场后，先看看身份证上的年龄，如果不够16岁，没到法定年龄，评委就会说直接下一个，即continue，这个不够16岁的小姑娘直接回家。</p>
+<p>如果本次选秀的任务是选出10位超女，如果选出的超女已经有10位了，活动结束，即break，没选上的和没出场的直接回家。</p>
+<h1 id="五-while循环的应用"><a class="markdownIt-Anchor" href="#五-while循环的应用"></a> 五、while循环的应用</h1>
+<p>利用一个循环，把用户每次从键盘输入的数据累加起来，如果总和超过了5000，循环结束。</p>
+<p><strong>示例（book31.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *  程序名：book31.c，此程序用于演示while循环 </span></span><br><span class="line"><span class="comment"> *  作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> times=<span class="number">0</span>;   <span class="comment">// 记录用户输入数据的次数</span></span><br><span class="line">  <span class="type">int</span> value=<span class="number">0</span>;   <span class="comment">// 用户每次从键盘输入的数据</span></span><br><span class="line">  <span class="type">int</span> sum=<span class="number">0</span>;     <span class="comment">// 记录用户输入数据的和</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (sum&lt;<span class="number">5000</span>)  <span class="comment">// 如果sum的值小于5000，进入循环</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入数字：&quot;</span>);    <span class="comment">// 提示用户输入</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;value);        <span class="comment">// 接受用户从键盘输入的数据</span></span><br><span class="line"></span><br><span class="line">    times++;                   <span class="comment">// 用户输入数据的次数自增1</span></span><br><span class="line">    sum=sum+value;             <span class="comment">// 记录用户输入数据的和</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;您一共输入了%d个数据，和为%d。\n&quot;</span>,times,sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200303145623106.png" alt="在这里插入图片描述" /></p>
+<h1 id="六-for循环"><a class="markdownIt-Anchor" href="#六-for循环"></a> 六、for循环</h1>
+<p>for循环的一般形式为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (语句<span class="number">1</span>;表达式;语句<span class="number">2</span>)</span><br><span class="line"> &#123;</span><br><span class="line">   语句块</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>1）for循环开始时，会先执行<strong>语句1</strong>，而且在整个循环过程中只执行一次<strong>语句1</strong>。</p>
+<p>2）接着判断<strong>表达式</strong>的条件，如果条件成立，就执行一次循环体中的<strong>语句块</strong>。</p>
+<p>3）<strong>语句块</strong>执行完后，接下来会执行<strong>语句2</strong>。</p>
+<p>4）重复第2）步和第3），直到<strong>表达式</strong>的条件不成立才结束for循环。</p>
+<p>注意：</p>
+<p>1）在for循环中，<strong>语句1</strong>、<strong>表达式</strong>和<strong>语句2</strong>都可以为空，for (;;)等同于while (1)。</p>
+<p>2）continue和break两个关键字也可以用在for循环体中。</p>
+<p>for循环一般与计数器一起使用。例如：把1到100之间的数值累加起来。</p>
+<p><strong>示例（book33.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *  程序名：book33.c，此程序用于演示for循环</span></span><br><span class="line"><span class="comment"> *  作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> ii=<span class="number">1</span>;      <span class="comment">// 用于for循环的计数器</span></span><br><span class="line">  <span class="type">int</span> sum=<span class="number">0</span>;     <span class="comment">// 记录1到100的累积值</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (ii=<span class="number">1</span>;ii&lt;=<span class="number">100</span>;ii++)</span><br><span class="line">  &#123;</span><br><span class="line">    sum=sum+ii;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;1到100的累积值为%d。\n&quot;</span>,sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200303145839138.png" alt="在这里插入图片描述" /></p>
+<h1 id="七-for循环嵌套"><a class="markdownIt-Anchor" href="#七-for循环嵌套"></a> 七、for循环嵌套</h1>
+<p>我们再来看超女选秀例子，超女共分为3组，每组有4位超女，主持人利用for循环嵌套来安排超女们出场。</p>
+<p><strong>示例（book35.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *  程序名：book35.c，此程序用于演示for循环的嵌套</span></span><br><span class="line"><span class="comment"> *  作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> ii=<span class="number">0</span>;         <span class="comment">// 超女分组编号的计数器</span></span><br><span class="line">  <span class="type">int</span> jj=<span class="number">0</span>;         <span class="comment">// 每组超女序号的计数器</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (ii=<span class="number">1</span>;ii&lt;=<span class="number">3</span>;ii++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> (jj=<span class="number">1</span>;jj&lt;=<span class="number">4</span>;jj++)</span><br><span class="line">    &#123;</span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">&quot;第%d组的第%d位超女出场。\n&quot;</span>,ii,jj);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200303145956691.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MTMzODk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<h1 id="八-循环的选择"><a class="markdownIt-Anchor" href="#八-循环的选择"></a> 八、循环的选择</h1>
+<p>for循环可以实现while循环的功能，while循环也可以实现for循环的功能，没有那个更好的说法，要看应用场景。</p>
+<p><strong>for循环更合适事先知道循环总次数的场景，一般与计数器或数组结合一起使用，数组的知识我们在后面介绍。</strong></p>
+<p><strong>while循环更合适事先不知道循环总次数的场景，以达到某个目标为目，例如超女选秀，报名有多少人没关系，已选够10位或没人可选是循环的结束。</strong></p>
+<h1 id="九-死循环"><a class="markdownIt-Anchor" href="#九-死循环"></a> 九、死循环</h1>
+<p>死循环是指循环的条件永远为真。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 循环体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>出现死循环的情况有两种：1）程序的逻辑错误；2）程序员故意为之。第一种情况就不说了，程序员自己去解决，第二种是程序功能的需要，但是程序员仍有其它的办法让程序中止，这么说可能难以理解，没关系，在以后的课程中将会介绍。</p>
+<p>如果您的程序不小心进入了死循环，可以用Ctrl+c中止。</p>
+<h1 id="十-应用技巧"><a class="markdownIt-Anchor" href="#十-应用技巧"></a> 十、应用技巧</h1>
+<p>1）for循环的计数器，习惯的写法是for (ii=0;ii&lt;=10;ii++)，表示从0、1……到10，从小到大的方式计数，但是在某些应用场景中，可能需要从大到小的方式计数，for (ii=10;ii&gt;=0;ii–)，也是可以的。</p>
+<p>2）for循环的计数器，习惯的写法是for (ii=0;ii&lt;=10;ii++)，表示从0、1……到10，从小到大一次增加1的方式，但是在某些应用场景中，计数器不一定是增加ii++，ii=ii+2也是可以的。</p>
+<h1 id="十一-课后作业"><a class="markdownIt-Anchor" href="#十一-课后作业"></a> 十一、课后作业</h1>
+<p>1）采用一个while循环，把1到100之间的数值累加起来，实现book33.c程序的功能。</p>
+<p>2）采用一个for循环，把用户每次从键盘输入的数值累加起来，如果总和超过了5000，循环结束，实现book31.c程序的功能。</p>
+<p>3）采用您认为更合适的循环，输出九九乘法表，如下：<br />
+<img src="https://img-blog.csdnimg.cn/20200314094948289.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MTMzODk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /><br />
+4）采用一个while循环，接受键盘输入的整数，如果输入的整数大于100，丢弃；如果输入的整数小于等100，把每次输入值累加起来，如果输入的整数值为0，跳出循环。最后显示输入了的有效的数据（大于0小于等于100的数）的个数，并显示有效数据的总和。</p>
+<p>5）采用一个循环，输出0到100之间的偶数。</p>
+<p>6）采用一个循环，输出0到100之间的能整除5的数字。</p>
+<p>7）一共有5名超女，采用一个循环，在界面上输入超女数据，按下列要求选出妃子、宫女和杂役。循环结束后，显示选秀结果（妃子、宫女、杂役的人数）。</p>
+<p>妃子：（1）年龄18-25岁；（2）身高165-178cm；（3）身材火辣；（4）颜值漂亮。</p>
+<p>宫女：（1）年龄18-30岁；（2）身高160-165cm；（3）身材火辣或者普通；（4）颜值一般。</p>
+<p>嬷嬷：（1）年龄35-40岁；（2）身高155-165cm；（3）身材普通或者飞机场；（4）颜值一般。</p>
+<h1 id="十二-版权声明"><a class="markdownIt-Anchor" href="#十二-版权声明"></a> 十二、版权声明</h1>
+<p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。<br />
+来源：C语言技术网（<a target="_blank" rel="noopener" href="http://www.freecplus.net">www.freecplus.net</a>）<br />
+作者：码农有道</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C</a></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/8a19dc2c.html" title="C语言数组"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C语言数组</div></div></a></div><div class="next-post pull-right"><a href="/posts/d98a7bd.html" title="C语言switch分支结构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C语言switch分支结构</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/a0664f6d.html" title="C语言程序的基本结构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言程序的基本结构</div></div></a></div><div><a href="/posts/91c8d2d2.html" title="C语言输入和输出"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言输入和输出</div></div></a></div><div><a href="/posts/a51a74ec.html" title="C语言数据类型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言数据类型</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="toc-text"> 一、程序结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-while%E5%BE%AA%E7%8E%AF"><span class="toc-text"> 二、while循环</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-do-while%E5%BE%AA%E7%8E%AF"><span class="toc-text"> 三、do while循环</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E5%BE%AA%E7%8E%AF%E7%9A%84%E8%B7%B3%E8%BD%AC"><span class="toc-text"> 四、循环的跳转</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-while%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text"> 五、while循环的应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD-for%E5%BE%AA%E7%8E%AF"><span class="toc-text"> 六、for循环</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83-for%E5%BE%AA%E7%8E%AF%E5%B5%8C%E5%A5%97"><span class="toc-text"> 七、for循环嵌套</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB-%E5%BE%AA%E7%8E%AF%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text"> 八、循环的选择</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D-%E6%AD%BB%E5%BE%AA%E7%8E%AF"><span class="toc-text"> 九、死循环</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81-%E5%BA%94%E7%94%A8%E6%8A%80%E5%B7%A7"><span class="toc-text"> 十、应用技巧</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%80-%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A"><span class="toc-text"> 十一、课后作业</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C-%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-text"> 十二、版权声明</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

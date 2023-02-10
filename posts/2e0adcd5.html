@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>C语言整数 | 凌亦零网志</title><meta name="author" content="凌亦零"><meta name="copyright" content="凌亦零"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、整数的概念 整数是我们生活中常用的数据类型，也是编程中常用的一种数据，C语言使用int关键字来定义整数变量（int是 integer 的简写）。 在定义变量的时候，可以加signed、unsigned、short和long四种修饰符。 signed：有符号的，可以表示正数和负数。 unsigned：无符号的，只能表示正数，例如数组的下标、人的身高等。 short：短的，现在主流的64位操作系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言整数">
+<meta property="og:url" content="https://blog.ilyfikaros.com/posts/2e0adcd5.html">
+<meta property="og:site_name" content="凌亦零网志">
+<meta property="og:description" content="一、整数的概念 整数是我们生活中常用的数据类型，也是编程中常用的一种数据，C语言使用int关键字来定义整数变量（int是 integer 的简写）。 在定义变量的时候，可以加signed、unsigned、short和long四种修饰符。 signed：有符号的，可以表示正数和负数。 unsigned：无符号的，只能表示正数，例如数组的下标、人的身高等。 short：短的，现在主流的64位操作系">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg">
+<meta property="article:published_time" content="2023-01-05T08:53:20.000Z">
+<meta property="article:modified_time" content="2023-01-07T08:37:44.050Z">
+<meta property="article:author" content="凌亦零">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://blog.ilyfikaros.com/posts/2e0adcd5.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":270},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 凌亦零","link":"链接: ","source":"来源: 凌亦零网志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C语言整数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-07 16:37:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="凌亦零网志"><span class="site-name">凌亦零网志</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-blog"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/programming/"><i class="fa-fw fas fa-file-code"></i><span> 编程</span></a></li><li><a class="site-page child" href="/reprint"><i class="fa-fw fas fa-paste"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-square-up-right"></i><span> 传送</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C语言整数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-05T08:53:20.000Z" title="发表于 2023-01-05 16:53:20">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-07T08:37:44.050Z" title="更新于 2023-01-07 16:37:44">2023-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/C%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF%E7%BD%91/">C语言技术网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C语言整数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一-整数的概念"><a class="markdownIt-Anchor" href="#一-整数的概念"></a> 一、整数的概念</h1>
+<p>整数是我们生活中常用的数据类型，也是编程中常用的一种数据，C语言使用int关键字来定义整数变量（int是 integer 的简写）。</p>
+<p>在定义变量的时候，可以加signed、unsigned、short和long四种修饰符。</p>
+<p><strong>signed</strong>：有符号的，可以表示正数和负数。</p>
+<p><strong>unsigned</strong>：无符号的，只能表示正数，例如数组的下标、人的身高等。</p>
+<p><strong>short</strong>：短的，现在主流的64位操作系统下，整数占用内存4个字节，使用 4<br />
+个字节保存较小的整数绰绰有余，会空闲出两个字节来，这些字节就白白浪费掉了。在C语言被发明的早期，或者在单片机和嵌入式系统中，内存都是非常稀缺的资源，所有的程序都在尽可能节省内存。</p>
+<p><strong>long</strong>：长的，更长的整数。</p>
+<h1 id="二-整数的取值范围"><a class="markdownIt-Anchor" href="#二-整数的取值范围"></a> 二、整数的取值范围</h1>
+<p>整数的取值范围与计算机操作系统和C语言编译器有关，没有一个固定的数值，我们可以根据它占用的内存大小来推断它的取值范围。</p>
+<p>一个字节有8个位，表示的数据的取值范围是2<sup>8</sup>-1，即255。</p>
+<p>如果占用的内存是两个字节，无符号型取值范围是2<sup>8</sup>ⅹ2<sup>8</sup>-1。</p>
+<p>如果占用的内存是四个字节，无符号型取值范围是2<sup>8</sup>ⅹ2<sup>8</sup>ⅹ2<sup>8</sup>ⅹ2<sup>8</sup>-1。</p>
+<p>如果占用的内存是八个字节，无符号型取值范围是2<sup>8</sup>ⅹ2<sup>8</sup>ⅹ2<sup>8</sup>ⅹ2<sup>8</sup>ⅹ2<sup>8</sup>ⅹ2<sup>8</sup>ⅹ2<sup>8</sup>ⅹ2<sup>8</sup>-1。</p>
+<p>如果是有符号，取值范围减半，因为符号占一个位。</p>
+<p>下面用一个示例代码来测试各种整数占用内存的大小。</p>
+<p><strong>示例（book60.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 程序名：book60.c，此程序演示整数占用内存的大小和取值范围。</span></span><br><span class="line"><span class="comment"> * 作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">short</span> si;   <span class="comment">// 短整数</span></span><br><span class="line">  <span class="type">int</span>   ii;   <span class="comment">// 整数</span></span><br><span class="line">  <span class="type">long</span>  li;   <span class="comment">// 长整数</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;sizeof short is %d\n&quot;</span>,<span class="built_in">sizeof</span>(<span class="type">short</span>));</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;sizeof int is %d\n&quot;</span>,<span class="built_in">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;sizeof long is %d\n&quot;</span>,<span class="built_in">sizeof</span>(<span class="type">long</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200303170955332.png" alt="在这里插入图片描述" /></p>
+<p>sizeof是C语言中保留关键字，是一种运算符，不是函数，sizeof实际上是获取了数据在内存中所占用的存储空间，以字节为单位。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ii;       <span class="comment">// sizeof(int)和sizeof(ii)都可以。</span></span><br></pre></td></tr></table></figure>
+<p>根据book60.c的测试结果，我们可以得到各种整数的取值范围。</p>
+<table>
+<thead>
+<tr>
+<th>类型简写</th>
+<th>类型全称</th>
+<th>长度</th>
+<th>取值范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>short</td>
+<td>[signed] short [int]</td>
+<td>2字节</td>
+<td>-32768~32767</td>
+</tr>
+<tr>
+<td>unsigned short</td>
+<td>unsigned short [int]</td>
+<td>2字节</td>
+<td>0~65535</td>
+</tr>
+<tr>
+<td>int</td>
+<td>[signed] int</td>
+<td>4字节</td>
+<td>-2147483648~2147483647</td>
+</tr>
+<tr>
+<td>unsigned int</td>
+<td>unsigned [int]</td>
+<td>4字节</td>
+<td>0~4294967295</td>
+</tr>
+<tr>
+<td>long</td>
+<td>[signed] long [int]</td>
+<td>8字节</td>
+<td>-9223372036854775808~ 9223372036854775807</td>
+</tr>
+<tr>
+<td>unsigned long</td>
+<td>unsigned long [int]</td>
+<td>8字节</td>
+<td>0~18446744073709551615</td>
+</tr>
+</tbody>
+</table>
+<p>注意：</p>
+<p>1）计算机用最高位1位来表达符号，unsigned修饰过的正整数不需要符号位，在表达正整数的时候比signed修饰的正整数取值大一倍。</p>
+<p>2）在写程序的时候，上表中括号[]的单词可以省略不书写。</p>
+<p>3）在写程序的时候，给整数变量赋值不能超出变量的取值范围，编译的时候会出现类似以下的错误，程序运行也可能产生不可预后的后果。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200303171125136.png" alt="在这里插入图片描述" /></p>
+<p>4）现在计算机的内存不值钱，建议程序员少用short，慎用int，多用long，内存不是问题，程序的稳定高于一切。</p>
+<h1 id="三-整数的输出"><a class="markdownIt-Anchor" href="#三-整数的输出"></a> 三、整数的输出</h1>
+<p>以下表格中，重点记住第一、二行十进制的输出格式，二十年来，八进制数我从来没有用过，十六进制数只在显示内存的地址时见过，所以大家不必关心八进制和十六进制的相关知识，了解即可。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200303175428412.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MTMzODk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<p>注意一个坑：输出格式控制符的类型最好与变量的类型一一对应，否则会出现意外的后果，示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i=<span class="number">32767</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;i %hd,%d\n&quot;</span>,i,i);</span><br><span class="line"><span class="type">int</span> j=<span class="number">32768</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;j %hd,%d\n&quot;</span>,j,j);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i <span class="number">32767</span>,<span class="number">32767</span></span><br><span class="line">j <span class="number">-32768</span>,<span class="number">32768</span>     <span class="comment">// 得到了意外的输出结果，32768超出了short的取值范围。</span></span><br></pre></td></tr></table></figure>
+<p>%hd用于输出短整数，最大值是32767，可以输出32767，但不能正常的输出32768。</p>
+<h1 id="四-二进制数-八进制数和十六进制数的书写"><a class="markdownIt-Anchor" href="#四-二进制数-八进制数和十六进制数的书写"></a> 四、二进制数、八进制数和十六进制数的书写</h1>
+<p>一个数字默认就是十进制的，表示一个十进制数字不需要任何特殊的格式。但是，表示一个二进制、八进制或者十六进制数字就不一样了，为了和十进制数字区分开来，必须采用某种特殊的写法，具体来说，就是在数字前面加上特定的字符，也就是加前缀。</p>
+<h2 id="1-二进制"><a class="markdownIt-Anchor" href="#1-二进制"></a> 1、二进制</h2>
+<p>二进制由 0 和 1 两个数字组成，使用时必须以0b或0B（不区分大小写）开头，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是合法的二进制</span></span><br><span class="line"><span class="type">int</span> a = <span class="number">0b101</span>;      <span class="comment">// 换算成十进制为 5</span></span><br><span class="line"><span class="type">int</span> b = <span class="number">-0b</span>110010;  <span class="comment">// 换算成十进制为 -50</span></span><br><span class="line"><span class="type">int</span> c = <span class="number">0B</span>100001;   <span class="comment">// 换算成十进制为 33</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是非法的二进制</span></span><br><span class="line"><span class="type">int</span> m = <span class="number">101010</span>;  <span class="comment">// 无前缀 0B，相当于十进制</span></span><br><span class="line"><span class="type">int</span> n = <span class="number">0B</span>410;    <span class="comment">// 4不是有效的二进制数字</span></span><br></pre></td></tr></table></figure>
+<p>请注意，标准的C语言并不支持上面的二进制写法，只是有些编译器自己进行了扩展，才支持二进制数字。换句话说，并不是所有的编译器都支持二进制数字，只有一部分编译器支持，并且跟编译器的版本有关系。</p>
+<h2 id="2-八进制"><a class="markdownIt-Anchor" href="#2-八进制"></a> 2、八进制</h2>
+<p>八进制由 0~7 八个数字组成，使用时必须以0开头（注意是数字 0，不是字母o），例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是合法的八进制数</span></span><br><span class="line"><span class="type">int</span> a = <span class="number">015</span>;      <span class="comment">// 换算成十进制为 13</span></span><br><span class="line"><span class="type">int</span> b = <span class="number">-0101</span>;    <span class="comment">// 换算成十进制为 -65</span></span><br><span class="line"><span class="type">int</span> c = <span class="number">0177777</span>;  <span class="comment">// 换算成十进制为 65535</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下是非法的八进制</span></span><br><span class="line"><span class="type">int</span> m = <span class="number">256</span>;  <span class="comment">// 无前缀 0，相当于十进制</span></span><br><span class="line"><span class="type">int</span> n = <span class="number">03</span>A2;  <span class="comment">// A不是有效的八进制数字</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-十六进制"><a class="markdownIt-Anchor" href="#3-十六进制"></a> 3、十六进制</h2>
+<p>十六进制由数字 0~9、字母 A~F 或a~f（不区分大小写）组成，使用时必须以0x或0X（不区分大小写）开头，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是合法的十六进制</span></span><br><span class="line"><span class="type">int</span> a = <span class="number">0X2A</span>;   <span class="comment">// 换算成十进制为 42</span></span><br><span class="line"><span class="type">int</span> b = <span class="number">-0XA0</span>;  <span class="comment">// 换算成十进制为 -160</span></span><br><span class="line"><span class="type">int</span> c = <span class="number">0xffff</span>;   <span class="comment">// 换算成十进制为 65535</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下是非法的十六进制</span></span><br><span class="line"><span class="type">int</span> m = <span class="number">5</span>A;    <span class="comment">// 没有前缀 0X，是一个无效数字</span></span><br><span class="line"><span class="type">int</span> n = <span class="number">0X3</span>H;  <span class="comment">// H不是有效的十六进制数字</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-需要注意的坑"><a class="markdownIt-Anchor" href="#4-需要注意的坑"></a> 4、需要注意的坑</h2>
+<p><strong>在现实生活和工作中，我们在写十进制数的时候，为了对齐或其它原因，在数值前面加0是无关紧要的，但是，在C语言中，不要在十进制数前加0，会被计算机误认为是八进制数。</strong></p>
+<h1 id="五-常用的库函数"><a class="markdownIt-Anchor" href="#五-常用的库函数"></a> 五、常用的库函数</h1>
+<p>C语言提供了几个常用的库函数，声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span>  <span class="title">atoi</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span></span>;  	<span class="comment">// 把字符串nptr转换为int整数</span></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="title">atol</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span></span>;     <span class="comment">// 把字符串nptr转换为long整数</span></span><br><span class="line"><span class="function"><span class="type">int</span>  <span class="title">abs</span><span class="params">(<span class="type">const</span> <span class="type">int</span> j)</span></span>;            <span class="comment">// 求int整数的绝对值</span></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="title">labs</span><span class="params">(<span class="type">const</span> <span class="type">long</span> <span class="type">int</span> j)</span></span>;     <span class="comment">// 求long整数的绝对值</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例（book61.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 程序名：book61.c，此程序演示整数的atoi atol abs labs函数的使用</span></span><br><span class="line"><span class="comment"> * 作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span>   <span class="comment">// 如果不包含这个头文件，会出现意外的结果。</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span>  ii;</span><br><span class="line">  <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line">  ii=<span class="built_in">atoi</span>(<span class="string">&quot;-2147483647&quot;</span>);</span><br><span class="line">  ll=<span class="built_in">atol</span>(<span class="string">&quot;-9223372036854775807&quot;</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;ii=%d\n&quot;</span>,ii);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;ll=%ld\n&quot;</span>,ll);</span><br><span class="line"></span><br><span class="line">  ii=<span class="built_in">abs</span>(ii);</span><br><span class="line">  ll=<span class="built_in">labs</span>(ll);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;ii=%d\n&quot;</span>,ii);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;ll=%ld\n&quot;</span>,ll);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200303171958780.png" alt="在这里插入图片描述" /></p>
+<h1 id="六-数据类型的别名"><a class="markdownIt-Anchor" href="#六-数据类型的别名"></a> 六、数据类型的别名</h1>
+<p>C语言允许程序员使用 typedef关键字来给数据类型定义一个别名，别名一般有两个特点：1）名称更短；2）更符合程序员的习惯。</p>
+<p>例如unsigned int起个size_t的别名。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> <span class="type">size_t</span>;</span><br><span class="line"><span class="type">size_t</span> ii; 等同于 <span class="type">unsigned</span> <span class="type">int</span> ii;</span><br></pre></td></tr></table></figure>
+<p>我们来看看strlen函数的帮助，strlen的返回值就是size_t类型。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200303172117989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1MTMzODk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<h1 id="七-随机数"><a class="markdownIt-Anchor" href="#七-随机数"></a> 七、随机数</h1>
+<p>在实际开发中，会用到随机数这个功能，例如编写游戏类的程序时就需要用到随机数。</p>
+<h2 id="1-生成随机数"><a class="markdownIt-Anchor" href="#1-生成随机数"></a> 1、生成随机数</h2>
+<p>在C语言中，我们使用 &lt;stdlib.h&gt; 头文件中的 srand和rand 函数来生成随机数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">srand</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> seed)</span></span>;   <span class="comment">// 随机数生成器的初始化函数</span></span><br><span class="line"><span class="function"><span class="type">int</span>  <span class="title">rand</span><span class="params">()</span></span>;                        <span class="comment">// 获一个取随机数</span></span><br></pre></td></tr></table></figure>
+<p>srand函数初始化随机数发生器（俗称种子），在实际开发中，我们可以用时间作为参数，只要每次播种的时间不同，那么生成的种子就不同，最终的随机数也就不同，通常我们采用&lt;time.h&gt; 头文件中的 time 函数即可得到一个精确到秒的时间作为种子。</p>
+<p><strong>示例（book63.c）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 程序名：book63.c，此程序用于演示随机数</span></span><br><span class="line"><span class="comment"> * 作者：C语言技术网(www.freecplus.net) 日期：20190525</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> ii;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="number">0</span>));  <span class="comment">// 播下随机种子</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (ii=<span class="number">0</span>;ii&lt;<span class="number">5</span>;ii++)  <span class="comment">// 生成5个随机数</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, <span class="built_in">rand</span>());  <span class="comment">// 获取随机数</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200303172317661.png" alt="在这里插入图片描述" /></p>
+<h2 id="2-生成一定范围随机数"><a class="markdownIt-Anchor" href="#2-生成一定范围随机数"></a> 2、生成一定范围随机数</h2>
+<p>在实际开发中，需求往往是一定范围内的随机数，对于产生一定范围的随机数，就需要使用一定的技巧，常用的方法是取模运算（取余数），再加上一个加法运算：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="built_in">rand</span>() % <span class="number">50</span>;   <span class="comment">// 产生0~49的随机数</span></span><br></pre></td></tr></table></figure>
+<p>如果要规定上下限：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="built_in">rand</span>() % <span class="number">51</span> + <span class="number">100</span>;   <span class="comment">// 产生100~150的随机数</span></span><br></pre></td></tr></table></figure>
+<p>取模即取余数，rand()%51+100，rand()%51是产生 0~50 的随机数，后面+100保证 a最小只能是 100，最大就是 50+100=150。</p>
+<h1 id="八-课后作业"><a class="markdownIt-Anchor" href="#八-课后作业"></a> 八、课后作业</h1>
+<p>1）编写示例程序，判断short、unsigned short、int、unsigned int、long、unsigned long占用内存的字节数。</p>
+<p>2）选择题：请问int的取值范围是多少？</p>
+<p>（A）二十多亿 (B) -2147483648~2147483647 © 0~4294967295</p>
+<p>3）选择题：请问long的取值范围是多少？</p>
+<p>（A）很多个亿 (B) 足够大 © -9223372036854775808~9223372036854775807</p>
+<p>4）编写示例程序，从界面上输入数字的字符串，存放在字符串变量中，然后用atoi函数转换为整数，加上100后再输出到屏幕。</p>
+<p>5）在C语言中，还有一种long long int的整数，各位写一个程序，测试它占用内存的字节数和取值范围，并思考long long int类型是否具备实用价值。</p>
+<p>6）编写示例程序，测试short、unsigned short、int、unsigned、long、unsigned long赋值超出了取值范围的后果。</p>
+<p>7）重写整数的abs和labs库函数，实现其功能，函数的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span>   <span class="title">ABS</span><span class="params">(<span class="type">const</span> <span class="type">int</span> j)</span></span>;                 <span class="comment">// 求int整数的绝对值</span></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="title">LABS</span><span class="params">(<span class="type">const</span> <span class="type">long</span> <span class="type">int</span> j)</span></span>;           <span class="comment">// 求long整数的绝对值</span></span><br></pre></td></tr></table></figure>
+<p>8）利用已经学习的知识，自定义一个函数，函数名是ctoi，把字符的’0’、‘1’、‘2’、‘3’、‘4’、‘5’、‘6’、‘7’、‘8’、'9’转换为整数的0、1、2、3、4、5、6、7、8、9。函数的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">ctoi</span><span class="params">(<span class="type">const</span> <span class="type">char</span> chr)</span></span>;</span><br><span class="line">chr为用字符方式表示的数字，函数的返回值为数字的整数。</span><br></pre></td></tr></table></figure>
+<p>提示：采用if或switch语句，判断chr的值，直接返回结果。</p>
+<p>调用示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;&#x27;0&#x27; is %d\n&quot;</span>,<span class="built_in">ctoi</span>(<span class="string">&#x27;0&#x27;</span>));    <span class="comment">// 输出结果是&#x27;0&#x27; is 0</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;&#x27;9&#x27; is %d\n&quot;</span>,<span class="built_in">ctoi</span>(<span class="string">&#x27;9&#x27;</span>));    <span class="comment">// 输出结果是&#x27;9&#x27; is 9</span></span><br></pre></td></tr></table></figure>
+<p><strong>以下作业题难度较大，如果无法完成，不要过于纠结，以后功力提升了再做。</strong></p>
+<p>9）自定义一个函数，函数名是POW，利用已经学习的知识，求一个数的n次幂，函数的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求x的y次幂，函数返回值为x的y次幂。</span></span><br><span class="line"><span class="function"><span class="type">long</span>  <span class="title">POW</span><span class="params">(<span class="type">const</span> <span class="type">int</span> x,<span class="type">const</span> <span class="type">int</span> y)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>调用示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;POW(2,3) is %lu\n&quot;</span>,<span class="built_in">POW</span>(<span class="number">2</span>,<span class="number">3</span>));      <span class="comment">// 输出结果是8</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;POW(10,3) is %lu\n&quot;</span>,<span class="built_in">POW</span>(<span class="number">10</span>,<span class="number">5</span>));    <span class="comment">// 输出结果是100000</span></span><br></pre></td></tr></table></figure>
+<p>10）编写示例程序，把字符串里的数字全部加起来，例如字符串是&quot;90576483975423&quot;，全部加起来结果是72。</p>
+<p>11）重写整数的atoi和atol库函数，实现其功能，函数的声明如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span>   <span class="title">ATOI</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span></span>;  	<span class="comment">// 把字符串nptr转换为int整数</span></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="title">ATOL</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span></span>;     <span class="comment">// 把字符串nptr转换为long整数</span></span><br></pre></td></tr></table></figure>
+<p>提示：例如字符串的&quot;12305&quot;，转为整数12305，拆开就是10000+2000+300+0+5，即1*104+2*103+3*102+0*101+5*100</p>
+<p>12）生成五十二个随机数，存放在数组中，范围是1-52，不允许重复，最后在屏幕上显示出来。</p>
+<p>13）编写一个扑克的发牌程序，一副牌除了大小王，还有52张牌，随机洗牌，再发给四个人。</p>
+<p>提示：</p>
+<p>（1）把一副牌的全部牌面可以用1-52的数值表示，数组是一个好选择；</p>
+<p>（2）洗牌就是生成范围在1-52之间不重复的随机数。</p>
+<p>（3）定义四个数组，代表四个人，把洗好的52个数按顺序赋给四个数组就行了。如果不想定义四个数组，用一个二维数组也行。</p>
+<p>（4）把四个数组的值显示出来，就是每个人的牌面。</p>
+<h1 id="九-版权声明"><a class="markdownIt-Anchor" href="#九-版权声明"></a> 九、版权声明</h1>
+<p>C语言技术网原创文章，转载请说明文章的来源、作者和原文的链接。<br />
+来源：C语言技术网（<a target="_blank" rel="noopener" href="http://www.freecplus.net">www.freecplus.net</a>）<br />
+作者：码农有道</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C</a></div><div class="post_share"><div class="social-share" data-image="https://www.keaitupian.cn/cjpic/frombd/2/253/1882508431/2658992394.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/70da0f30.html" title="C语言字符"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C语言字符</div></div></a></div><div class="next-post pull-right"><a href="/posts/cd7b170d.html" title="C语言指针"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C语言指针</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/a0664f6d.html" title="C语言程序的基本结构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言程序的基本结构</div></div></a></div><div><a href="/posts/91c8d2d2.html" title="C语言输入和输出"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言输入和输出</div></div></a></div><div><a href="/posts/a51a74ec.html" title="C语言数据类型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">C语言数据类型</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E6%95%B4%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text"> 一、整数的概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E6%95%B4%E6%95%B0%E7%9A%84%E5%8F%96%E5%80%BC%E8%8C%83%E5%9B%B4"><span class="toc-text"> 二、整数的取值范围</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E6%95%B4%E6%95%B0%E7%9A%84%E8%BE%93%E5%87%BA"><span class="toc-text"> 三、整数的输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0-%E5%85%AB%E8%BF%9B%E5%88%B6%E6%95%B0%E5%92%8C%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%9A%84%E4%B9%A6%E5%86%99"><span class="toc-text"> 四、二进制数、八进制数和十六进制数的书写</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BA%8C%E8%BF%9B%E5%88%B6"><span class="toc-text"> 1、二进制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%85%AB%E8%BF%9B%E5%88%B6"><span class="toc-text"> 2、八进制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6"><span class="toc-text"> 3、十六进制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%9D%91"><span class="toc-text"> 4、需要注意的坑</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-text"> 五、常用的库函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%AB%E5%90%8D"><span class="toc-text"> 六、数据类型的别名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83-%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-text"> 七、随机数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-text"> 1、生成随机数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90%E4%B8%80%E5%AE%9A%E8%8C%83%E5%9B%B4%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-text"> 2、生成一定范围随机数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB-%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A"><span class="toc-text"> 八、课后作业</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D-%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-text"> 九、版权声明</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">© 2023. <a href="https://blog.ilyfikaros.com/" target="_blank">凌亦零网志</a> 版权所有</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

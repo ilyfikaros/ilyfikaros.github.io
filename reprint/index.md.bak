@@ -1,0 +1,179 @@
+---
+title: 转载
+date: 2023-01-06 23:43:53
+type: "reprint"
+---
+
+## C语言技术网
+
+### 一、C语言教程
+
+- [01_C语言程序的基本结构](https://blog.ilyfikaros.com/posts/a0664f6d/)
+- [02_C语言数据类型](https://blog.ilyfikaros.com/posts/a51a74ec/
+- [03_C语言常量、变量和关键字]
+- [04_C语言输入和输出]
+- [05_C语言运算符]
+- [06_C语言if分支结构]
+- [07_C语言switch分支结构]
+- [08_C语言循环结构]
+- [09_C语言数组]
+- [10_C语言函数]
+- [11_C语言变量的作用域]
+- [12_C语言指针]
+- [13_C语言整数]
+- [14_C语言字符]
+- [15_C语言浮点数]
+- [16_C语言字符串]
+- [17_C语言数据类型转换]
+- [18_C语言结构体]
+- [19_C语言格式化输出]
+- [20_C语言main函数的参数]
+- [21_C语言动态内存管理]
+- [22_C语言文件操作]
+- [23_C语言目录操作]
+- [24_C语言时间操作]
+- [25_C语言编译预处理]
+- [26_C语言系统错误]
+- [27_C语言目录和文件操作扩展]
+- [28_C语言gdb调试]
+- [29_C语言makefile文件]
+
+### 二、C++教程
+
+- [01_从C到CPP]
+- [02_CPP函数重载]
+- [03_CPP类和对象]
+- [04_CPP类的详解]
+- [05_CPP引用]
+- [06_CPP运算符重载]
+- [07_CPP的string类]
+- [08_CPP的vector容器]
+- [09_CPP动态内存管理]
+- [10_CPP类的继承与派生]
+- [11_CPP类的多态]
+
+### 三、Linux编程基础
+
+- [12_学习Linux编程前的准备]
+- [13_封装socket通信类]
+- [14_封装socket通信类]
+- [15_Linux多进程]
+- [16_Linux多进程的应用]
+- [17_Linux进程间通信]
+- [18_Linux信号]
+- [19_Linux共享内存]
+- [20_Linux信号量]
+- [21_Linux多线程]
+- [22_Linux线程同步]
+- [23_Linux调用可执行程序]
+- [24_Linux静态库与动态库]
+
+### 四、数据库教程
+
+- [01_Oracle数据库介绍]
+- [02_Oracle11g数据库快速安装]
+- [03_Oracle11g客户端安装配置]
+- [04_Oracle环境变量]
+- [05_Oracle数据类型]
+- [06_Oracle的表]
+- [07_Oracle事务]
+- [08_Oracle的where子句]
+- [09_Oracle的order-by关键字]
+- [09_Oracle的order-by关键字]
+- [10_Oracle虚表]
+- [11_Oracle序列生成器]
+- [12_Oracle日期操作函数]
+- [13_Oracle常用函数]
+- [14_Oracle自定义函数]
+- [15_Oracle存储过程]
+- [16_Oracle触发器]
+- [17_Oracle伪列]
+- [18_Oracle索引]
+- [19_Oracle视图]
+- [20_Oracle数据库链路]
+- [21_Oracle同义词]
+- [22_Oracle的别名]
+- [23_Oracle的distinct关键字]
+- [24_Oracle的主键和外键]
+- [25_Oracle子查询]
+- [26_Oracle-join多表查询]
+- [27_Oracle-union多表查询]
+- [28_Oracle用户和权限管理]
+- [29_Oracle表空间和数据文件]
+- [30_Oracle的启动和关闭]
+- [31_Oracle数据备份和恢复]
+- [32_Oracle归档日志管理]
+- [33_Oracle字符集的设置]
+- [34_Oracle的体系结构]
+- [35_Oracle数据字典]
+- [36_Oracle数据库开机自启动的配置]
+
+### 五、Linux教程
+
+- [01_Linux系统简介]
+- [02_Linux学习环境]
+- [03_CentOS7的安装和配置ftp]
+- [04_Linux常用命令]
+- [05_vi常用命令]
+- [06_CentOS7设置环境变量]
+- [07_CentOS7设置中文字符集]
+- [08_CentOS7安装软件包的方法]
+- [09_CentOS7系统服务管理]
+- [10_CentOS7配置防火墙]
+- [10_CentOS7配置防火墙]
+- [12_CentOS7计划任务crontab]
+- [13_CentOS7添加自定义系统服务]
+- [14_Centos7配置IP地址和DNS]
+- [15_Linux开机启动程序]
+- [16_CentOS7配置samba共享文件系统]
+- [17_CentOS7配置rsync实现文件同步]
+
+### 六、freecplus框架
+
+- [01_freecplus框架-字符串操作]
+- [02_freecplus框架-xml解析]
+- [03_freecplus框架-日期、时间和计时器]
+- [04_freecplus框架-目录操作]
+- [05_freecplus框架-文件操作-md]
+- [06_freecplus框架-日志文件操作]
+- [07_freecplus框架-加载参数文件]
+- [08_freecplus框架-tcp网络通信]
+- [09_freecplus框架-ftp客户端]
+- [10_freecplus框架-Oracle数据库操作]
+- [11_freecplus框架-MySQL数据库操作]
+- [12_freecplus框架-PostgreSQL数据库操作]
+
+## Learn Vim
+### 序言
+
+- [Ch 0 - 请先阅读](https://blog.ilyfikaros.com/posts/d25eff46/)
+
+### 第一部分：聪明地学习Vim
+
+- [Ch 1 - 起步](https://blog.ilyfikaros.com/posts/d7470566/)
+- [Ch 2 - 缓冲区，窗口和选项卡](https://blog.ilyfikaros.com/posts/e5aa9cfc/)
+- [Ch 3 - 打开和搜索文件](https://blog.ilyfikaros.com/posts/32c07678/)
+- [Ch 4 - Vim 语法](https://blog.ilyfikaros.com/posts/0584a475/)
+- [Ch 5 - 移动文件](https://blog.ilyfikaros.com/posts/25eb02e8/)
+- [Ch 6 - 插入模式](https://blog.ilyfikaros.com/posts/f92aab20/)
+- [Ch 7 - 点命令](https://blog.ilyfikaros.com/posts/83932852/)
+- [Ch 8 - 寄存器](https://blog.ilyfikaros.com/posts/49130c49/)
+- [Ch 9 - 宏](https://blog.ilyfikaros.com/posts/7e0645cb/)
+- [Ch 10 - 撤消](https://blog.ilyfikaros.com/posts/49fd3ee8/)
+- [Ch 11 - 可视模式](https://blog.ilyfikaros.com/posts/ba239799/)
+- [Ch 12 - 搜索和替换](https://blog.ilyfikaros.com/posts/36365707/)
+- [Ch 13 - 全局命令](https://blog.ilyfikaros.com/posts/fbe80173/)
+- [Ch 14 - 外部命令](https://blog.ilyfikaros.com/posts/e58db16f/)
+- [Ch 15 - 命令行模式](https://blog.ilyfikaros.com/posts/d3de6571/)
+- [Ch 16 - 标签](https://blog.ilyfikaros.com/posts/514bd033/)
+- [Ch 17 - 折叠](https://blog.ilyfikaros.com/posts/d7f38bdd/)
+- [Ch 18 - Git](https://blog.ilyfikaros.com/posts/a575da65/)
+- [Ch 19 - 编译](https://blog.ilyfikaros.com/posts/520a0cad/)
+- [Ch 20 - 视图、会话和 Viminfo](https://blog.ilyfikaros.com/posts/26a705fd/)
+- [Ch 21 - 多文件操作](https://blog.ilyfikaros.com/posts/0783c3af/)
+
+### 第二部分：聪明地定制Vim
+
+- [Ch 22 - Vimrc](https://blog.ilyfikaros.com/posts/29ce7871/)
+- [Ch 23 - Vim软件包](https://blog.ilyfikaros.com/posts/ad9bd3e0/)
+- [Ch 24 - Vim Runtime](https://blog.ilyfikaros.com/posts/2d5c14f7/)
